@@ -18,10 +18,10 @@ var urls = [
 'https://mail.google.com/favicon.ico'
 ];
 
-function is304() {
-  if (encodedBodySize > 0 &&
-      tranferSize > 0 &&
-      tranferSize < encodedBodySize) {
+function is304(res) {
+  if (res.encodedBodySize > 0 &&
+      res.tranferSize > 0 &&
+      res.tranferSize < res.encodedBodySize) {
     return true;
   }
   return null;
