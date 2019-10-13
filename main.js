@@ -16,7 +16,16 @@ var urls = [
 'https://www.youtube.com/favicon.ico',
 'https://store.steampowered.com/favicon.ico',
 'https://mail.google.com/favicon.ico'
-];    
+];
+
+function is304() {
+  if (encodedBodySize > 0 &&
+      tranferSize > 0 &&
+      tranferSize < encodedBodySize) {
+    return true;
+  }
+  return null;
+}
 
 setTimeout(START, 50);
 async function START() { 
@@ -54,11 +63,13 @@ async function insert_image(img_url){
 }
 
 function isCacheHit(res) {
+if(is304(res)) return true;
 if (res.transferSize > 0) return false;
 if (res.decodedBodySize > 0) return true;
 return res.duration < 30;
 }
 
 async function isPageCached() {
+  if(is304(performance.getEntriesByType("navigation")[0])) return true;
   return (performance.getEntriesByType("navigation")[0].transferSize === 0);
 }
