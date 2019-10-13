@@ -51,7 +51,7 @@ async function Main(res) {
   if(isCached) addData(res.name);
 }
 
-async function insert_image(img_url, alt = "Website icon"){
+async function insert_image(alt = "Website icon", img_url){
   var img = new Image(16, 16);
   img.alt = alt;
   img.src = img_url;
