@@ -18,7 +18,7 @@ var urls = [
 'https://mail.google.com/favicon.ico'
 ];
 
-function is304(res) {
+function is304(res) { // Requires CORS
   if (res.encodedBodySize > 0 &&
       res.transferSize > 0 &&
       res.transferSize < res.encodedBodySize) {
