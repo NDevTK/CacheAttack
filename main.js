@@ -66,7 +66,7 @@ function isCacheHit(res) {
 if(is304(res)) return true;
 if (res.transferSize > 0) return false;
 if (res.decodedBodySize > 0) return true;
-return res.duration < 30;
+return res.duration < 10;
 }
 
 async function isPageCached() {
