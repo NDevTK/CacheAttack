@@ -1,9 +1,11 @@
 body {
-  background: -moz-linear-gradient(45deg, rgba(42, 27, 161, 0.7), rgba(29, 210, 177, 0.7) 100%);
-  background: -webkit-linear-gradient(45deg, rgba(42, 27, 161, 0.7), rgba(29, 210, 177, 0.7) 100%);
-  background: -webkit-gradient(linear, 45deg, from(rgba(42, 27, 161, 0.7)), to(rgba(29, 210, 177, 0.7)));
-  background: -o-linear-gradient(45deg, rgba(42, 27, 161, 0.7), rgba(29, 210, 177, 0.7) 100%);
-  background: linear-gradient(to 45deg, rgba(42, 27, 161, 0.7), rgba(29, 210, 177, 0.7) 100%);
+background: linear-gradient(270deg, #0823ff, #08e7ff, #ffef08, #ff0808);
+background-size: 800% 800%;
+
+-webkit-animation: Background 23s ease infinite;
+-moz-animation: Background 23s ease infinite;
+-o-animation: Background 23s ease infinite;
+animation: Background 23s ease infinite;
 }
 
 .jumbotron {
