@@ -20,8 +20,8 @@ var urls = [
 
 function is304(res) {
   if (res.encodedBodySize > 0 &&
-      res.tranferSize > 0 &&
-      res.tranferSize < res.encodedBodySize) {
+      res.transferSize > 0 &&
+      res.transferSize < res.encodedBodySize) {
     return true;
   }
   return null;
