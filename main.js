@@ -26,7 +26,6 @@ function is304(res) { // Requires CORS
 
 setTimeout(START, 50);
 async function START() { 
-  Websites.forEach(insert_image);
   isCached = await isPageCached();
   if(isCached && BlockCache) {
     dataTable.hidden = true;
@@ -34,6 +33,7 @@ async function START() {
     return
   }
   dataTable.hidden = false;
+  Websites.forEach(Main);
   setTimeout(() => {
   performance.getEntriesByType("resource").forEach(res => {
     if(Websites.has(res.name)) Main(res, Websites.get(res.name));
@@ -46,17 +46,20 @@ async function addData(url) {
     data.insertRow(0).insertCell(0).innerText = host;
 }
 
-async function Main(res, name) {
+async function Main(url, displayName) {
+  let res = await Performance(url);
   let isCached = isCacheHit(res);
-  if(isCached) addData(name);
+  if(isCached) addData(displayName);
 }
 
-async function insert_image(alt = "Website icon", img_url){
-  var img = new Image(16, 16);
-  img.alt = alt;
-  img.src = img_url;
-  var src = document.getElementById("icons");
-  src.appendChild(img);
+async function Performance(url){
+  var img = new Image(0,0);
+  img.hidden = true;
+  img.src = url;
+  document.body.appendChild(img);
+  let data = performance.getEntriesByName(url)[0];
+  img.remove();
+  return data;
 }
 
 function isCacheHit(res) {
