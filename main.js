@@ -28,15 +28,18 @@ setTimeout(START, 50);
 async function START() { 
   isCached = await isPageCached();
   if(isCached && BlockCache) {
-    dataTable.hidden = true;
-    removeCache.hidden = false;
+    status.innerText = "Please remove your cache!";
     return
   }
   Websites.forEach(Main);
+  if(dataTable.hidden === true) {
+    status.innerText = "No results found :(";
+  }
 }
 
 async function addData(displayName) {
     dataTable.hidden = false;
+    status.hidden = true;
     data.insertRow(0).insertCell(0).innerText = displayName;
 }
 
