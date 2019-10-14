@@ -1,5 +1,4 @@
 const BlockCache = true;
-status = document.getElementById("status");
 Websites = new Map();
 Websites.set('https://www.microsoft.com/favicon.ico?v2', "Microsoft")
 .set("https://github.githubassets.com/favicon.ico", "Github")
@@ -29,12 +28,12 @@ setTimeout(START, 50);
 async function START() { 
   isCached = await isPageCached();
   if(isCached && BlockCache) {
-    status.innerText = "Please remove your cache!";
+    info.innerText = "Please remove your cache!";
     return
   }
   Websites.forEach(Main);
   if(dataTable.hidden === true) {
-    status.innerText = "No results found :(";
+    info.innerText = "No results found :(";
   }
 }
 
