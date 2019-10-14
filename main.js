@@ -32,18 +32,12 @@ async function START() {
     removeCache.hidden = false;
     return
   }
-  dataTable.hidden = false;
   Websites.forEach(Main);
-  setTimeout(() => {
-  performance.getEntriesByType("resource").forEach(res => {
-    if(Websites.has(res.name)) Main(res, Websites.get(res.name));
-  });
-  }, 500);
 }
 
-async function addData(url) {
-    let host = new URL(url).host;
-    data.insertRow(0).insertCell(0).innerText = host;
+async function addData(displayName) {
+    dataTable.hidden = false;
+    data.insertRow(0).insertCell(0).innerText = displayName;
 }
 
 async function Main(url, displayName) {
