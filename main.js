@@ -1,4 +1,5 @@
 const BlockCache = true;
+status = document.getElementById("status");
 Websites = new Map();
 Websites.set('https://www.microsoft.com/favicon.ico?v2', "Microsoft")
 .set("https://github.githubassets.com/favicon.ico", "Github")
