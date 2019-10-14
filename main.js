@@ -1,7 +1,7 @@
 const BlockCache = true;
 Websites = new Map();
 Websites.set('https://www.microsoft.com/favicon.ico?v2', "Microsoft")
-.set("https://github.githubassets.com/favicon.ico", "Github")
+.set("https://github.com/manifest.json", "Github")
 .set("https://discordapp.com/assets/07dca80a102d4149e9736d4b162cff6f.ico", "Discord")
 .set("https://www.yahoo.com/favicon.ico", "Yahoo")
 .set("https://outlook.live.com/owa/favicon.ico", "Outlook")
