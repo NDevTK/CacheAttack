@@ -1,4 +1,5 @@
 const BlockCache = true;
+const max = 30;
 Websites = new Map();
 Websites.set('https://www.microsoft.com/favicon.ico?v2', "Microsoft")
 .set("https://github.com/manifest.json", "Github")
@@ -37,6 +38,12 @@ async function START() {
   }
 }
 
+async function wait(ms) {
+  return new Promise(resolve => {
+    setTimeout(resolve, ms);
+  });
+}
+
 async function addData(displayName) {
     dataTable.hidden = false;
     info.hidden = true;
@@ -45,6 +52,7 @@ async function addData(displayName) {
 
 async function Main(displayName, url) {
   let res = await Performance(url);
+  if(res.encodedBodySize === undefined) return
   let isCached = isCacheHit(res);
   if(isCached) addData(displayName);
 }
@@ -53,7 +61,8 @@ async function Performance(url){
   var img = new Image(0,0);
   img.hidden = true;
   img.src = url;
-  document.body.appendChild(img);
+  document.body.appendChild(img); 
+  await wait(max);
   let data = performance.getEntriesByName(url)[0];
   img.remove();
   return data;
@@ -63,7 +72,7 @@ function isCacheHit(res) {
 if(is304(res)) return true;
 if (res.transferSize > 0) return false;
 if (res.decodedBodySize > 0) return true;
-return res.duration < 40;
+return res.duration < max;
 }
 
 async function isPageCached() {
