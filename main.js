@@ -39,7 +39,7 @@ async function START() {
 
 async function addData(displayName) {
     dataTable.hidden = false;
-    status.hidden = true;
+    info.hidden = true;
     data.insertRow(0).insertCell(0).innerText = displayName;
 }
 
