@@ -12,7 +12,7 @@ Websites.set('https://www.microsoft.com/favicon.ico?v2', "Microsoft")
 .set("https://ndev.tk/favicon.ico", "NVDev")
 .set("https://www.bing.com/sa/simg/bing_p_rr_teal_min.ico", "Bing")
 .set("https://www.redditstatic.com/desktop2x/img/favicon/manifest.json", "Reddit")
-.set("http://youtube.com/manifest.json", "Youtube")
+.set("https://youtube.com/manifest.json", "Youtube")
 .set("https://store.steampowered.com/favicon.ico", "Steam")
 .set("https://ssl.gstatic.com/ui/v1/icons/mail/images/favicon5.ico", "Google mail")
 
