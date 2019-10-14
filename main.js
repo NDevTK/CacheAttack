@@ -46,9 +46,9 @@ async function addData(url) {
     data.insertRow(0).insertCell(0).innerText = host;
 }
 
-async function Main(res) {
+async function Main(res, name) {
   let isCached = isCacheHit(res);
-  if(isCached) addData(res.name);
+  if(isCached) addData(name);
 }
 
 async function insert_image(alt = "Website icon", img_url){
