@@ -43,7 +43,7 @@ async function addData(displayName) {
     data.insertRow(0).insertCell(0).innerText = displayName;
 }
 
-async function Main(url, displayName) {
+async function Main(displayName, url) {
   let res = await Performance(url);
   let isCached = isCacheHit(res);
   if(isCached) addData(displayName);
