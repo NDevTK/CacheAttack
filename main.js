@@ -63,7 +63,7 @@ async function addData(displayName) {
 
 async function Main(displayName, url) {
   let res = await Performance(url);
-  if(res.encodedBodySize === undefined) return
+  if(res.hasOwnProperty("encodedBodySize")) return
   let isCached = isCacheHit(res);
   if(isCached) addData(displayName);
 }
