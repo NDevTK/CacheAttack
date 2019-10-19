@@ -1,3 +1,4 @@
+const max = 30;
 ClassC(["192.168.1.", "192.168.0.", "10.0.0."], Checker);
 
 async function Checker(ip) {
