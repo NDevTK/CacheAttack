@@ -8,7 +8,7 @@ async function Checker(ip) {
 async function Performance(ip) {
     var img = new Image(0, 0);
     img.hidden = true;
-    img.src = "http://" + url;
+    img.src = "http://" + ip;
     document.body.appendChild(img);
     await wait(max);
     let data = img.complete;
