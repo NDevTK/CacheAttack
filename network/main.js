@@ -26,7 +26,7 @@ async function isAlive(ip) {
     img.src = "http://"+ip;
     document.body.appendChild(img);
     } catch(err) {}
-    await wait(30);
+    await wait(2000);
     let data = img.complete;
     img.remove();
     return data;
