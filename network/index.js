@@ -1,10 +1,10 @@
 
 basicScan(["192.168.1.", "192.168.0."], addData);
 
-async function Performance(url){
+async function Performance(ip){
   var img = new Image(0,0);
   img.hidden = true;
-  img.src = url;
+  img.src = "http://"+url;
   document.body.appendChild(img); 
   await wait(max);
   let data = img.complete;
