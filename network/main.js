@@ -1,4 +1,3 @@
-const max = 30;
 ClassC(["192.168.1.", "192.168.0.", "10.0.0."], Checker);
 
 async function Checker(ip) {
@@ -16,14 +15,8 @@ async function ClassC(array, callback) {
     })
 }
 
-async function wait(ms) {
-  return new Promise(resolve => {
-    setTimeout(resolve, ms);
-  });
-}
-
-async function addData(displayName) {
+async function addData(ip) {
     dataTable.hidden = false;
     info.hidden = true;
-    data.insertRow(0).insertCell(0).innerText = displayName;
+    data.insertRow(0).insertCell(0).innerText = ip;
 }
