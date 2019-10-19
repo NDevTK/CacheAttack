@@ -2,7 +2,7 @@ const max = 30;
 ClassC(["192.168.1.", "192.168.0.", "10.0.0."], Checker);
 
 async function Checker(ip) {
-    isAlive = await Performance(ip);
+    let isAlive = await Performance(ip);
     if (isAlive) addData(ip);
 }
 
