@@ -24,6 +24,12 @@ async function ClassC(array, callback) {
     })
 }
 
+async function wait(ms) {
+  return new Promise(resolve => {
+    setTimeout(resolve, ms);
+  });
+}
+
 async function addData(displayName) {
     dataTable.hidden = false;
     info.hidden = true;
