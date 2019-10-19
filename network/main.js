@@ -1,5 +1,5 @@
 
-basicScan(["192.168.1.", "192.168.0."], addData);
+ClassC(["192.168.1.", "192.168.0.", "10.0.0."], addData);
 
 async function Performance(ip){
   var img = new Image(0,0);
