@@ -2,19 +2,10 @@ const max = 30;
 ClassC(["192.168.1.", "192.168.0.", "10.0.0."], Checker);
 
 async function Checker(ip) {
-    let isAlive = await Performance(ip);
-    if (isAlive) addData(ip);
-}
-
-async function Performance(ip) {
-    var img = new Image(0, 0);
-    img.hidden = true;
-    img.src = "http://" + ip;
-    document.body.appendChild(img);
-    await wait(max);
-    let data = img.complete;
-    img.remove();
-    return data;
+    try {
+      fetch("http://".concat(ip), {mode: "no-cors"}).then(addData);
+      fetch("https://".concat(ip), {mode: "no-cors"}).then(addData);
+    } catch(err) {}
 }
 
 async function ClassC(array, callback) {
