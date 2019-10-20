@@ -26,7 +26,10 @@ Websites.set('https://www.microsoft.com/favicon.ico?v2', "Microsoft")
 .set("https://secure.skypeassets.com/apollo/2.1.1477/images/icons/favicon.ico", "Skype")
 .set("https://www.amazon.com/favicon.ico", "Amazon")
 .set("https://pages.ebay.com/favicon.ico", "ebay")
-Websites.forEach(Checker);
+setTimeout(_ => {
+    Websites.forEach(Checker);
+}, 50)
+
 
 async function addData(displayName) {
     dataTable.hidden = false;
