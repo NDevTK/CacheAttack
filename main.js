@@ -1,4 +1,4 @@
-const max = 30;
+const max = 40;
 
 Websites = new Map();
 Websites.set('https://www.microsoft.com/favicon.ico?v2', "Microsoft")
