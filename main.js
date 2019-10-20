@@ -34,8 +34,7 @@ async function addData(displayName) {
     data.insertRow(0).insertCell(0).innerText = displayName;
 }
 
-async function Checker(url) {
-  let displayName = (Websites.has(url)) ? Websites.get(url) : url;
+async function Checker(displayName, url) {
   ifCached(url).then(_ => addData(displayName)).catch(_ => {});
 }
 
