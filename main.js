@@ -1,4 +1,4 @@
-const max = 40;
+const max = 30;
 
 Websites = new Map();
 Websites.set('https://www.microsoft.com/favicon.ico?v2', "Microsoft")
@@ -26,10 +26,11 @@ Websites.set('https://www.microsoft.com/favicon.ico?v2', "Microsoft")
 .set("https://secure.skypeassets.com/apollo/2.1.1477/images/icons/favicon.ico", "Skype")
 .set("https://www.amazon.com/favicon.ico", "Amazon")
 .set("https://pages.ebay.com/favicon.ico", "ebay")
-setTimeout(_ => {
-    Websites.forEach(Checker);
-}, 100)
-
+setTimeout(async _ => {
+    for (let website of Websites) {
+        await Checker(website[1], website[0]);
+    }
+}, 50)
 
 async function addData(displayName) {
     dataTable.hidden = false;
@@ -38,7 +39,7 @@ async function addData(displayName) {
 }
 
 async function Checker(displayName, url) {
-  ifCached(url).then(_ => addData(displayName)).catch(_ => {});
+  await ifCached(url).then(_ => addData(displayName)).catch(_ => {});
 }
 
 async function ifCached(url){
