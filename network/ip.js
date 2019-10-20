@@ -1,3 +1,10 @@
+get("https://api.ipify.org/").then(ip => ext.innerText = ip);
+
+async function get(url) {
+    let result = await fetch(url);
+    return await result.text();
+}
+
 // NOTE: window.RTCPeerConnection is "not a constructor" in FF22/23
 var RTCPeerConnection = /*window.RTCPeerConnection ||*/ window.webkitRTCPeerConnection || window.mozRTCPeerConnection;
 
