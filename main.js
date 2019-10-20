@@ -40,7 +40,7 @@ async function Checker(displayName, url) {
 
 async function ifCached(url){
   var controller = new AbortController();
-  var signal = cotroller.signal;
+  var signal = controller.signal;
   let timeout = await setTimeout(_ => {
     controller.abort();
     throw "Timeout";
