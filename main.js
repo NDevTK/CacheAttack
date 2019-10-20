@@ -1,4 +1,4 @@
-const BlockCache = true;
+const BlockCache = false;
 const max = 30;
 Websites = new Map();
 Websites.set('https://www.microsoft.com/favicon.ico?v2', "Microsoft")
@@ -62,28 +62,19 @@ async function addData(displayName) {
 }
 
 async function Main(displayName, url) {
-  let res = await Performance(url);
-  if(res.hasOwnProperty("encodedBodySize")) return
-  let isCached = isCacheHit(res);
-  if(isCached) addData(displayName);
+  ifCached(url).then(_ => addData(displayName));
 }
 
-async function Performance(url){
-  var img = new Image(0,0);
-  img.hidden = true;
-  img.src = url;
-  document.body.appendChild(img); 
-  await wait(max);
-  let data = performance.getEntriesByName(url)[0];
-  img.remove();
-  return data;
-}
-
-function isCacheHit(res) {
-if(is304(res)) return true;
-if (res.transferSize > 0) return false;
-if (res.decodedBodySize > 0) return true;
-return res.duration < max;
+async function ifCached(url){
+  var cotroller = new AbortController;
+  var signal = cotroller.signal;
+  let timeout = await setTimeout(_ => {
+    cotroller.abort();
+    throw "Timeout";
+  }, max);
+  await fetch(url, {mode: "no-cors", signal});
+  clearTimeout(timeout);
+  return;
 }
 
 async function isPageCached() {
