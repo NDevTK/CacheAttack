@@ -1,5 +1,5 @@
 const max = 30;
-
+const cache_test = "https://ndev.tk/README.md";
 Websites = new Map();
 Websites.set('https://www.microsoft.com/favicon.ico?v2', "Microsoft")
 .set("https://github.com/manifest.json", "Github")
@@ -27,7 +27,8 @@ Websites.set('https://www.microsoft.com/favicon.ico?v2', "Microsoft")
 .set("https://www.amazon.com/favicon.ico", "Amazon")
 .set("https://pages.ebay.com/favicon.ico", "ebay")
 setTimeout(async _ => {
-    ifCached("https://ndev.tk/README.md").then(_ => alert("[ERROR] Please clean cache!")).catch(async _ => {
+    await ifCached(cache_test);
+    ifCached(cache_test).then(_ => alert("[ERROR] Please clean cache!")).catch(async _ => {
         for (let website of Websites) {
             await Checker(website[1], website[0]);
         }
