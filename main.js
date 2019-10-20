@@ -35,7 +35,7 @@ async function addData(displayName) {
 }
 
 async function Checker(displayName, url) {
-  ifCached(url).then(_ => addData(displayName)).catch(err) {};
+  ifCached(url).then(_ => addData(displayName)).catch(_ => {});
 }
 
 async function ifCached(url){
