@@ -30,7 +30,7 @@ setTimeout(async _ => {
     for (let website of Websites) {
         await Checker(website[1], website[0]);
     }
-}, 50)
+}, 100)
 
 async function addData(displayName) {
     dataTable.hidden = false;
