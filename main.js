@@ -39,10 +39,10 @@ async function Checker(displayName, url) {
 }
 
 async function ifCached(url){
-  var cotroller = new AbortController;
+  var controller = new AbortController();
   var signal = cotroller.signal;
   let timeout = await setTimeout(_ => {
-    cotroller.abort();
+    controller.abort();
     throw "Timeout";
   }, max);
   await fetch(url, {mode: "no-cors", signal});
