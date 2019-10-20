@@ -27,7 +27,7 @@ Websites.set('https://www.microsoft.com/favicon.ico?v2', "Microsoft")
 .set("https://www.amazon.com/favicon.ico", "Amazon")
 .set("https://pages.ebay.com/favicon.ico", "ebay")
 setTimeout(async _ => {
-    ifCached("https://ndev.tk/CacheTest").then(_ => alert("[ERROR] Please clean cache!")).catch(async _ => {
+    ifCached("https://ndev.tk/README.md").then(_ => alert("[ERROR] Please clean cache!")).catch(async _ => {
         for (let website of Websites) {
             await Checker(website[1], website[0]);
         }
