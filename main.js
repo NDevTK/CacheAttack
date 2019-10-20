@@ -1,5 +1,5 @@
-const BlockCache = false;
 const max = 30;
+
 Websites = new Map();
 Websites.set('https://www.microsoft.com/favicon.ico?v2', "Microsoft")
 .set("https://github.com/manifest.json", "Github")
@@ -26,34 +26,7 @@ Websites.set('https://www.microsoft.com/favicon.ico?v2', "Microsoft")
 .set("https://secure.skypeassets.com/apollo/2.1.1477/images/icons/favicon.ico", "Skype")
 .set("https://www.amazon.com/favicon.ico", "Amazon")
 .set("https://pages.ebay.com/favicon.ico", "ebay")
-
-function is304(res) { // Requires CORS
-  if (res.encodedBodySize > 0 &&
-      res.transferSize > 0 &&
-      res.transferSize < res.encodedBodySize) {
-    return true;
-  }
-  return null;
-}
-
-setTimeout(START, 50);
-async function START() { 
-  isCached = await isPageCached();
-  if(isCached && BlockCache) {
-    info.innerText = "Please remove your cache!";
-    return
-  }
-  Websites.forEach(Main);
-  if(dataTable.hidden === true) {
-    info.innerText = "No results found :(";
-  }
-}
-
-async function wait(ms) {
-  return new Promise(resolve => {
-    setTimeout(resolve, ms);
-  });
-}
+Websites.forEach(Checker);
 
 async function addData(displayName) {
     dataTable.hidden = false;
@@ -61,7 +34,7 @@ async function addData(displayName) {
     data.insertRow(0).insertCell(0).innerText = displayName;
 }
 
-async function Main(displayName, url) {
+async function Checker(displayName, url) {
   ifCached(url).then(_ => addData(displayName));
 }
 
@@ -75,9 +48,4 @@ async function ifCached(url){
   await fetch(url, {mode: "no-cors", signal});
   clearTimeout(timeout);
   return;
-}
-
-async function isPageCached() {
-  if(is304(performance.getEntriesByType("navigation")[0])) return true;
-  return (performance.getEntriesByType("navigation")[0].transferSize === 0);
 }
