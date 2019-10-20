@@ -1,5 +1,5 @@
 const max = 30;
-const cache_test = "https://ndev.tk/README.md";
+const cache_test = "https://ndev.tk/README.md?".concat(Math.random());
 Websites = new Map();
 Websites.set('https://www.microsoft.com/favicon.ico?v2', "Microsoft")
 .set("https://github.com/manifest.json", "Github")
