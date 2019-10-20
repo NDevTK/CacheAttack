@@ -28,7 +28,7 @@ Websites.set('https://www.microsoft.com/favicon.ico?v2', "Microsoft")
 .set("https://pages.ebay.com/favicon.ico", "ebay")
 setTimeout(_ => {
     Websites.forEach(Checker);
-}, 50)
+}, 100)
 
 
 async function addData(displayName) {
