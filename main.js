@@ -73,12 +73,10 @@ async function ifCached(url){
   return;
 }
 
-async function test(url) { // Test URL to be used
-    await fetch(url, {
-        mode: "no-cors"
-    })
+async function tester() { // Test URLs
     for (let website of Websites) {
-        await Checker(website[1], website[0]);
+        await fetch(url, {mode: "no-cors"});
+        await ifCached(website[0]).catch(console.error("Test failed for: " + website[1]));
     }
-    ifCached(url, website[0]).then(_ => console.info("Passed")).catch(console.error("Passed"));
+    console.info("Tester finshed please clean cache!")
 }
