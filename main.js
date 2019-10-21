@@ -11,7 +11,7 @@ Websites.set('https://www.microsoft.com/favicon.ico?v2', "Microsoft")
 .set("https://twitter.com/manifest.json", "Twitter")
 .set("https://ndev.tk/favicon.ico", "NVDev")
 .set("https://www.bing.com/sa/simg/bing_p_rr_teal_min.ico", "Bing")
-.set("https://www.redditstatic.com/desktop2x/img/favicon/manifest.json", "Reddit")
+.set("https://www.redditstatic.com/desktop2x/fonts/IBMPlexSans/Regular-116bb6d508f5307861d3b1269bc597e7.woff2", "Reddit")
 .set("https://youtube.com/manifest.json", "Youtube")
 .set("https://store.steampowered.com/favicon.ico", "Steam")
 .set("https://ssl.gstatic.com/ui/v1/icons/mail/images/favicon5.ico", "Google mail")
@@ -26,14 +26,22 @@ Websites.set('https://www.microsoft.com/favicon.ico?v2', "Microsoft")
 .set("https://secure.skypeassets.com/apollo/2.1.1477/images/icons/favicon.ico", "Skype")
 .set("https://www.amazon.com/favicon.ico", "Amazon")
 .set("https://pages.ebay.com/favicon.ico", "ebay")
+
 setTimeout(async _ => {
-    await ifCached(cache_test).catch(_ => {});
-    ifCached(cache_test).then(_ => alert("[ERROR] :(")).catch(async _ => {
-        for (let website of Websites) {
-            await Checker(website[1], website[0]);
-        }
-    })
-}, 100)
+    // If current page is cached
+    ifCached(document.location.href).then(_ => { 
+        // AbortController check
+        await ifCached(cache_test).catch(_ => {}); 
+        ifCached(cache_test).then(_ => alert("[ERROR] :(")).catch(async _ => {
+            // Foreach website check if cached
+            for (let website of Websites) {
+                await Checker(website[1], website[0]);
+            }
+            if(dataTable.hidden === true) info.innerText = "No result found :(";
+        }).catch(_ => info.innerText = "Cache is disabled");
+    });
+}, 100);
+
 
 async function addData(displayName) {
     dataTable.hidden = false;
@@ -41,6 +49,7 @@ async function addData(displayName) {
     data.insertRow(0).insertCell(0).innerText = displayName;
 }
 
+// Add website to table if cached
 async function Checker(displayName, url) {
   await ifCached(url).then(_ => addData(displayName)).catch(_ => {});
 }
@@ -48,7 +57,7 @@ async function Checker(displayName, url) {
 async function ifCached(url){
   var controller = new AbortController();
   var signal = controller.signal;
-  let timeout = await setTimeout(_ => {
+  let timeout = await setTimeout(_ => { // Stop request after max
     controller.abort();
     throw "Timeout";
   }, max);
