@@ -26,6 +26,14 @@ Websites.set('https://www.microsoft.com/favicon.ico?v2', "Microsoft")
 .set("https://secure.skypeassets.com/apollo/2.1.1477/images/icons/favicon.ico", "Skype")
 .set("https://www.amazon.com/favicon.ico", "Amazon")
 .set("https://pages.ebay.com/favicon.ico", "ebay")
+.set("https://www.instagram.com/static/images/ico/xxhdpi_launcher.png/99cf3909d459.png", "Instagram")
+.set("https://www.wikipedia.org/portal/wikipedia.org/assets/img/Wikipedia-logo-v2.png", "Wikipedia")
+.set("https://static.twitchcdn.net/config/manifest.json?v=1", "Twitch")
+.set("https://mixer.com/_latest/manifest.635204ac900584fbb9dd0a1c8931216b.json", "Mixer")
+.set("https://www.apple.com/wss/fonts/SF-Pro-Text/v2/sf-pro-text_regular.woff2", "Apple")
+.set("https://www.baidu.com/img/baidu_resultlogo@2.png", "Baidu")
+.set("https://ssl.gstatic.com/android/market_images/web/loading_dark_small.gif", "Google play")
+.set("https://www.paypalobjects.com/webstatic/icon/favicon.ico", "PayPal")
 
 setTimeout(async _ => {
     // If current page is cached
