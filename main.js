@@ -50,7 +50,6 @@ setTimeout(async _ => {
     });
 }, 100);
 
-
 async function addData(displayName) {
     dataTable.hidden = false;
     info.hidden = true;
@@ -72,4 +71,14 @@ async function ifCached(url){
   await fetch(url, {mode: "no-cors", signal});
   clearTimeout(timeout);
   return;
+}
+
+async function test(url) { // Test URL to be used
+    await fetch(url, {
+        mode: "no-cors"
+    })
+    for (let website of Websites) {
+        await Checker(website[1], website[0]);
+    }
+    ifCached(url, website[0]).then(_ => console.info("Passed")).catch(console.error("Passed"));
 }
