@@ -31,8 +31,8 @@ setTimeout(async _ => {
     // If current page is cached
     ifCached(document.location.href).then(async _ => {
         // AbortController check
-        await ifCached(cache_test).catch(_ => info.innerText = "AbortController check failed");
-        ifCached(cache_test).then(_ => info.innerText = "")).catch(async _ => {
+        await ifCached(cache_test).catch(_ => {});
+        ifCached(cache_test).then(_ => info.innerText = "AbortController check failed")).catch(async _ => {
             // Foreach website check if cached
             for (let website of Websites) {
                 await Checker(website[1], website[0]);
