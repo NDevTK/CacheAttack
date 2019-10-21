@@ -29,9 +29,9 @@ Websites.set('https://www.microsoft.com/favicon.ico?v2', "Microsoft")
 
 setTimeout(async _ => {
     // If current page is cached
-    ifCached(document.location.href).then(_ => { 
+    ifCached(document.location.href).then(async _ => {
         // AbortController check
-        await ifCached(cache_test).catch(_ => {}); 
+        await ifCached(cache_test).catch(_ => {});
         ifCached(cache_test).then(_ => alert("[ERROR] :(")).catch(async _ => {
             // Foreach website check if cached
             for (let website of Websites) {
