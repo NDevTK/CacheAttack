@@ -72,11 +72,3 @@ async function ifCached(url){
   clearTimeout(timeout);
   return;
 }
-
-async function tester() { // Test URLs
-    for (let website of Websites) {
-        await fetch(website[0], {mode: "no-cors"});
-        await ifCached(website[0]).catch(console.error("Test failed for: " + website[1]));
-    }
-    console.info("Tester finshed please clean cache!")
-}
