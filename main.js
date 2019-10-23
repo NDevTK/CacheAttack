@@ -34,6 +34,7 @@ Websites.set('https://www.microsoft.com/favicon.ico?v2', "Microsoft")
 .set("https://www.baidu.com/img/baidu_resultlogo@2.png", "Baidu")
 .set("https://ssl.gstatic.com/android/market_images/web/loading_dark_small.gif", "Google play")
 .set("https://www.paypalobjects.com/webstatic/icon/favicon.ico", "PayPal")
+
 document.addEventListener('DOMContentLoaded', _ => {
     // If current page is cached
     ifCached(document.location.href).then(async _ => {
@@ -47,7 +48,7 @@ document.addEventListener('DOMContentLoaded', _ => {
             if(dataTable.hidden === true) info.innerText = "No result found :(";
         }).catch(_ => info.innerText = "Cache is disabled");
     });
-};
+});
 
 async function addData(displayName) {
     dataTable.hidden = false;
