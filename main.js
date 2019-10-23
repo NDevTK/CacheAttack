@@ -36,18 +36,20 @@ Websites.set('https://www.microsoft.com/favicon.ico?v2', "Microsoft")
 .set("https://www.paypalobjects.com/webstatic/icon/favicon.ico", "PayPal")
 
 document.addEventListener('DOMContentLoaded', _ => {
-    // If current page is cached
-    ifCached("https://cache.ndev.tk/favicon.ico").then(async _ => {
-        // AbortController check
-        await ifCached(cache_test).catch(_ => {});
-        ifCached(cache_test).then(_ => info.innerText = "AbortController check failed").catch(async _ => {
-            // Foreach website check if cached
-            for (let website of Websites) {
-                await Checker(website[1], website[0]);
-            }
-            if(dataTable.hidden === true) info.innerText = "No result found :(";
-        }).catch(_ => info.innerText = "Cache is disabled");
-    });
+    setTimeout(async _ => {
+        // If current page is cached
+        ifCached("https://cache.ndev.tk/favicon.ico").then(async _ => {
+            // AbortController check
+            await ifCached(cache_test).catch(_ => {});
+            ifCached(cache_test).then(_ => info.innerText = "AbortController check failed").catch(async _ => {
+                // Foreach website check if cached
+                for (let website of Websites) {
+                    await Checker(website[1], website[0]);
+                }
+                if (dataTable.hidden === true) info.innerText = "No result found :(";
+            }).catch(_ => info.innerText = "Cache is disabled");
+        });
+    }, 150)
 });
 
 async function addData(displayName) {
