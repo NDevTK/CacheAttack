@@ -37,7 +37,7 @@ Websites.set('https://www.microsoft.com/favicon.ico?v2', "Microsoft")
 
 document.addEventListener('DOMContentLoaded', _ => {
     // If current page is cached
-    ifCached(document.location.href).then(async _ => {
+    ifCached("https://cache.ndev.tk/favicon.ico").then(async _ => {
         // AbortController check
         await ifCached(cache_test).catch(_ => {});
         ifCached(cache_test).then(_ => info.innerText = "AbortController check failed").catch(async _ => {
