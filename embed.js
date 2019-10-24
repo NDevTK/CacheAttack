@@ -1,5 +1,4 @@
 const max = 10;
-const cache_test = "https://ndev.tk/README.md?".concat(Math.random());
 Websites = new Map();
 Websites.set('https://www.microsoft.com/favicon.ico?v2', "Microsoft")
 .set("https://github.com/manifest.json", "Github")
@@ -37,28 +36,12 @@ Websites.set('https://www.microsoft.com/favicon.ico?v2', "Microsoft")
 
 async function getWebsites() {
     result = [];
-    // AbortController check
-    await ifCached(cache_test).catch(_ => {});
-    ifCached(cache_test).then(_ => {return result}).catch(async _ => {
-        // Foreach website check if cached
-        for (let website of Websites) {
-            state = await Checker(website[1], website[0]);
-            result.push(state);
-        }
-    });
+    // Foreach website check if cached
+    for (let website of Websites) {
+        await ifCached(website[0]).then(_ => result.push(website[1])).catch(_ => {});
+    }
     return result;
 };
-
-async function addData(displayName) {
-    dataTable.hidden = false;
-    info.hidden = true;
-    data.insertRow(0).insertCell(0).innerText = displayName;
-}
-
-// Add website to table if cached
-async function Checker(displayName, url) {
-  await ifCached(url).then(_ => addData(displayName)).catch(_ => {});
-}
 
 async function ifCached(url){
   var controller = new AbortController();
