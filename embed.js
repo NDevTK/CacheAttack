@@ -1,3 +1,4 @@
+// NDev 2019 https://github.com/NDevTK/CacheAttack
 const max = 10;
 Websites = new Map();
 Websites.set('https://www.microsoft.com/favicon.ico?v2', "Microsoft")
