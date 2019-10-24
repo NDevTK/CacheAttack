@@ -62,6 +62,21 @@ Websites.set('https://www.microsoft.com/favicon.ico?v2', "Microsoft")
 .set("https://www.baidu.com/img/baidu_resultlogo@2.png", "Baidu")
 .set("https://ssl.gstatic.com/android/market_images/web/loading_dark_small.gif", "Google play")
 .set("https://www.paypalobjects.com/webstatic/icon/favicon.ico", "PayPal")
+// Subreddits
+.set("https://b.thumbs.redditmedia.com/8RJ1zsSxLbTrSrRAhziwMynfkWVcuFNMXPsLqtGct1o.png", "r/node")
+.set("https://a.thumbs.redditmedia.com/zDOFJTXd6fmlD58VDGypiV94Leflz11woxmgbGY6p_4.png", "r/javascript")
+.set("https://styles.redditmedia.com/t5_2qh1i/styles/communityIcon_tijjpyw1qe201.png", "r/AskReddit")
+.set("https://b.thumbs.redditmedia.com/0PgZl68jAxA6T1BH6uvUQ5Bz1F1GrrJLCL8oi2Gz0Ak.png", "r/gaming")
+.set("https://styles.redditmedia.com/t5_2qnp7/styles/communityIcon_gcx9bz62dbg01.png", "r/sysadmin")
+.set("https://b.thumbs.redditmedia.com/ZtyFTkHcUhfrWh6_lKa9FYYv9dCdl6p4kwv-X43voME.png", "r/facepalm")
+.set("https://a.thumbs.redditmedia.com/h-t3SdrFEBi1BRe6ymu2LXVonWPSoYZbcHr8mSBAON8.png", "r/jailbreak")
+.set("https://styles.redditmedia.com/t5_2qkbe/styles/communityIcon_y71osqj60ex21.png", "r/rugbyunion")
+.set("https://styles.redditmedia.com/t5_2s3qj/styles/communityIcon_huexgr7i3aw01.jpg", "r/Bitcoin")
+.set("https://b.thumbs.redditmedia.com/epUEkGWoK_b7aiqukQMmtBOrVNGEWUQGf1MEEp1LaRE.png", "r/RoastMe")
+.set("https://b.thumbs.redditmedia.com/NojkQWzGBAau2dP3q0NTY5uJisbRx_q3ithIT5iLypE.png", "r/soccer")
+.set("https://b.thumbs.redditmedia.com/lTgz7Yx_6n8VZemjf54viYVZgFhW2GlB6dlpj1ZwKbo.png", "r/mildlyinteresting")
+.set("https://styles.redditmedia.com/t5_2xhvq/styles/communityIcon_nr4bcf3zwhu01.png", "r/AmItheAsshole")
+.set("https://styles.redditmedia.com/t5_ovfhp/styles/communityIcon_p8mos2ouyr221.png", "r/Cringetopia")
 
 async function getWebsites() {
     result = [];
