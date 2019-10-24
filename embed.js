@@ -39,14 +39,14 @@ async function getWebsites() {
     result = [];
     // AbortController check
     await ifCached(cache_test).catch(_ => {});
-    ifCached(cache_test).then(_ => return).catch(async _ => {
+    ifCached(cache_test).then(_ => {return false}).catch(async _ => {
         // Foreach website check if cached
         for (let website of Websites) {
             state = await Checker(website[1], website[0]);
             result.push(state);
         }
-        if (result.length === 0) return false;
-    }).catch(_ => return false);
+        if (result.length === 0) return;
+    });
     return result;
 };
 
