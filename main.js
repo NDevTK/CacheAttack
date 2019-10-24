@@ -1,3 +1,4 @@
+// NDev 2019 https://github.com/NDevTK/CacheAttack
 const max = 10;
 const cache_test = "https://ndev.tk/README.md?".concat(Math.random());
 Websites = new Map();
