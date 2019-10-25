@@ -1,6 +1,7 @@
 // NDev 2019 https://github.com/NDevTK/CacheAttack
 const max = 10;
 const cache_test = "https://ndev.tk/README.md?".concat(Math.random());
+const favicon = "https://cache.ndev.tk/favicon.ico";
 Websites = new Map();
 Websites.set('https://www.microsoft.com/favicon.ico?v2', "Microsoft")
 .set("https://github.com/manifest.json", "Github")
@@ -82,7 +83,8 @@ Websites.set('https://www.microsoft.com/favicon.ico?v2', "Microsoft")
 document.addEventListener('DOMContentLoaded', _ => {
     setTimeout(async _ => {
         // If current page is cached
-        ifCached("https://cache.ndev.tk/favicon.ico").then(async _ => {
+        fetch(favicon, {mode: "no-cors"})
+        ifCached(favicon).then(async _ => {
             // AbortController check
             await ifCached(cache_test).catch(_ => {});
             ifCached(cache_test).then(_ => info.innerText = "AbortController check failed").catch(async _ => {
@@ -91,8 +93,8 @@ document.addEventListener('DOMContentLoaded', _ => {
                     await Checker(website[1], website[0]);
                 }
                 if (dataTable.hidden === true) info.innerText = "No result found :(";
-            }).catch(_ => info.innerText = "Cache is disabled");
-        });
+            })
+        }).catch(_ => info.innerText = "Cache is disabled");;
     }, 150)
 });
 
