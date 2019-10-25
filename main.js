@@ -90,7 +90,6 @@ document.addEventListener('DOMContentLoaded', _ => {
                     await Checker(website[1], website[0]);
                 }
                 if (dataTable.hidden === true) info.innerText = "No result found :(";
-        }).catch(_ => info.innerText = "Cache is disabled");;
     }, 150)
 });
 
