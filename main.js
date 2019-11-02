@@ -7,10 +7,12 @@ document.addEventListener('DOMContentLoaded', async _ => {
         await ifCached(cache_test).catch(_ => {});
         ifCached(cache_test).then(_ => info.innerText = "AbortController check failed").catch(async _ => {
             // Foreach website check if cached
-            getWebsites().then(result => result.forEach(displayName => {
-                addData(displayName);
-            }))
-            if (dataTable.hidden === true) info.innerText = "No result found :(";
+            getWebsites().then(result => {
+                result.forEach(displayName => {
+                    addData(displayName);
+                }
+                if (dataTable.hidden === true) info.innerText = "No result found :(";
+            })) 
         });
     }, 150)
 });
