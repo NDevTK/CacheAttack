@@ -17,8 +17,11 @@ async function getWebsites() {
     }
     return result;
 };
+async function ifCached_1 {
+    ifCached_1(url).catch(_ => ifCached_1(url))   
+}
 
-async function ifCached_1(url){
+async function ifCached_1(url, retry){
   return new Promise((resolve, reject) => {
     let img = new Image(0,0);
     img.hidden = true;
@@ -28,7 +31,8 @@ async function ifCached_1(url){
     setTimeout(_ => {
       img.src = ""
       img.remove();
-      reject("Timeout");
+      if(retry) reject("Timeout");
+      return ifCached_1(url, true);
     }, max);
   });
 }
