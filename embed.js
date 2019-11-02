@@ -22,7 +22,7 @@ async function ifCached(url){
     let img = new Image(0,0);
     img.hidden = true;
     img.onload = _ => resolve();
-    img.onerror = err => reject(err);
+    img.onerror = _ => resolve();
     img.src = url;
     setTimeout(_ => {
       img.src = ""
