@@ -18,13 +18,16 @@ async function getWebsites() {
 };
 
 async function ifCached(url){
-  var controller = new AbortController();
-  var signal = controller.signal;
-  let timeout = await setTimeout(_ => { // Stop request after max
-    controller.abort();
-    throw "Timeout";
-  }, max);
-  await fetch(url, {mode: "no-cors", signal});
-  clearTimeout(timeout);
-  return;
+  return new Promise((resolve, reject) => {
+    let img = new Image(0,0);
+    img.hidden = true;
+    img.onload = _ => resolve();
+    img.onerror = err => reject(err);
+    img.src = url;
+    setTimeout(_ => {
+      img.src = ""
+      img.remove();
+      reject("Timeout");
+    }, 10);
+  });
 }
