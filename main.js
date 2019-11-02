@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', async _ => {
     setTimeout(async _ => {
         // Force Stop check
         await ifCached(cache_test).catch(_ => {});
-        ifCached(cache_test).then(_ => info.innerText = "AbortController check failed").catch(async _ => {
+        ifCached(cache_test).then(_ => info.innerText = "Force Stop check failed").catch(async _ => {
             // Foreach website check if cached
             getWebsites().then(result => {
                 result.forEach(displayName => {
