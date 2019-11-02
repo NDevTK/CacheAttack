@@ -28,6 +28,6 @@ async function ifCached(url){
       img.src = ""
       img.remove();
       reject("Timeout");
-    }, 10);
+    }, max);
   });
 }
