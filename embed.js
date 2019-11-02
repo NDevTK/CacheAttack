@@ -17,9 +17,6 @@ async function getWebsites() {
     }
     return result;
 };
-async function ifCached_1 {
-    ifCached_1(url).catch(_ => ifCached_1(url))   
-}
 
 async function ifCached_1(url, retry){
   return new Promise((resolve, reject) => {
