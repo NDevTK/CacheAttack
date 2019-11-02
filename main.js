@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', async _ => {
                     addData(displayName);
                 }
                 if (dataTable.hidden === true) info.innerText = "No result found :(";
-            })) 
+            });
         });
     }, 150)
 });
