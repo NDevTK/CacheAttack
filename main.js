@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', async _ => {
             getWebsites().then(result => {
                 result.forEach(displayName => {
                     addData(displayName);
-                }
+                });
                 if (dataTable.hidden === true) info.innerText = "No result found :(";
             });
         });
