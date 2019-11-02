@@ -3,6 +3,8 @@ const max = 10;
 const cache_test = "https://ndev.tk/README.md?".concat(Math.random());
 const favicon = "https://cache.ndev.tk/favicon.ico";
 
+if(navigator.userAgent.includes("Firefox")) alert("This has had problems with firefox");
+ 
 async function getRules() {
 let req = await fetch("https://cache.ndev.tk/rules")
 let body = await req.json();
