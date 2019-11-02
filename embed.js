@@ -11,13 +11,14 @@ async function getWebsites() {
     Websites = await getRules();
     result = [];
     // Foreach website check if cached
+    var callback = (navigator.userAgent.includes("Firefox")) ? ifCached_1 : ifCached_2;
     for (let website of Websites) {
-        await ifCached(website[0]).then(_ => result.push(website[1])).catch(_ => {});
+        await callback(website[0]).then(_ => result.push(website[1])).catch(_ => {});
     }
     return result;
 };
 
-async function ifCached(url){
+async function ifCached_1(url){
   return new Promise((resolve, reject) => {
     let img = new Image(0,0);
     img.hidden = true;
@@ -30,4 +31,16 @@ async function ifCached(url){
       reject("Timeout");
     }, max);
   });
+}
+
+async function ifCached_2(url){
+  var controller = new AbortController();
+  var signal = controller.signal;
+  let timeout = await setTimeout(_ => { // Stop request after max
+    controller.abort();
+    throw "Timeout";
+  }, max);
+  await fetch(url, {mode: "no-cors", signal});
+  clearTimeout(timeout);
+  return;
 }
