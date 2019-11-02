@@ -10,7 +10,7 @@ return new Map(body);
 }
 
 document.addEventListener('DOMContentLoaded',async _ => {
-    var Websites await = getRules();
+    Websites = await getRules();
     setTimeout(async _ => {
             // AbortController check
             await ifCached(cache_test).catch(_ => {});
