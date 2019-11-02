@@ -1,5 +1,5 @@
 // NDev 2019 https://github.com/NDevTK/CacheAttack
-const max = 20;
+const max = 10;
 
 async function getRules() {
 let req = await fetch("https://cache.ndev.tk/rules")
