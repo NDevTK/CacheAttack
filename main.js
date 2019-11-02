@@ -3,7 +3,7 @@ const cache_test = "https://ndev.tk/README.md?".concat(Math.random());
 
 document.addEventListener('DOMContentLoaded', async _ => {
     setTimeout(async _ => {
-        // AbortController check
+        // Force Stop check
         await ifCached(cache_test).catch(_ => {});
         ifCached(cache_test).then(_ => info.innerText = "AbortController check failed").catch(async _ => {
             // Foreach website check if cached
