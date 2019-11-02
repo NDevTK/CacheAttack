@@ -9,9 +9,9 @@ let body = await req.json();
 return new Map(body);
 }
 
-document.addEventListener('DOMContentLoaded', _ => {
+document.addEventListener('DOMContentLoaded',async _ => {
+    var Websites await = getRules();
     setTimeout(async _ => {
-            var Websites await = getRules();
             // AbortController check
             await ifCached(cache_test).catch(_ => {});
             ifCached(cache_test).then(_ => info.innerText = "AbortController check failed").catch(async _ => {
