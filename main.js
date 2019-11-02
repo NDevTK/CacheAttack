@@ -14,3 +14,9 @@ document.addEventListener('DOMContentLoaded', async _ => {
         });
     }, 150)
 });
+
+async function addData(displayName) {
+    dataTable.hidden = false;
+    info.hidden = true;
+    data.insertRow(0).insertCell(0).innerText = displayName;
+}
