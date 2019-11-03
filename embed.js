@@ -4,13 +4,13 @@ const max = 10;
 ifCached = (navigator.userAgent.includes("Firefox")) ? ifCached_1 : ifCached_2;
 
 async function getRules() {
-let req = await fetch("https://cache.ndev.tk/rules")
-let body = await req.json();
-return new Map(body);
+    let req = await fetch("https://cache.ndev.tk/rules");
+    let body = await req.json();
+    return new Map(body);
 }
 
 async function pushContent(content) {
-result.push(content);
+    result.push(content);
 }
 
 async function getWebsites(callback) {
@@ -47,13 +47,13 @@ function ifCached_1(url) {
 }
 
 async function ifCached_2(url){
-  var controller = new AbortController();
-  var signal = controller.signal;
-  let timeout = await setTimeout(_ => { // Stop request after max
-    controller.abort();
-    throw "Timeout";
-  }, max);
-  await fetch(url, {mode: "no-cors", signal});
-  clearTimeout(timeout);
-  return;
+    var controller = new AbortController();
+    var signal = controller.signal;
+    let timeout = await setTimeout(_ => { // Stop request after max
+        controller.abort();
+        throw "Timeout";
+    }, max);
+    await fetch(url, {mode: "no-cors", signal});
+    clearTimeout(timeout);
+    return;
 }
