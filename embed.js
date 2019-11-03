@@ -18,18 +18,17 @@ async function getWebsites() {
     return result;
 };
 
-async function ifCached_1(url, retry) {
+function ifCached_1(url, retry) {
     return new Promise((resolve, reject) => {
         let img = new Image(0, 0);
         img.hidden = true;
-        img.onload = _ => {return resolve();}
-        img.onload = _ => {return resolve();}
+		img.onerror = _ => resolve();
+        img.onload = _ => resolve();
         img.src = url;
         setTimeout(_ => {
-            img.src = ""
+            img.src = "";
             img.remove();
-            if (retry) {return reject("Timeout");}
-            return ifCached_1(url, true);
+            reject("Timeout");
         }, max);
     });
 }
