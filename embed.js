@@ -20,7 +20,7 @@ async function getWebsites() {
 
 async function ifCached_1(url, trys = 2) {
 	var Cached = true;
-	for (var i = 1; i === trys; i++) {
+	for (var i = 1; i <= trys; i++) {
 		await img_test(url).catch(_ => Cached = false);
 		if(Cached) return
 	}
