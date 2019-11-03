@@ -1,6 +1,5 @@
 // NDev 2019 https://github.com/NDevTK/CacheAttack
 const max = 10;
-const max2 = 100;
 
 async function getRules() {
 let req = await fetch("https://cache.ndev.tk/rules")
@@ -19,16 +18,7 @@ async function getWebsites() {
     return result;
 };
 
-async function ifCached_1(url, trys = 2) {
-	var Cached = true;
-	for (var i = 1; i <= trys; i++) {
-		await img_test(url).catch(_ => Cached = false);
-		if(Cached) return
-	}
-        throw "Timeout";
-}
-
-function img_test(url) {
+function ifCached_1(url) {
     return new Promise((resolve, reject) => {
         let img = new Image(0, 0);
         img.hidden = true;
@@ -39,7 +29,7 @@ function img_test(url) {
             img.src = "";
             img.remove();
             reject("Timeout");
-        }, max2);
+        }, max);
     });
 }
 
