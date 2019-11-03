@@ -18,11 +18,20 @@ async function getWebsites() {
     return result;
 };
 
-function ifCached_1(url, retry) {
+async function ifCached_1(url, trys = 2) {
+	var Cached = true;
+	for (var i = 1; i === trys; i++) {
+		await img_test(url).catch(_ => Cached = false);
+		if(Cached) return
+	}
+        throw "Timeout";
+}
+
+function img_test(url) {
     return new Promise((resolve, reject) => {
         let img = new Image(0, 0);
         img.hidden = true;
-		img.onerror = _ => resolve();
+	img.onerror = _ => resolve();
         img.onload = _ => resolve();
         img.src = url;
         setTimeout(_ => {
