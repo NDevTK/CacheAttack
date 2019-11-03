@@ -9,7 +9,12 @@ let body = await req.json();
 return new Map(body);
 }
 
-async function getWebsites() {
+async function pushContent(content) {
+result.push(content);
+}
+
+async function getWebsites(callback) {
+    (callback) ? callback : pushContent;
     Websites = await getRules();
     await ifCached_test();
     result = [];
