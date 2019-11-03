@@ -28,7 +28,7 @@ async function getWebsites(callback) {
 async function ifCached_test() {
     let cache_test = "https://ndev.tk/README.md?".concat(Math.random());
     await ifCached(cache_test).catch(_ => {});
-    ifCached.then(_ => {throw "Timeout"});
+    ifCached(cache_test).then(_ => {throw "Timeout"});
 }
 
 function ifCached_1(url) {
