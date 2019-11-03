@@ -28,10 +28,7 @@ async function ifCached_1(url, retry) {
         setTimeout(_ => {
             img.src = ""
             img.remove();
-            if (retry) {
-                reject("Timeout");
-                return
-            }
+            if (retry) {return reject("Timeout");}
             return ifCached_1(url, true);
         }, max);
     });
