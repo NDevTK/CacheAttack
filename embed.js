@@ -18,23 +18,23 @@ async function getWebsites() {
     return result;
 };
 
-async function ifCached_1(url, retry){
-  return new Promise((resolve, reject) => {
-    let img = new Image(0,0);
-    img.hidden = true;
-    img.onload = _ => resolve();
-    img.onerror = _ => resolve();
-    img.src = url;
-    setTimeout(_ => {
-      img.src = ""
-      img.remove();
-      if(retry) {
-        reject("Timeout");
-        return
-      }
-      return ifCached_1(url, true);
-    }, max);
-  });
+async function ifCached_1(url, retry) {
+    return new Promise((resolve, reject) => {
+        let img = new Image(0, 0);
+        img.hidden = true;
+        img.onload = _ => {return resolve();}
+        img.onload = _ => {return resolve();}
+        img.src = url;
+        setTimeout(_ => {
+            img.src = ""
+            img.remove();
+            if (retry) {
+                reject("Timeout");
+                return
+            }
+            return ifCached_1(url, true);
+        }, max);
+    });
 }
 
 async function ifCached_2(url){
