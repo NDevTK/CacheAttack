@@ -20,7 +20,7 @@ async function getWebsites(callback) {
     result = [];
     // Foreach website check if cached
     for (let website of Websites) {
-        await ifCached(website[0]).then(_ => result.push(website[1])).catch(_ => {});
+        await ifCached(website[0]).then(_ => callback(website[1])).catch(_ => {});
     }
     return result;
 };
