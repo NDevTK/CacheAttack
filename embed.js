@@ -11,6 +11,7 @@ return new Map(body);
 
 async function getWebsites() {
     Websites = await getRules();
+    await ifCached_test();
     result = [];
     // Foreach website check if cached
     for (let website of Websites) {
@@ -18,6 +19,12 @@ async function getWebsites() {
     }
     return result;
 };
+
+async function ifCached_test() {
+    let cache_test = "https://ndev.tk/README.md?".concat(Math.random());
+    await ifCached(cache_test).catch(_ => {});
+    ifCached.then(_ => {throw "Timeout"});
+}
 
 function ifCached_1(url) {
     return new Promise((resolve, reject) => {
