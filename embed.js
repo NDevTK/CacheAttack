@@ -1,6 +1,8 @@
 // NDev 2019 https://github.com/NDevTK/CacheAttack
 const max = 10;
 
+ifCached = (navigator.userAgent.includes("Firefox")) ? ifCached_1 : ifCached_2;
+
 async function getRules() {
 let req = await fetch("https://cache.ndev.tk/rules")
 let body = await req.json();
@@ -11,9 +13,8 @@ async function getWebsites() {
     Websites = await getRules();
     result = [];
     // Foreach website check if cached
-    var callback = (navigator.userAgent.includes("Firefox")) ? ifCached_1 : ifCached_2;
     for (let website of Websites) {
-        await callback(website[0]).then(_ => result.push(website[1])).catch(_ => {});
+        await ifCached(website[0]).then(_ => result.push(website[1])).catch(_ => {});
     }
     return result;
 };
