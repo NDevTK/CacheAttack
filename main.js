@@ -3,9 +3,6 @@ const cache_test = "https://ndev.tk/README.md?".concat(Math.random());
 
 document.addEventListener('DOMContentLoaded', async _ => {
     setTimeout(async _ => {
-        // Force Stop check
-        await ifCached_1(cache_test).catch(_ => {});
-        ifCached_1(cache_test).then(_ => info.innerText = "Force Stop check failed").catch(async _ => {
             // Foreach website check if cached
             getWebsites().then(result => {
                 result.forEach(displayName => {
@@ -13,7 +10,6 @@ document.addEventListener('DOMContentLoaded', async _ => {
                 });
                 if (dataTable.hidden === true) info.innerText = "No result found :(";
             });
-        });
     }, 150)
 });
 
