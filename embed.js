@@ -1,5 +1,6 @@
 // NDev 2019 https://github.com/NDevTK/CacheAttack
 const max = 10;
+const max2 = 100;
 
 async function getRules() {
 let req = await fetch("https://cache.ndev.tk/rules")
@@ -38,7 +39,7 @@ function img_test(url) {
             img.src = "";
             img.remove();
             reject("Timeout");
-        }, max);
+        }, max2);
     });
 }
 
