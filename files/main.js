@@ -7,7 +7,7 @@ async function getRules() {
 }
 
 document.addEventListener('DOMContentLoaded', async (event) => {
-	getRules.then(rules => {
+	getRules().then(rules => {
 		FileChecker(rules, Found);
 	});
 	EvalDrives();
