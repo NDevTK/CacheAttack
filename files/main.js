@@ -42,7 +42,7 @@ async function EvalDrives() {
 	}
 }
 
-async function isLocal(file, drive = "C", min = 3.7, max = 30) {
+async function isLocal(file, drive = "C", min = 2.10, max = 30) {
 	    var state = false;
 		var start = "";
         if (!Sanity) return
@@ -50,7 +50,6 @@ async function isLocal(file, drive = "C", min = 3.7, max = 30) {
             img = new Image(0, 0);
             img.onerror = _ => {
                 let time = performance.now() - start;
-				console.log(drive + " " +time)
                 if (time > min && time < max) state = true;
             }
         start = performance.now();
