@@ -1,17 +1,17 @@
 Sanity = true;
 
+async function getRules() {
+    let req = await fetch("https://cache.ndev.tk/files/rules");
+    let body = await req.json();
+    return body;
+}
+
 document.addEventListener('DOMContentLoaded', async (event) => {
 	getRules.then(rules => {
 		FileChecker(rules, Found);
 	});
 	EvalDrives();
 });
-
-async function getRules() {
-    let req = await fetch("https://cache.ndev.tk/files/rules");
-    let body = await req.json();
-    return body;
-}
 
 async function Found(file) {
 	if(file === "NOOB/SanityCheck.txt" || file === "NOOB/SanityCheck.dat") {
