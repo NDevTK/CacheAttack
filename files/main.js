@@ -7,7 +7,7 @@ async function getRules() {
 }
 
 document.addEventListener('DOMContentLoaded', async (event) => {
-	await wait(1000)
+	await wait(3000)
 	getRules().then(rules => {
 		FileChecker(rules, Found);
 	});
