@@ -37,12 +37,12 @@ async function wait(ms) {
 async function EvalDrives() {
 	for (i = 0; i < 26; i++) {
 		var letter = (i+10).toString(36).toUpperCase();
-		let state = await isLocal("", letter, 2.4, 3.5);
+		let state = await isLocal("", letter, 2.2, 3.5);
 		if(state && Sanity) FoundDrive(letter);
 	}
 }
 
-async function isLocal(file, drive = "C", min = 2.10, max = 30) {
+async function isLocal(file, drive = "C", min = 1.7, max = 30) {
 	    var state = false;
 		var start = "";
         if (!Sanity) return
