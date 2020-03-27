@@ -1,4 +1,4 @@
-// NDev 2019 https://github.com/NDevTK/CacheAttack
+// NDev 2020 https://github.com/NDevTK/CacheAttack
 max = 10;
 
 ifCached = (navigator.userAgent.includes("Firefox")) ? ifCached_1 : ifCached_2;
