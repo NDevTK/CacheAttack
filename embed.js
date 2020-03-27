@@ -42,8 +42,7 @@ async function getWebsites(callback) {
 			callback(website[1])
 		}
 	}).catch(_ => {
-		var check = PerformanceCheck(website[0]);
-		if(check === false || check === null) {
+		if(PerformanceCheck(website[0])) {
 			callback(website[1])
 		}
 	});
