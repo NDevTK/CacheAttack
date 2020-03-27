@@ -23,10 +23,10 @@ function is304(res) {
 }
 
 function PerformanceCheck(url) {
-  var res = performance.getEntriesByName(url)[0];
+  var res = performance.getEntriesByName(url).pop();
   if(res === undefined) return null
-  if(is304(performance.getEntriesByName(url)[0])) return true;
-  return (performance.getEntriesByName(url)[0].transferSize === 0);
+  if(is304(res) return true;
+  return (res.transferSize === 0);
 }
 
 async function getWebsites(callback) {
