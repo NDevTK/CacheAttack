@@ -37,11 +37,13 @@ async function getWebsites(callback) {
     // Foreach website check if cached
     for (let website of Websites) {
         await ifCached(website[0]).then(_ => {
-		if(PerformanceCheck(website[0])) {
+		var check = PerformanceCheck(website[0]);
+		if(check === true || check === null) {
 			callback(website[1])
 		}
 	}).catch(_ => {
-		if(PerformanceCheck(website[0])) {
+		var check = PerformanceCheck(website[0]);
+		if(check === false || check === null) {
 			callback(website[1])
 		}
 	});
