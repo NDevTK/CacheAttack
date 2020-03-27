@@ -25,7 +25,7 @@ function is304(res) {
 function PerformanceCheck(url) {
   var res = performance.getEntriesByName(url).pop();
   if(res === undefined) return null
-  if(is304(res) return true;
+  if(is304(res)) return true;
   return (res.transferSize === 0);
 }
 
