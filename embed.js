@@ -13,6 +13,22 @@ async function pushContent(content) {
     result.push(content);
 }
 
+function is304(res) {
+  if (res.encodedBodySize > 0 &&
+      res.transferSize > 0 &&
+      res.transferSize < res.encodedBodySize) {
+    return true;
+  }
+  return null;
+}
+
+function PerformanceCheck(url) {
+  var res = performance.getEntriesByName(url)[0];
+  if(res === undefined) return null
+  if(is304(performance.getEntriesByName(url)[0])) return true;
+  return (performance.getEntriesByName(url)[0].transferSize === 0);
+}
+
 async function getWebsites(callback) {
     (callback) ? callback : pushContent;
     Websites = await getRules();
@@ -20,7 +36,15 @@ async function getWebsites(callback) {
     result = [];
     // Foreach website check if cached
     for (let website of Websites) {
-        await ifCached(website[0]).then(_ => callback(website[1])).catch(_ => {});
+        await ifCached(website[0]).then(_ => {
+		if(PerformanceCheck(website[0])) {
+			callback(website[1])
+		}
+	}).catch(_ => {
+		if(PerformanceCheck(website[0])) {
+			callback(website[1])
+		}
+	});
     }
     return result;
 };
