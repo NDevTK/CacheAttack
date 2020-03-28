@@ -82,13 +82,16 @@ async function ifCached_2(url){
     var state = true;
     var controller = new AbortController();
     var signal = controller.signal;
-    let timeout = await setTimeout(_ => { // Stop request after max
+    var timeout = await setTimeout(_ => { // Stop request after max
         controller.abort();
         state = false;
     }, max);
     try {
         await fetch(url, {mode: "no-cors", signal});
-    } catch(err) {}
+    } catch(err) {
+	    // Website blocked by client
+	    clearTimeout(timeout);
+	}
     clearTimeout(timeout);
     return state;
 }
