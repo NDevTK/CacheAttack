@@ -50,9 +50,8 @@ async function getWebsites(callback, CacheTest = true) {
 
 async function ifCached_test() {
     let cache_test = "https://ndev.tk/README.md?".concat(Math.random());
-    await ifCached(cache_test);
     let result = await ifCached(cache_test);
-    return result;
+    return (!result);
 }
 
 async function ifCached_1Wrap(url) {
