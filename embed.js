@@ -65,15 +65,19 @@ async function ifCached_1Wrap(url) {
 
 function ifCached_1(url) {
     return new Promise((resolve, reject) => {
+        var blocked = false;
         let img = new Image(0, 0);
         img.hidden = true;
-        img.onerror = _ => resolve();
+        img.onerror = _ => {
+            clearTimeout(timeout);
+            resolve();
+        };
         img.onload = _ => resolve();
         img.src = url;
-        setTimeout(_ => {
+        var timeout = setTimeout(_ => {
             img.src = "";
             img.remove();
-            reject("Timeout");
+            reject();
         }, max);
     });
 }
