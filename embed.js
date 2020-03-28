@@ -57,7 +57,7 @@ async function ifCached_test() {
 
 async function ifCached_1Wrap(url) {
     try {
-        await fetch(url, {mode: "no-cors", signal});
+        await ifCached_1(url);
     } catch(err) {
         return false
     }
