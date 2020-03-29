@@ -30,7 +30,7 @@ function PerformanceCheck(url) {
 }
 
 async function getWebsites(callback, CacheTest = true) {
-    (callback) ? callback : pushContent;
+    var callback = (callback) ? callback : pushContent;
     var Websites = await getRules();
     if(CacheTest) {
         let TestResult = await ifCached_test();
