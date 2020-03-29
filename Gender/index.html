@@ -1,17 +1,47 @@
+<!DOCTYPE html>
+<html>
 <head>
-    <title>Gender Detect</title>
-    <script src="http://ndev.tk/mirror/HackTimer/HackTimer.min.js"></script>
-    <script src="https://cache.ndev.tk/embed.js"></script>
+<title>CacheAttack</title>
+<meta name="keywords" content="html,css,javascript,cache">
+<meta name="author" content="NVDev">
+<meta name="description" CONTENT="Time based attack">
+<link rel="stylesheet" href="main.css">
+<link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+<link rel="icon" href="favicon.ico" type="image/x-icon">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<script src="https://ndev.tk/mirror/HackTimer/HackTimer.min.js"></script>
+<script src="main.js"></script>
+<script src="https://cache.ndev.tk/embed.js"></script>
 </head>
-<style>
-    * {
-        color: green;
-    }
-</style>
 <body>
-    <h1>Gender Detect</h1>
-    <p1>Detects Gender:</p1>
-	<button onclick="getGender()">Click!</button>
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+   <a class="navbar-brand" style="color:red">
+      <img src="https://ndev.tk/icon.png" class="d-inline-block align-top" alt="CacheAttack">CacheAttack</a>
+  <ul class="navbar-nav">
+    <li class="nav-item">
+      <a class="nav-link" href="http://cache.ndev.tk">Main</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="http://cache.ndev.tk/network">Network</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="http://cache.ndev.tk/files">Files</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="http://cache.ndev.tk/Gender">Gender</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="https://github.com/NDevTK/CacheAttack">Code</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="https://ndev.tk">HUB</a>
+    </li>
+  </ul>
+</nav>
+<div class="jumbotron">
+<h1>Welcome to Gender Detect</h1>
+<p class="lead">Detects Gender :D</p>
+<button onclick="getGender()">Click!</button>
 </body>
 <script>
 Rules = new Map();
