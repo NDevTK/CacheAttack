@@ -71,6 +71,7 @@ async function GenderDetect() {
     setTimeout(async _ => {
         var result = await AdPref();
 	    if(!result) {
+            // Allow JS to finsh
             setTimeout(_ => {
                 alert("Ad personalization is OFF");
             }, 50);
