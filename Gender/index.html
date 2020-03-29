@@ -54,13 +54,13 @@ function getGender() {
 }
 
 async function getRules() {
-    Gender("female");
-	Gender("male");
+    Gender("Female");
+    Gender("Male");
     return Rules
 }
 
 function Gender(g) {
-    Rules.set("https://www.gstatic.com/identity/boq/adssettingsui/demographic/i_gender_"+g+"_ee2fb99c014437125dfe9358e4ea50aa.svg", g);
+    Rules.set("https://www.gstatic.com/identity/boq/adssettingsui/demographic/i_gender_"+g.toLowerCase()+"_ee2fb99c014437125dfe9358e4ea50aa.svg", g);
 }
 
 async function AdPref() {
