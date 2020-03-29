@@ -9,10 +9,6 @@ async function getRules() {
     return new Map(body);
 }
 
-async function pushContent(content) {
-    result.push(content);
-}
-
 function is304(res) {
     if (res.encodedBodySize > 0 &&
         res.transferSize > 0 &&
@@ -30,13 +26,15 @@ function PerformanceCheck(url) {
 }
 
 async function getWebsites(callback, CacheTest = true) {
-    var callback = (callback) ? callback : pushContent;
+    var output = [];
+    var callback = (callback) ? callback : website => {
+    	output.push(website);
+    };
     var Websites = await getRules();
     if(CacheTest) {
         let TestResult = await ifCached_test();
         if(!TestResult) throw "Cache is not working :-("
     }
-    var result = [];
     // Foreach website check if cached
     for (let website of Websites) {
         let result = await ifCached(website[0]);
@@ -45,7 +43,7 @@ async function getWebsites(callback, CacheTest = true) {
 			callback(website[1]);
 		}
 	}
-    return result;
+    return output;
 };
 
 async function ifCached_test() {
