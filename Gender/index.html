@@ -69,9 +69,12 @@ async function AdPref() {
 
 async function GenderDetect() {
     setTimeout(async _ => {
-	    var result = await AdPref();
+        var result = await AdPref();
 	    if(!result) {
-			return alert("Ad personalization is OFF");
+            setTimeout(_ => {
+                alert("Ad personalization is OFF");
+            }, 50);
+            return false
 		}
 		result = await getWebsites();
 		var gender = (result.length === 1) ? result[0] : "Rather not say";
@@ -79,10 +82,12 @@ async function GenderDetect() {
 		setTimeout(_ => {
 			if(result.length > 1) {
 				alert("Multiple genders cached");
+                return false
 			} else {
 				alert(gender);
+                return true
 			}
-		}, 100)
+		}, 50)
     }, 500)
 }
 </script>
