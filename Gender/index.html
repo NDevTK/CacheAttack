@@ -72,8 +72,8 @@ async function AdPref() {
 async function GenderDetect() {
 	var Test = await AdPref();
 	if(!Test) return "Ad personalization is OFF";
-	var result = await getWebsites();
-	if(result.length > 1) return "Multiple genders cached";
-	return (result.length === 1) ? result[0] : "Rather not say";
+	var images = await getWebsites();
+	if(images.length > 1) return "Multiple genders cached";
+	return (images.length === 1) ? images[0] : "Rather not say";
 }
 </script>
