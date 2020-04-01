@@ -41,6 +41,7 @@
 <h1>Welcome to Gender Detect</h1>
 <p class="lead">Detects Gender via <a href="https://adssettings.google.com/authenticated">Google Ad personalization</a> cache.</p>
 <button onclick="getGender()">Click!</button>
+<h2 id="gender"></h2>
 </body>
 <script>
 Rules = new Map();
@@ -49,8 +50,9 @@ function getGender() {
 	var ads = open("https://adssettings.google.com/authenticated");
 	setTimeout(_ => {
 		ads.close();
-		GenderDetect();
-	}, 500)
+		var result = await GenderDetect();
+		gender.innerText = "Result: "+ result;
+	}, 1000)
 }
 
 async function getRules() {
@@ -68,27 +70,10 @@ async function AdPref() {
 }
 
 async function GenderDetect() {
-	setTimeout(async _ => {
-		var result = await AdPref();
-		if(!result) {
-			// Allow JS to finsh
-			setTimeout(_ => {
-				alert("Ad personalization is OFF");
-			}, 50);
-			return false
-		}
-		result = await getWebsites();
-		var gender = (result.length === 1) ? result[0] : "Rather not say";
-		// Allow JS to finsh
-		setTimeout(_ => {
-			if(result.length > 1) {
-				alert("Multiple genders cached");
-				return false
-			} else {
-				alert(gender);
-				return true
-			}
-		}, 50)
-	}, 500)
+	var Test = await AdPref();
+	if(!Test) return "Ad personalization is OFF";
+	var result = await getWebsites();
+	if(result.length > 1) return "Multiple genders cached";
+	return (result.length === 1) ? result[0] : "Rather not say";
 }
 </script>
