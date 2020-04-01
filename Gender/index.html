@@ -48,7 +48,7 @@ Rules = new Map();
 
 function getGender() {
 	var ads = open("https://adssettings.google.com/authenticated");
-	setTimeout(_ => {
+	setTimeout(async _  => {
 		ads.close();
 		var result = await GenderDetect();
 		gender.innerText = "Result: "+ result;
