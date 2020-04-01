@@ -46,13 +46,13 @@
 <script>
 Rules = new Map();
 
-function getGender() {
+async function getGender() {
 	var ads = open("https://adssettings.google.com/authenticated");
+	setTimeout(async _  => ads.close(), 500);
 	setTimeout(async _  => {
-		ads.close();
 		var result = await GenderDetect();
 		gender.innerText = "Result: "+ result;
-	}, 1000)
+	}, 1000);
 }
 
 async function getRules() {
