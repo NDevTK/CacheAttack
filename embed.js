@@ -51,13 +51,13 @@ async function getVideos(callback) {
   
   let popular = await fetch("https://invidio.us/api/v1/popular");
   let data = await popular.json();
-  data.forEach(video => checkVideo(video));
+  data.forEach(video => checkVideo(video, callback));
 
   rules.forEach(async playlist => {
   let reply = await fetch("https://invidio.us/api/v1/playlists/"+encodeURI(playlist));
   let data = await reply.json();
   data.videos.forEach(async video => {
-    checkVideo(video);
+    checkVideo(video, callback);
   });
 });
 }
