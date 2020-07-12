@@ -3,6 +3,7 @@
 document.addEventListener('DOMContentLoaded', async _ => {
     setTimeout(async _ => {
             await getWebsites(displayName => addData(displayName));
+            await getVideos(displayName => addData(displayName));
             if (dataTable.hidden === true) info.innerText = "No result found :(";
     }, 150)
 });
