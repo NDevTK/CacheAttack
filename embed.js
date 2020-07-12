@@ -46,6 +46,36 @@ async function getWebsites(callback, CacheTest = true) {
     return output;
 };
 
+async function getVideos(callback) {
+  let rules = ["PLrEnWoR732-BHrPp_Pm8_VleD68f9s14-","RDCLAK5uy_mkLtojKLOUUGwnu3ZnN5AaODijlieB-aQ", "RDCLAK5uy_lx_HcGQ3dqhBbBk3aaZPWoy2trdcdhfio", "PL57quI9usf_uhj9GF5uCwKKMivdC1ymWi"];
+  
+  let popular = await fetch("https://invidio.us/api/v1/popular");
+  let data = await popular.json();
+  data.forEach(video => checkVideo(video));
+
+  rules.forEach(async playlist => {
+  let reply = await fetch("https://invidio.us/api/v1/playlists/"+encodeURI(playlist));
+  let data = await reply.json();
+  data.videos.forEach(async video => {
+    checkVideo(video);
+  });
+});
+}
+
+async function checkVideo(video, callback) {
+  ["board", "board/hover"].forEach(async mode => {
+    try {
+      let res = await fetch("https://cors.usercontent.ndev.tk/"+mode+"/?v="+encodeURI(video.videoId));
+      let board = await res.text();
+      if(board === "Board not found.") return
+      let result = await ifCached(board);
+      let check = PerformanceCheck(board);
+      if (check || result && check === null) {
+        callback(video.title + " ("+video.videoId+")");
+      }} catch {}
+  })
+}
+
 async function ifCached_test() {
     let cache_test = "https://ndev.tk/README.md?".concat(Math.random());
     let result = await ifCached(cache_test);
