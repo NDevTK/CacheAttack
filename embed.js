@@ -63,7 +63,7 @@ async function getVideos(callback) {
 }
 
 async function checkVideo(video, callback) {
-  ["board", "board/hover"].forEach(async mode => {
+  ["board"].forEach(async mode => {
     try {
       let res = await fetch("https://cors.usercontent.ndev.tk/"+mode+"/?v="+encodeURI(video.videoId));
       let board = await res.text();
