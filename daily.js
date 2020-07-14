@@ -7,12 +7,13 @@ const thumbnail_regex = /<link rel="image_src" href="(https:\/\/yt3\.ggpht\.com\
 getChannels();
 
 async function getChannels() {
+  var output = [];
   console.info("Fetching top channels");
   let r = await fetch("https://cors.usercontent.ndev.tk/channels");
   let channels = await r.json();
   var output = [];
   console.info("Getting data from Youtube");
-  channels.forEach(async (channel, index) => {
+  await PromiseForeach(channels, async (channel, index) => {
     try {
     let r = await fetch("https://www.youtube.com/"+encodeURI(channel));
     if(r.status !== 200) return
@@ -24,9 +25,13 @@ async function getChannels() {
     let url = thumbnail.concat("=s88-c-k-c0xffffffff-no-rj-mo");
     output.push([channelData.authorId, url]);
     } catch {}
-    if(index === channels.length - 1) {
-      console.info("Adding channels to file");
-      fs.writeFileSync('channels', JSON.stringify(output));
-    }
   });
+  console.info("Making file :D");
+  fs.writeFileSync('channels', output);
+}
+
+async function PromiseForeach(item, callback) {
+	var jobs = [];
+	item.forEach(x => jobs.push(callback(x)));
+	await Promise.all(jobs);
 }
