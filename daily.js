@@ -7,9 +7,11 @@ const thumbnail_regex = /<link rel="image_src" href="(https:\/\/yt3\.ggpht\.com\
 getChannels();
 
 async function getChannels() {
+  console.info("Fetching top channels");
   let r = await fetch("https://cors.usercontent.ndev.tk/channels");
   let channels = await r.json();
   var output = [];
+  console.info("Getting data from Youtube");
   channels.forEach(async (channel, index) => {
     try {
     let r = await fetch("https://www.youtube.com/"+encodeURI(channel));
@@ -23,7 +25,8 @@ async function getChannels() {
     output.push([channelData.authorId, url]);
     } catch {}
     if(index === channels.length - 1) {
-       fs.writeFileSync('channels', output);
+      console.info("Adding channels to file");
+      fs.writeFileSync('channels', JSON.stringify(output));
     }
   });
 }
