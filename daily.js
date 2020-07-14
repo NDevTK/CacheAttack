@@ -10,20 +10,20 @@ async function getChannels() {
   let r = await fetch("https://cors.usercontent.ndev.tk/channels");
   let channels = await r.json();
   var output = [];
-  for (channel of channels) {
+  channels.forEach(async (channel, index) => {
     try {
     let r = await fetch("https://www.youtube.com/"+encodeURI(channel));
-    if(r.status !== 200) continue
+    if(r.status !== 200) return
     let result = await r.text();
-    if(result.length === 0) continue
+    if(result.length === 0) return
     let cid = result.match(cid_regex)[1];
     let thumbnail = result.match(thumbnail_regex)[1];
-    if(cid === undefined || thumbnail === undefined) continue
+    if(cid === undefined || thumbnail === undefined) return
     let url = thumbnail.concat("=s88-c-k-c0xffffffff-no-rj-mo");
     output.push([channelData.authorId, url]);
-    } catch {
-      console.log("Error parsing: "+channel);
+    } catch {}
+    if(index === channels.length - 1) {
+       fs.writeFileSync('channels', output);
     }
-  };
-  fs.writeFileSync('channels', output);
+  });
 }
