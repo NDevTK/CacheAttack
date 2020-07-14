@@ -1,6 +1,9 @@
 const fs = require('fs');
 const fetch = require('node-fetch');
 
+const cid_regex = /<link rel="canonical" href="https:\/\/www\.youtube\.com\/channel\/([a-z0-9-_]*)">/i;
+const thumbnail_regex = /<link rel="image_src" href="(https:\/\/yt3\.ggpht\.com\/a\/[a-z0-9-_]*)[a-z0-9-_=]*">/i;
+
 getChannels();
 
 async function getChannels() {
@@ -9,15 +12,17 @@ async function getChannels() {
   var output = [];
   for (channel of channels) {
     try {
-    let r = await fetch("https://invidio.us/api/v1/search?type=channel&q="+encodeURI(channel));
+    let r = await fetch("https://www.youtube.com/"+encodeURI(channel));
     if(r.status !== 200) continue
-    let result = await r.json();
+    let result = await r.text();
     if(result.length === 0) continue
-    let channelData = result[0];
-    let url = channelData.authorThumbnails[0].url.replace("c0x00ffffff", "c0xffffffff");
+    let cid = result.match(cid_regex)[1];
+    let thumbnail = result.match(thumbnail_regex)[1];
+    if(cid === undefined || thumbnail === undefined) continue
+    let url = thumbnail.concat("=s88-c-k-c0xffffffff-no-rj-mo");
     output.push([channelData.authorId, url]);
     } catch {
-      console.log("Error parsing API: "+channel);
+      console.log("Error parsing: "+channel);
     }
   };
   fs.writeFileSync('channels', output);
