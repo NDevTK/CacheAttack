@@ -31,7 +31,7 @@ async function getChannels() {
 }
 
 async function PromiseForeach(item, callback) {
-	var jobs = [];
-	item.forEach(x => jobs.push(callback(x)));
-	await Promise.all(jobs);
+  var jobs = [];
+  item.forEach(x => jobs.push(callback(x)));
+  await Promise.all(jobs);
 }
