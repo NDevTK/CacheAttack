@@ -6,6 +6,7 @@ getChannels();
 async function getChannels() {
   let r = await fetch("https://cors.usercontent.ndev.tk/channels");
   let channels = await r.json();
+  var output = [];
   for (channel of channels) {
     let r = await fetch("https://invidio.us/api/v1/search?type=channel&q="+encodeURI(channel));
     if(r.status !== 200) continue
