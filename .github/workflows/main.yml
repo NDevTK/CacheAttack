@@ -28,7 +28,7 @@ jobs:
       run: npm install node-fetch
     - name: Create local changes
       run: |
-        node channels.js
+        node daily.js
     - name: Commit files
       run: |
         git config --local user.email "action@github.com"
