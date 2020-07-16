@@ -47,33 +47,40 @@ async function getWebsites(callback, CacheTest = true) {
 };
 
 async function getVideos(callback) {
-  let rules = ["PLrEnWoR732-BHrPp_Pm8_VleD68f9s14-","RDCLAK5uy_mkLtojKLOUUGwnu3ZnN5AaODijlieB-aQ", "RDCLAK5uy_lx_HcGQ3dqhBbBk3aaZPWoy2trdcdhfio", "PL57quI9usf_uhj9GF5uCwKKMivdC1ymWi"];
-  
-  let popular = await fetch("https://invidio.us/api/v1/popular");
-  let data = await popular.json();
-  data.forEach(video => checkVideo(video, callback));
-
-  rules.forEach(async playlist => {
-  let reply = await fetch("https://invidio.us/api/v1/playlists/"+encodeURI(playlist));
-  let data = await reply.json();
-  data.videos.forEach(async video => {
-    checkVideo(video, callback);
-  });
-});
+  checkedChannels = [];
+  let r = await fetch("https://cache.ndev.tk/channels");
+  let channels = await r.json();
+  YTCrawler(channels, callback);
 }
 
-async function checkVideo(video, callback) {
-  ["board"].forEach(async mode => {
-    try {
-      let res = await fetch("https://cors.usercontent.ndev.tk/"+mode+"/?v="+encodeURI(video.videoId));
-      let board = await res.text();
-      if(board === "Board not found.") return
-      let result = await ifCached(board);
-      let check = PerformanceCheck(board);
-      if (check || result && check === null) {
-        callback(video.title + " ("+video.videoId+")");
-      }} catch {}
-  })
+async function YTCrawler(channels, callback) {
+  for (channel of channels) {
+    if(checkedChannels.includes(channel[1])) continue
+    checkedChannels.push(channel[1]);
+    let result = await ifCached(channel[1].concat("=s88-c-k-c0xffffffff-no-rj-mo"));
+    if(!result) continue // Channel not seen
+    let r = await fetch("https://invidio.us/api/v1/channels/"+encodeURI(channel[0]));
+    let channelData = await r.json();
+    callback(channelData.author);
+    channelData.latestVideos.forEach(async video => {
+      let res = await fetch("https://cors.usercontent.ndev.tk/board/all/?v="+encodeURI(video.videoId));
+      if(res.status !== 200) return
+      let board = await res.json();
+      for (url of board) {
+        let result = await ifCached(url);
+        let check = PerformanceCheck(url);
+        if (check || result && check === null) {
+          return callback(video.title + " ("+video.videoId+")");
+        }
+      };
+      var relatedChannels = [];
+      for (relatedChannel of channelData.relatedChannels) {
+        let url = relatedChannel.authorThumbnails[0].url.split("=")[0];
+        relatedChannels.push([relatedChannel.authorId, url]);
+      }
+      await YTCrawler(relatedChannels, callback);
+    });
+  }
 }
 
 async function ifCached_test() {
