@@ -1,7 +1,7 @@
 <script src="https://ndev.tk/mirror/HackTimer/HackTimer.min.js"></script>
 <script>
 window.addEventListener("pagehide", event => {
-  window.opener.postMessage("cached");
+  window.opener.postMessage("pagehide");
 });
 
 window.addEventListener("message", function(event) {
