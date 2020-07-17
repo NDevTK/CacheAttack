@@ -145,13 +145,6 @@ function WindowEvent() {
 
 function initChecker() {
   checker = open("https://cache.ndev.tk/window.html");
-  window.addEventListener("message", function(event) {
-    if(event.data === "load") {
-      cached = false;
-    } else if (event.data === "pagehide") {
-      cached = true;
-    }
-  });
 }
   
 async function checkURL(url, waitForEnd = true) {
