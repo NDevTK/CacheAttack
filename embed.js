@@ -140,7 +140,7 @@ function initChecker() {
   window.addEventListener("message", function(event) {
     if(event.data === "load") {
       cached = false;
-    } else if (event.data === "cached") {
+    } else if (event.data === "pagehide") {
       cached = true;
     }
   });
