@@ -1,0 +1,7 @@
+window.addEventListener("message", function(event) {
+  if(!event.data.startsWith("https://")) return
+  window.localStorage.setItem("CACHED", true);
+  setTimeout(_ => window.location.reload(), 30);
+  window.location = event.data;
+});
+window.postMessage("load");
