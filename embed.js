@@ -159,7 +159,6 @@ async function ifCached_3(url, waitForEnd = true) {
     checker.location = "https://cache.ndev.tk/window.html";
   }
   if(waitForEnd) {
-    await WindowEvent("load");
     await new Promise(resolve => setTimeout(resolve, 500));
   }
   return result
