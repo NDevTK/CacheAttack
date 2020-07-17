@@ -16,7 +16,11 @@ async function addData(displayName) {
 function windowMode() {
     initChecker();
     ifCached = ifCached_3;
-    getWebsites(displayName => addData(displayName), true, false);
+    setTimeout(_ => {
+        getWebsites(displayName => addData(displayName), true, false);
+        if (dataTable.hidden === true) info.innerText = "No result found :(";
+    }, 150)
+    
 }
 
 function YT() {
