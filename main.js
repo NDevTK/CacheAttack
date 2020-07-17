@@ -19,8 +19,7 @@ function windowMode() {
     setTimeout(_ => {
         getWebsites(displayName => addData(displayName), true, false);
         if (dataTable.hidden === true) info.innerText = "No result found :(";
-    }, 150)
-    
+    }, 150)    
 }
 
 function YT() {
