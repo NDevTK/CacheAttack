@@ -5,5 +5,5 @@ window.addEventListener("message", function(event) {
   setTimeout(_ => window.location.reload(), 30);
   window.location = event.data;
 });
-window.postMessage("load");
+window.opener.postMessage("load");
 </script>
