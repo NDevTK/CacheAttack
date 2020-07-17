@@ -1,12 +1,11 @@
+<title>CacheAttack Worker</title>
 <h1>CacheAttack Worker</h1>
 <script src="https://ndev.tk/mirror/HackTimer/HackTimer.min.js"></script>
 <script>
 max = 30;
-
 window.addEventListener("pagehide", event => {
   window.opener.postMessage("pagehide");
 });
-
 window.addEventListener("message", function(event) {
   if(!event.data.startsWith("https://")) return
   setTimeout(_ => {
@@ -15,10 +14,7 @@ window.addEventListener("message", function(event) {
   }, max);
   window.location = event.data;
 });
-
 window.addEventListener('load', function () {
   window.opener.postMessage("load");
 });
-
-
 </script>
