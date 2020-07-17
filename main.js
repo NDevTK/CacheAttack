@@ -13,3 +13,10 @@ async function addData(displayName) {
     info.hidden = true;
     data.insertRow(0).insertCell(0).innerText = displayName;
 }
+
+function windowMode() {
+    initChecker();
+    ifCached = ifCached_3;
+    await getWebsites(displayName => addData(displayName));
+    //await getVideos(displayName => addData(displayName));
+}
