@@ -17,6 +17,6 @@ async function addData(displayName) {
 function windowMode() {
     initChecker();
     ifCached = ifCached_3;
-    await getWebsites(displayName => addData(displayName));
-    //await getVideos(displayName => addData(displayName));
+    await getWebsites(displayName => addData(displayName), true, false);
+    //await getVideos(displayName => addData(displayName), true, false);
 }
