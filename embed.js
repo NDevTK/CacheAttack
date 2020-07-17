@@ -134,3 +134,23 @@ async function ifCached_2(url){
     clearTimeout(timeout);
     return state;
 }
+
+function initChecker() {
+  checker = open("https://cache.ndev.tk/window.html");
+  cached = true;
+  window.addEventListener("message", function(event) {
+    if(event.data === "load") {
+      cached = false;
+    }
+  });
+}
+
+async function checkURL(url) {
+  cached = true;
+  checker.postMessage(url);
+  await new Promise(resolve => setTimeout(resolve, 100));
+  if(cached === true) {
+    checker.location = "https://cache.ndev.tk/window.html";
+  }
+  return cached
+}
