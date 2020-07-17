@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', async _ => {
     setTimeout(async _ => {
             await getWebsites(displayName => addData(displayName));
             if (dataTable.hidden === true) info.innerText = "No result found :(";
-    }, 2000)
+    }, 150)
 });
 
 async function addData(displayName) {
@@ -19,7 +19,7 @@ function windowMode() {
     setTimeout(_ => {
         getWebsites(displayName => addData(displayName), true, false);
         if (dataTable.hidden === true) info.innerText = "No result found :(";
-    }, 150)    
+    }, 20000)    
 }
 
 function YT() {
