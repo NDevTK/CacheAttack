@@ -135,6 +135,14 @@ async function ifCached_2(url){
     return state;
 }
 
+function WindowEvent() {
+  return new Promise(resolve => {
+    window.addEventListener('message', e => {
+      resolve(e.data);
+    });
+  });
+}
+
 function initChecker() {
   checker = open("https://cache.ndev.tk/window.html");
   window.addEventListener("message", function(event) {
@@ -146,10 +154,16 @@ function initChecker() {
   });
 }
   
-async function checkURL(url) {
-  cached = null;
+async function checkURL(url, waitForEnd = true) {
+  let result = false;
   checker.postMessage(url);
   await new Promise(resolve => setTimeout(resolve, 150));
-  if(cached === true) checker.location = "https://cache.ndev.tk/window.html";
-  return cached
+  if(cached === true) {
+    result = cached;
+    checker.location = "https://cache.ndev.tk/window.html";
+    if(waitForEnd) {
+      await WindowEvent();
+    }
+  }
+  return result
 }
