@@ -148,7 +148,7 @@ function initChecker() {
 async function checkURL(url) {
   cached = true;
   checker.postMessage(url);
-  await new Promise(resolve => setTimeout(resolve, 100));
+  await new Promise(resolve => setTimeout(resolve, 200));
   if(cached === true) {
     checker.location = "https://cache.ndev.tk/window.html";
   }
