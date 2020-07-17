@@ -8,8 +8,12 @@ window.addEventListener("pagehide", event => {
 
 window.addEventListener("message", function(event) {
   if(!event.data.startsWith("https://")) return
-  setTimeout(_ => window.location.reload(), max);
+  setTimeout(_ => {
+    window.opener.postMessage("notCached");
+    window.location.reload();
+  }, max);
   window.location = event.data;
 });
+
 window.opener.postMessage("load");
 </script>
