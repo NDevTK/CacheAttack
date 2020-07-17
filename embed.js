@@ -160,6 +160,7 @@ async function ifCached_3(url, waitForEnd = true) {
   }
   if(waitForEnd) {
     await WindowEvent("load");
+    await new Promise(resolve => setTimeout(resolve, 500));
   }
   return result
 }
