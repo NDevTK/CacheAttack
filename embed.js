@@ -157,9 +157,9 @@ function initChecker() {
 async function checkURL(url, waitForEnd = true) {
   let result = false;
   checker.postMessage(url);
-  await new Promise(resolve => setTimeout(resolve, 150));
-  if(cached === true) {
-    result = cached;
+  let event = await WindowEvent();
+  if(event === "pagehide") {
+    result = true;
     checker.location = "https://cache.ndev.tk/window.html";
     if(waitForEnd) {
       await WindowEvent();
