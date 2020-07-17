@@ -1,5 +1,9 @@
 <script src="https://ndev.tk/mirror/HackTimer/HackTimer.min.js"></script>
 <script>
+window.addEventListener("pagehide", event => {
+  window.opener.postMessage("cached");
+});
+
 window.addEventListener("message", function(event) {
   if(!event.data.startsWith("https://")) return
   setTimeout(_ => window.location.reload(), 30);
