@@ -1,4 +1,4 @@
-// NDev 2019 https://github.com/NDevTK/CacheAttack
+// NDev 2020 https://github.com/NDevTK/CacheAttack
 
 document.addEventListener('DOMContentLoaded', async _ => {
     setTimeout(async _ => {
@@ -14,7 +14,7 @@ async function addData(displayName) {
     data.insertRow(0).insertCell(0).innerText = displayName;
 }
 
-function windowMode() {
+async function windowMode() {
     initChecker();
     ifCached = ifCached_3;
     await getWebsites(displayName => addData(displayName), true, false);
