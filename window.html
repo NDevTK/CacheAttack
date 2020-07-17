@@ -1,3 +1,5 @@
+<script src="https://ndev.tk/mirror/HackTimer/HackTimer.min.js"></script>
+<script>
 window.addEventListener("message", function(event) {
   if(!event.data.startsWith("https://")) return
   window.localStorage.setItem("CACHED", true);
@@ -5,3 +7,4 @@ window.addEventListener("message", function(event) {
   window.location = event.data;
 });
 window.postMessage("load");
+</script>
