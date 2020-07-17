@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', async _ => {
     setTimeout(async _ => {
             await getWebsites(displayName => addData(displayName));
             if (dataTable.hidden === true) info.innerText = "No result found :(";
-    }, 150)
+    }, 2000)
 });
 
 async function addData(displayName) {
