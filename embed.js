@@ -25,7 +25,7 @@ function PerformanceCheck(url) {
     return (res.transferSize === 0);
 }
 
-async function getWebsites(callback, CacheTest = true) {
+async function getWebsites(callback, CacheTest = true, performanceCheck = true) {
     var output = [];
     var callback = (callback) ? callback : website => {
     	output.push(website);
@@ -37,12 +37,14 @@ async function getWebsites(callback, CacheTest = true) {
     }
     // Foreach website check if cached
     for (let website of Websites) {
+	let check = null;
         let result = await ifCached(website[0]);
-		let check = PerformanceCheck(website[0]);
-		if(check || result && check === null) {
-			callback(website[1]);
-		}
+	if(performanceCheck === true) check = PerformanceCheck(website[0]);
+		
+	if(check || result && check === null) {
+	    callback(website[1]);
 	}
+    }
     return output;
 };
 
@@ -135,9 +137,10 @@ async function ifCached_2(url){
     return state;
 }
 
-function WindowEvent() {
+function WindowEvent(check = false) {
   return new Promise(resolve => {
     window.addEventListener('message', e => {
+      if(check !== false && e.data === check) return
       resolve(e.data);
     });
   });
@@ -147,16 +150,16 @@ function initChecker() {
   checker = open("https://cache.ndev.tk/window.html");
 }
   
-async function checkURL(url, waitForEnd = true) {
+async function ifCached_3(url, waitForEnd = true) {
   let result = false;
   checker.postMessage(url);
   let event = await WindowEvent();
   if(event === "pagehide") {
     result = true;
     checker.location = "https://cache.ndev.tk/window.html";
-    if(waitForEnd) {
-      await WindowEvent();
-    }
+  }
+  if(waitForEnd) {
+    await WindowEvent("load");
   }
   return result
 }
