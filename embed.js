@@ -160,5 +160,19 @@ async function ifCached_3(url) {
     checker.location = "https://cache.ndev.tk/window.html";
   }
   await WindowEvent("load");
+	async function ifCached_3(url) {
+  checker.postMessage(url);
+  let event = await WindowEvent();
+  if(event === "load") {
+    return console.log("Wrong state");
+  }
+  console.log(event)
+  if(event) {
+    checker.location = "https://cache.ndev.tk/window.html";
+  }
+  await WindowEvent("load");
+  await new Promise(resolve => setTimeout(resolve, 50));
+  return event
+}
   return event
 }
