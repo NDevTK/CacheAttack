@@ -148,18 +148,19 @@ function WindowEvent(check = false) {
 
 function initChecker() {
   checker = open("https://cache.ndev.tk/window.html");
+  requireReset = false;
 }
   
-async function ifCached_3(url, waitForEnd = true) {
+async function ifCached_3(url) {
   let result = false;
+  if(requireReset) {
+    checker.location = "https://cache.ndev.tk/window.html";
+    requireReset = false;
+    await WindowEvent("load");
+  }
   checker.postMessage(url);
   let event = await WindowEvent();
-  if(event === "pagehide") {
-    result = true;
-    checker.location = "https://cache.ndev.tk/window.html";
-  }
-  if(waitForEnd) {
-    await new Promise(resolve => setTimeout(resolve, 500));
-  }
+  if(event === "pagehide") result = true;
+  requireReset = true;
   return result
 }
