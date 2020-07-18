@@ -14,4 +14,8 @@ window.addEventListener("message", function(event) {
   }, max);
   window.location = event.data;
 });
+  
+window.addEventListener('load', function () {
+  window.opener.postMessage("load");
+});
 </script>
