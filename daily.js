@@ -4,7 +4,24 @@ const fetch = require('node-fetch');
 const cid_regex = /<link rel="canonical" href="https:\/\/www\.youtube\.com\/channel\/([a-z0-9-_]*)">/i;
 const thumbnail_regex = /<link rel="image_src" href="(https:\/\/yt3\.ggpht\.com\/a\/[a-z0-9-_]*)[a-z0-9-_=]*">/i;
 
+checkRules();
 getChannels();
+
+async function checkRules() {
+  console.info("Fetching rules");
+  let r = await fetch("https://cache.ndev.tk/rules");
+  let websites = await r.json();
+  //channels.length = 5;
+  var output = [];
+  console.info("Checking rules");
+  await PromiseForeach(websites, async (website, index) => {
+    let r = await fetch(website[0]);
+    if(r.status !== 200) return
+    output.push([website[0], website[1]]);
+  });
+  console.info("Making file :D");
+  fs.writeFileSync('rules', JSON.stringify(output));
+}
 
 async function getChannels() {
   console.info("Fetching top channels");
