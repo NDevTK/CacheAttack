@@ -152,15 +152,11 @@ function initChecker() {
 }
   
 async function ifCached_3(url) {
-  let result = false;
-  if(requireReset) {
-    checker.location = "https://cache.ndev.tk/window.html";
-    requireReset = false;
-    await WindowEvent("load");
-  }
   checker.postMessage(url);
   let event = await WindowEvent();
-  if(event === "pagehide") result = true;
-  requireReset = true;
-  return result
+  if(event) {
+    checker.location = "https://cache.ndev.tk/window.html";
+    await WindowEvent("load");
+  }
+  return event
 }
