@@ -4,15 +4,12 @@
 <script>
 max = 30;
 
-let state = window.localStorage.getItem("cache");
-if(state !== null) window.opener.postMessage(state);
-window.localStorage.removeItem("cache");
+setInterval(_ => window.opener.postMessage("ping"), 1);
 
 window.addEventListener("message", function(event) {  
   if(!event.data.startsWith("https://")) return
-  localStorage.setItem("cache", true);
   setTimeout(_ => {
-    localStorage.setItem("cache", false);
+    window.opener.postMessage(false);
     window.location.reload();
   }, max);
   window.location = event.data;
