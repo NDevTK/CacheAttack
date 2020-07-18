@@ -4,16 +4,17 @@
 <script>
 max = 30;
 
-window.addEventListener("message", function(event) {
+let state = window.localStorage.getItem("cache");
+if(state !== null) window.opener.postMessage(state);
+window.localStorage.removeItem("cache");
+
+window.addEventListener("message", function(event) {  
   if(!event.data.startsWith("https://")) return
+  localStorage.setItem("cache", true);
   setTimeout(_ => {
-    window.opener.postMessage("notCached");
+    localStorage.setItem("cache", false);
     window.location.reload();
   }, max);
   window.location = event.data;
-});
-
-window.addEventListener('load', function () {
-  window.opener.postMessage("load");
 });
 </script>
