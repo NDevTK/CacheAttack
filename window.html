@@ -17,4 +17,8 @@ window.addEventListener("message", function(event) {
 window.addEventListener("pagehide", event => {
   window.opener.postMessage(cached);
 });
+  
+window.addEventListener('load', (event) => {
+  window.opener.postMessage("load");
+});
 </script>
