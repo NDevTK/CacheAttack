@@ -8,11 +8,11 @@ async function checkRules() {
   let websites = await r.json();
   var output = [];
   await PromiseForeach(websites, async (website, index) => {
-	try {
+  try {
     let r = await fetch(website[0], {
-		timeout: 5000
-	});
-	} catch {}
+      timeout: 5000
+    });
+    } catch {}
     if(r.status !== 200) return
     output.push([website[0], website[1]]);
   });
