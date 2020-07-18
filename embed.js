@@ -147,9 +147,6 @@ function WindowEvent(check = false) {
 }
 
 function initChecker() {
-  window.addEventListener("message", event => {
-    if(event.data === "load") ready = true;
-  });
   checker = open("https://cache.ndev.tk/window.html");
 }
 
