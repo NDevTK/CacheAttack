@@ -13,7 +13,13 @@ async function addData(displayName) {
     data.insertRow(0).insertCell(0).innerText = displayName;
 }
 
+function clearTable() {
+    var rowCount = dataTable.rows.length; while(--rowCount) dataTable.deleteRow(rowCount);
+    dataTable.hidden = true;
+}
+
 function windowMode() {
+    clearTable();
     initChecker();
     ifCached = ifCached_3;
     setTimeout(_ => {
@@ -23,5 +29,6 @@ function windowMode() {
 }
 
 function YT() {
+    clearTable();
     getVideos(displayName => addData(displayName));
 }
