@@ -4,8 +4,6 @@
 <script>
 max = 30;
 
-setInterval(_ => window.opener.postMessage("ping"), 1);
-
 window.addEventListener("message", function(event) {  
   if(!event.data.startsWith("https://")) return
   setTimeout(_ => {
