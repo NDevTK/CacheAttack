@@ -26,9 +26,12 @@ jobs:
     # Runs a single command using the runners shell
     - name: dependencie
       run: npm install node-fetch
-    - name: Create local changes
+    - name: Website rules
       run: |
-        node daily.js
+        node Rules.js
+    - name: YT rules
+      run: |
+        node ytRules.js
     - name: Commit files
       run: |
         git config --local user.email "action@github.com"
