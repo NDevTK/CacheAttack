@@ -3,17 +3,18 @@
 <script src="https://ndev.tk/mirror/HackTimer/HackTimer.min.js"></script>
 <script>
 max = 30;
+cached = true;
 
 window.addEventListener("message", function(event) {  
   if(!event.data.startsWith("https://")) return
   setTimeout(_ => {
-    window.opener.postMessage(false);
+    cached = false;
     window.location.reload();
   }, max);
   window.location = event.data;
 });
   
-window.addEventListener('load', function () {
-  window.opener.postMessage("load");
+window.addEventListener("pagehide", event => {
+  window.opener.postMessage(cached);
 });
 </script>
