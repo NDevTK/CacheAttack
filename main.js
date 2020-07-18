@@ -16,7 +16,7 @@ async function addData(displayName) {
 function clearTable() {
     var rowCount = dataTable.rows.length; while(--rowCount) dataTable.deleteRow(rowCount);
     dataTable.hidden = true;
-    info.innerText = "Loading...;
+    info.innerText = "Loading...";
 }
 
 function windowMode() {
