@@ -153,7 +153,7 @@ function initChecker() {
   checker = open("https://cache.ndev.tk/window.html");
 }
 
-async function ifCached(url) {
+async function ifCached_3(url) {
   if(!ready) await WindowEvent("load");
   ready = false;
   checker.postMessage(url);
