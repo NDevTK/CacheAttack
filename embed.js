@@ -147,16 +147,19 @@ function WindowEvent(check = false) {
 }
 
 function initChecker() {
+  window.addEventListener("message", event => {
+    if(event.data === "load") ready = true;
+  });
   checker = open("https://cache.ndev.tk/window.html");
-  requireReset = false;
 }
-  
-async function ifCached_3(url) {
+
+async function ifCached(url) {
+  if(!ready) await WindowEvent("load");
+  ready = false;
   checker.postMessage(url);
   let event = await WindowEvent();
   if(event) {
     checker.location = "https://cache.ndev.tk/window.html";
-    await WindowEvent("load");
   }
   return event
 }
