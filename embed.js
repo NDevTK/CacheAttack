@@ -140,7 +140,7 @@ async function ifCached_2(url){
 function WindowEvent(check = false) {
   return new Promise(resolve => {
     window.addEventListener('message', e => {
-      if(check !== false && e.data === check) return
+      if(check !== false && e.data !== check) return
       resolve(e.data);
     });
   });
@@ -154,12 +154,14 @@ function initChecker() {
 }
 
 async function ifCached_3(url) {
-  if(!ready) await WindowEvent("load");
-  ready = false;
   checker.postMessage(url);
   let event = await WindowEvent();
+  if(event === "load") {
+    return console.log("Wrong state");
+  }
   if(event) {
     checker.location = "https://cache.ndev.tk/window.html";
   }
+  await WindowEvent("load");
   return event
 }
