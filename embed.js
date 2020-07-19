@@ -1,6 +1,8 @@
 // NDev 2020 https://github.com/NDevTK/CacheAttack
 const max = 10;
 
+let firefox = navigator.userAgent.includes("Firefox");
+
 ifCached = (navigator.userAgent.includes("Firefox")) ? ifCached_1Wrap : ifCached_2;
 
 async function getRules() {
@@ -150,6 +152,7 @@ function initChecker() {
   checker = open("https://cache.ndev.tk/window.html");
 }
 
+// Currently fails if not in loop
 async function ifCached_3(url) {
   checker.postMessage(url);
   let event = await WindowEvent();
