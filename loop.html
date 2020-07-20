@@ -4,13 +4,13 @@
 <script>
 window.addEventListener("message", function(event) {  
   if(!event.data.startsWith("https://")) return
-  window.location = event.data;
-  setTimeout(_ => {
-    window.location.reload();
-  }, 1);
+  window.localStorage.setItem("url", event.data);
 });
-  
-window.addEventListener('load', (event) => {
-  window.opener.postMessage("load");
-});
+
+let url = window.localStorage.getItem("url");
+url = (url) ? url : "https://example.com"
+window.location = event.data;
+setTimeout(_ => {
+  window.location.reload();
+}, 1);
 </script>
