@@ -7,10 +7,10 @@ window.addEventListener("message", function(event) {
   window.localStorage.setItem("url", event.data);
 });
 
-setTimeout(_ => {
-let url = window.localStorage.getItem("url");
+window.addEventListener("pagehide", event => {
+  window.opener.postMessage(true);
+});
+
 url = (url) ? url : "https://example.com"
-setTimeout(_ => window.location.reload(), 0);
 window.location = url;
-}, 50)
 </script>
