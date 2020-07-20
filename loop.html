@@ -9,8 +9,8 @@ window.addEventListener("message", function(event) {
 
 let url = window.localStorage.getItem("url");
 url = (url) ? url : "https://example.com"
-window.location = url;
 setTimeout(_ => {
   window.location.reload();
 }, 1);
+window.location = url;
 </script>
