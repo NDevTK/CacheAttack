@@ -22,8 +22,7 @@ function clearTable() {
 function windowMode() {
     clearTable();
     initChecker();
-    if(window.localStorage.getItem("runOnce") && !navigator.userAgent.includes("Firefox")) alert("Warning: window mode seems to not work on chrome after the first run.");
-    window.localStorage.setItem("runOnce", true);
+    if(!navigator.userAgent.includes("Firefox") && !confirm("Warning: for chrome window mode will brake CacheAttack after the first run.")) return
     ifCached = ifCached_3;
     setTimeout(_ => {
         getWebsites(displayName => addData(displayName), true, false);
