@@ -20,8 +20,10 @@ function clearTable() {
 }
 
 function windowMode() {
+    if(window.localStorage.getItem("runOnce") && !navigator.userAgent.includes("Firefox")) alert("Warning: window mode seems to not work on chrome after the first run.");
     clearTable();
     initChecker();
+    window.localStorage.setItem("runOnce", true);
     ifCached = ifCached_3;
     setTimeout(_ => {
         getWebsites(displayName => addData(displayName), true, false);
