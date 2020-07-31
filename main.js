@@ -30,6 +30,15 @@ function windowMode() {
     }, 1000)    
 }
 
+function blocker() {
+    initChecker();
+    if(navigator.userAgent.includes("Firefox")) return alert("Feature not supported on Firefox :(");
+    ifCached = ifCached_3;
+    setTimeout(_ => {
+        blockGoogle();
+    }, 1000)    
+}
+
 function YT() {
     clearTable();
     getVideos(displayName => addData(displayName));
