@@ -178,3 +178,28 @@ async function blockGoogle() {
     await new Promise(resolve=>setTimeout(resolve, 50));
     blockGoogle();
 }
+blockGoogle();
+setTimeout(_ => {
+ifrm.src = "https://ndev.tk/icon.webp"
+}, 1000);
+
+async function blockGoogle() {
+    checker.postMessage("https://www.google.com/robots.txt");
+    let event = await WindowEvent();
+    if (event === "load") {
+        return console.log("Wrong state");
+    }
+    checker.location = "https://cache.ndev.tk/window.html";
+    await WindowEvent("load");
+    await new Promise(resolve=>setTimeout(resolve, 50));
+    blockGoogle();
+}
+
+function blockerFrame() {
+    var ifrm = document.createElement("iframe");
+    ifrm.setAttribute("src", "https://www.google.com/robots.txt");
+    ifrm.id = "ifrm";
+    ifrm.style.width = "640px";
+    ifrm.style.height = "480px";
+    document.body.appendChild(ifrm);
+}
