@@ -37,9 +37,7 @@ function blocker(url = "https://www.google.com/robots.txt") {
     ifCached = ifCached_3;
     setTimeout(_ => {
         block(url);
-        setTimeout(_ => {
-            ifrm.src = "https://ndev.tk/icon.webp"
-        }, 1000);
+        ifrm.src = "https://ndev.tk/icon.webp";
     }, 1000) 
 }
 
