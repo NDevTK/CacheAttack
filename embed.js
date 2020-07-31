@@ -167,8 +167,8 @@ async function ifCached_3(url) {
   return event
 }
 
-async function blockGoogle() {
-    checker.postMessage("https://www.google.com/robots.txt");
+async function block(url) {
+    checker.postMessage(url);
     let event = await WindowEvent();
     if (event === "load") {
         return console.log("Wrong state");
@@ -176,24 +176,12 @@ async function blockGoogle() {
     checker.location = "https://cache.ndev.tk/window.html";
     await WindowEvent("load");
     await new Promise(resolve=>setTimeout(resolve, 50));
-    blockGoogle();
+    block(url);
 }
 
-async function blockGoogle() {
-    checker.postMessage("https://www.google.com/robots.txt");
-    let event = await WindowEvent();
-    if (event === "load") {
-        return console.log("Wrong state");
-    }
-    checker.location = "https://cache.ndev.tk/window.html";
-    await WindowEvent("load");
-    await new Promise(resolve=>setTimeout(resolve, 50));
-    blockGoogle();
-}
-
-function blockerFrame() {
+function blockerFrame(url) {
     var ifrm = document.createElement("iframe");
-    ifrm.setAttribute("src", "https://www.google.com/robots.txt");
+    ifrm.setAttribute("src", url);
     ifrm.id = "ifrm";
     ifrm.style.width = "640px";
     ifrm.style.height = "480px";
