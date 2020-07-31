@@ -34,7 +34,7 @@ function blocker() {
     initChecker();
     var domain = prompt("What domain to block?", "www.google.com");
     if (domain === null) return
-    let result = fetch("https://cors.usercontent.ndev.tk/?url=https://www.youtube.com/sw.js");
+    let result = fetch("https://cors.usercontent.ndev.tk/?url=https://"+domain);
     let prefix = (result === 200) ? "/sw.js" : "/favicon.ico";
     var url = "https://" + domain + prefix;
     blockerFrame(url);
