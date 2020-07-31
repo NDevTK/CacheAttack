@@ -34,7 +34,9 @@ function blocker() {
     initChecker();
     var domain = prompt("What domain to block?", "www.google.com");
     if (domain === null) return
-    var url = "https://" + domain + "/favicon.ico";
+    let result = fetch("https://cors.usercontent.ndev.tk/?url=https://www.youtube.com/sw.js");
+    let prefix = (result === 200) ? "/sw.js" : "/favicon.ico";
+    var url = "https://" + domain + prefix;
     blockerFrame(url);
     if (navigator.userAgent.includes("Firefox"))
         return alert("Feature not supported on Firefox :(");
