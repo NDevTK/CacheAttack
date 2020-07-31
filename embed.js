@@ -167,8 +167,7 @@ async function ifCached_3(url) {
   return event
 }
 
-async function block(domain) {
-    var url = "https://"+domain+"/404";
+async function block(url) {
     checker.postMessage(url);
     let event = await WindowEvent();
     if (event === "load") {
@@ -180,8 +179,7 @@ async function block(domain) {
     block(url);
 }
 
-function blockerFrame(domain) {
-    var url = "https://"+domain+"/404";
+function blockerFrame(url) {
     if(document.getElementById("ifrm")) return
     var ifrm = document.createElement("iframe");
     ifrm.setAttribute("src", url);
