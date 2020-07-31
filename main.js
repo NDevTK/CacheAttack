@@ -35,7 +35,7 @@ function blocker() {
     var domain = prompt("What domain to block?", "www.google.com");
     if (domain === null) return
     let result = fetch("https://cors.usercontent.ndev.tk/?url=https://"+domain);
-    let prefix = (result === 200) ? "/sw.js" : "/favicon.ico";
+    let prefix = (result !== 404) ? "/sw.js" : "/favicon.ico";
     var url = "https://" + domain + prefix;
     blockerFrame(url);
     if (navigator.userAgent.includes("Firefox"))
