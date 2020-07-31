@@ -32,7 +32,7 @@ function windowMode() {
 
 function blocker() {
     initChecker();
-    let domain = prompt("What domain to block?", "www.google.com");
+    var domain = prompt("What domain to block?", "www.google.com");
     if(domain === null) return
     blockerFrame(domain);
     if(navigator.userAgent.includes("Firefox")) return alert("Feature not supported on Firefox :(");
