@@ -34,7 +34,7 @@ function blocker() {
     initChecker();
     var domain = prompt("What domain to block?", "www.google.com");
     if(domain === null) return
-    var url = "https://"+domain+"/404";
+    var url = "https://"+domain+"/"+Math.random();
     blockerFrame(url);
     if(navigator.userAgent.includes("Firefox")) return alert("Feature not supported on Firefox :(");
     ifCached = ifCached_3;
