@@ -178,10 +178,6 @@ async function blockGoogle() {
     await new Promise(resolve=>setTimeout(resolve, 50));
     blockGoogle();
 }
-blockGoogle();
-setTimeout(_ => {
-ifrm.src = "https://ndev.tk/icon.webp"
-}, 1000);
 
 async function blockGoogle() {
     checker.postMessage("https://www.google.com/robots.txt");
