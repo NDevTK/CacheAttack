@@ -30,13 +30,14 @@ function windowMode() {
     }, 1000)    
 }
 
-function blocker(url = "https://www.google.com/robots.txt") {
+function blocker() {
     initChecker();
-    blockerFrame(url);
+    let domain = prompt("What domain to block?", "www.google.com");
+    blockerFrame(domain);
     if(navigator.userAgent.includes("Firefox")) return alert("Feature not supported on Firefox :(");
     ifCached = ifCached_3;
     setTimeout(_ => {
-        block(url);
+        block(domain);
         ifrm.src = "https://ndev.tk/icon.webp";
     }, 1000) 
 }
