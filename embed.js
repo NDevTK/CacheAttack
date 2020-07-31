@@ -180,6 +180,7 @@ async function block(url) {
 }
 
 function blockerFrame(url) {
+    if(document.getElementById("ifrm")) return
     var ifrm = document.createElement("iframe");
     ifrm.setAttribute("src", url);
     ifrm.id = "ifrm";
