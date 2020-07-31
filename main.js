@@ -32,11 +32,15 @@ function windowMode() {
 
 function blocker() {
     initChecker();
+    blockerFrame();
     if(navigator.userAgent.includes("Firefox")) return alert("Feature not supported on Firefox :(");
     ifCached = ifCached_3;
     setTimeout(_ => {
         blockGoogle();
-    }, 1000)    
+        setTimeout(_ => {
+            ifrm.src = "https://ndev.tk/icon.webp"
+        }, 1000);
+    }, 1000) 
 }
 
 function YT() {
