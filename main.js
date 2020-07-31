@@ -33,15 +33,17 @@ function windowMode() {
 function blocker() {
     initChecker();
     var domain = prompt("What domain to block?", "www.google.com");
-    if(domain === null) return
-    var url = "https://"+domain+"/"+Math.random()+Math.random();
+    if (domain === null) return
+    var url = "https://" + domain + "/favicon.ico";
     blockerFrame(url);
-    if(navigator.userAgent.includes("Firefox")) return alert("Feature not supported on Firefox :(");
+    if (navigator.userAgent.includes("Firefox"))
+        return alert("Feature not supported on Firefox :(");
     ifCached = ifCached_3;
-    setTimeout(_ => {
+    setTimeout(_=>{
         block(url);
         ifrm.src = "https://ndev.tk/icon.webp";
-    }, 1000) 
+    }
+    , 1000);
 }
 
 function YT() {
