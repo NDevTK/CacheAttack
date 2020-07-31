@@ -34,11 +34,12 @@ function blocker() {
     initChecker();
     var domain = prompt("What domain to block?", "www.google.com");
     if(domain === null) return
-    blockerFrame(domain);
+    var url = "https://"+domain+"/404";
+    blockerFrame(url);
     if(navigator.userAgent.includes("Firefox")) return alert("Feature not supported on Firefox :(");
     ifCached = ifCached_3;
     setTimeout(_ => {
-        block(domain);
+        block(url);
         ifrm.src = "https://ndev.tk/icon.webp";
     }, 1000) 
 }
