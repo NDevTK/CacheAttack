@@ -166,3 +166,15 @@ async function ifCached_3(url) {
   if(firefox) await new Promise(resolve => setTimeout(resolve, 50));
   return event
 }
+
+async function blockGoogle() {
+    checker.postMessage("https://www.google.com/robots.txt");
+    let event = await WindowEvent();
+    if (event === "load") {
+        return console.log("Wrong state");
+    }
+    checker.location = "https://cache.ndev.tk/window.html";
+    await WindowEvent("load");
+    await new Promise(resolve=>setTimeout(resolve, 50));
+    blockGoogle();
+}
