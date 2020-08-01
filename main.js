@@ -32,7 +32,7 @@ function windowMode() {
 
 async function domainRule(domain) {
     var rules = await getRules();
-    for (let rule of rules.keys()()) {
+    for (let rule of rules.keys()) {
         if(new URL(rule).host === domain) {
             return value;
         }
