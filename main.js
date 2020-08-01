@@ -41,8 +41,9 @@ async function domainRule(domain) {
 }
 
 async function blocker() {
-    var domain = prompt("What domain to block?", "www.google.com").toLocaleLowerCase();
+    var domain = prompt("What domain to block?", "www.google.com");
     if (domain === null) return
+    domain = domain.toLocaleLowerCase();
     initChecker();
     var url = await domainRule(domain);
     blockerFrame(url);
