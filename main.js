@@ -1,10 +1,12 @@
+/*jshint esversion: 8 */
+
 // NDev 2020 https://github.com/NDevTK/CacheAttack
 
 document.addEventListener('DOMContentLoaded', async _ => {
     setTimeout(async _ => {
             await getWebsites(displayName => addData(displayName));
             if (dataTable.hidden === true) info.innerText = "No result found :(";
-    }, 150)
+    }, 150);
 });
 
 async function addData(displayName) {
@@ -22,12 +24,12 @@ function clearTable() {
 function windowMode() {
     clearTable();
     initChecker();
-    if(!navigator.userAgent.includes("Firefox") && !confirm("Warning: for chrome window mode will brake CacheAttack after the first run.")) return
+    if(!navigator.userAgent.includes("Firefox") && !confirm("Warning: for chrome window mode will brake CacheAttack after the first run.")) return;
     ifCached = ifCached_3;
     setTimeout(_ => {
         getWebsites(displayName => addData(displayName), true, false);
         if (dataTable.hidden === true) info.innerText = "No result found :(";
-    }, 1000)    
+    }, 1000);
 }
 
 async function domainRule(domain) {
@@ -42,7 +44,7 @@ async function domainRule(domain) {
 
 async function blocker() {
     var domain = prompt("What domain to block?", "www.google.com");
-    if (domain === null) return
+    if (domain === null) return;
     domain = domain.toLocaleLowerCase();
     initChecker();
     var url = await domainRule(domain);
