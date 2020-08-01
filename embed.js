@@ -168,6 +168,7 @@ async function ifCached_3(url) {
 }
 
 async function block(url) {
+    if(ifrm.closed) return
     checker.postMessage(url);
     let event = await WindowEvent();
     if (event === "load") {
