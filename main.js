@@ -34,10 +34,10 @@ async function domainRule(domain) {
     var rules = await getRules();
     if(rules.has(domain)) {
         let value = rules.get(domain);
-        if(new URL(value).host ==== domain) return value
+        if(new URL(value).host === domain) return value
     }
     for (let rule of rules.values()) {
-        if(new URL(rule).host ==== domain) {
+        if(new URL(rule).host === domain) {
             return value;
         }
     }
