@@ -1,3 +1,5 @@
+/*jshint esversion: 8 */
+
 // NDev 2020 https://github.com/NDevTK/CacheAttack
 const max = 10;
 
@@ -22,20 +24,20 @@ function is304(res) {
 
 function PerformanceCheck(url) {
     var res = performance.getEntriesByName(url).pop();
-    if(res === undefined) return null
+    if(res === undefined) return null;
     if(is304(res)) return true;
     return (res.transferSize === 0);
 }
 
-async function getWebsites(callback, CacheTest = true, performanceCheck = true) {
+async function getWebsites(cb, CacheTest = true, performanceCheck = true) {
     var output = [];
-    var callback = (callback) ? callback : website => {
+    var callback = (cb) ? cb : website => {
     	output.push(website);
     };
     var Websites = await getRules();
     if(CacheTest) {
         let TestResult = await ifCached_test();
-        if(!TestResult) throw "Cache is not working :-("
+        if(!TestResult) throw "Cache is not working :-(";
     }
     // Foreach website check if cached
     for (let website of Websites) {
@@ -48,7 +50,7 @@ async function getWebsites(callback, CacheTest = true, performanceCheck = true) 
 	}
     }
     return output;
-};
+}
 
 async function getVideos(callback) {
   checkedChannels = [];
@@ -58,27 +60,27 @@ async function getVideos(callback) {
 }
 
 async function YTCrawler(channels, callback) {
-  for (channel of channels) {
-    if(checkedChannels.includes(channel[1])) continue
+  for (var channel of channels) {
+    if(checkedChannels.includes(channel[1])) continue;
     checkedChannels.push(channel[1]);
     let result = await ifCached(channel[1].concat("=s88-c-k-c0xffffffff-no-rj-mo"));
-    if(!result) continue // Channel not seen
+    if(!result) continue; // Channel not seen
     let r = await fetch("https://invidio.us/api/v1/channels/"+encodeURI(channel[0]));
     let channelData = await r.json();
     callback(channelData.author);
     channelData.latestVideos.forEach(async video => {
       let res = await fetch("https://cors.usercontent.ndev.tk/board/all/?v="+encodeURI(video.videoId));
-      if(res.status !== 200) return
+      if(res.status !== 200) return;
       let board = await res.json();
-      for (url of board) {
+      for (var url of board) {
         let result = await ifCached(url);
         let check = PerformanceCheck(url);
         if (check || result && check === null) {
           return callback(video.title + " ("+video.videoId+")");
         }
-      };
+      }
       var relatedChannels = [];
-      for (relatedChannel of channelData.relatedChannels) {
+      for (var relatedChannel of channelData.relatedChannels) {
         let url = relatedChannel.authorThumbnails[0].url.split("=")[0];
         relatedChannels.push([relatedChannel.authorId, url]);
       }
@@ -97,14 +99,13 @@ async function ifCached_1Wrap(url) {
     try {
         await ifCached_1(url);
     } catch(err) {
-        return false
+        return false;
     }
-    return true
+    return true;
 }
 
 function ifCached_1(url) {
     return new Promise((resolve, reject) => {
-        var blocked = false;
         let img = new Image(0, 0);
         img.hidden = true;
         img.onerror = _ => {
@@ -142,7 +143,7 @@ async function ifCached_2(url){
 function WindowEvent(check = false) {
   return new Promise(resolve => {
     window.addEventListener('message', e => {
-      if(check !== false && e.data !== check) return
+      if(check !== false && e.data !== check) return;
       resolve(e.data);
     });
   });
@@ -164,11 +165,11 @@ async function ifCached_3(url) {
   }
   await WindowEvent("load");
   if(firefox) await new Promise(resolve => setTimeout(resolve, 50));
-  return event
+  return event;
 }
 
 async function block(url) {
-    if(ifrm.closed) return
+    if(ifrm.closed) return;
     checker.postMessage(url);
     let event = await WindowEvent();
     if (event === "load") {
