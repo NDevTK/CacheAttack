@@ -182,7 +182,7 @@ async function block(url) {
 
 function blockerFrame(url) {
     if (document.getElementById("ifrm")) {
-      return ifrm.location = "https://cache.ndev.tk/window.html";
+      return ifrm.src = "https://cache.ndev.tk/window.html";
     }
     var ifrm = document.createElement("iframe");
     ifrm.setAttribute("src", url);
