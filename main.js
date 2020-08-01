@@ -30,13 +30,25 @@ function windowMode() {
     }, 1000)    
 }
 
-function blocker() {
-    var domain = prompt("What domain to block?", "www.google.com");
+async function domainRule(domain) {
+    var rules = await getRules();
+    if(rules.has(domain)) {
+        let value = rules.get(domain);
+        if(new URL(value).host ==== domain) return value
+    }
+    for (let rule of rules.values()) {
+        if(new URL(rule).host ==== domain) {
+            return value;
+        }
+    }
+    return "https://" + domain + "/favicon.ico";
+}
+
+async function blocker() {
+    var domain = prompt("What domain to block?", "www.google.com").toLocaleLowerCase();
     if (domain === null) return
     initChecker();
-    let result = fetch("https://cors.usercontent.ndev.tk/?url=https://"+domain);
-    let prefix = (result.status !== 404) ? "/sw.js" : "/favicon.ico";
-    var url = "https://" + domain + prefix;
+    var url = await domainRule(domain);
     blockerFrame(url);
     if (navigator.userAgent.includes("Firefox")) return alert("Feature not supported on Firefox :(");
     ifCached = ifCached_3;
