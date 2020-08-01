@@ -31,21 +31,19 @@ function windowMode() {
 }
 
 function blocker() {
-    initChecker();
     var domain = prompt("What domain to block?", "www.google.com");
     if (domain === null) return
+    initChecker();
     let result = fetch("https://cors.usercontent.ndev.tk/?url=https://"+domain);
     let prefix = (result.status !== 404) ? "/sw.js" : "/favicon.ico";
     var url = "https://" + domain + prefix;
     blockerFrame(url);
-    if (navigator.userAgent.includes("Firefox"))
-        return alert("Feature not supported on Firefox :(");
+    if (navigator.userAgent.includes("Firefox")) return alert("Feature not supported on Firefox :(");
     ifCached = ifCached_3;
     setTimeout(_=>{
         block(url);
         ifrm.src = "https://ndev.tk/icon.webp";
-    }
-    , 1000);
+    }, 1000);
 }
 
 function YT() {
