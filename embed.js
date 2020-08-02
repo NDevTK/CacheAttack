@@ -174,7 +174,6 @@ async function block(url) {
         checker.postMessage(url);
         checker.location = "https://cache.ndev.tk/window.html";
         await WindowEvent();
-        await new Promise(resolve=>setTimeout(resolve, 50));
     }
 }
 
