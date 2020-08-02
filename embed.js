@@ -169,16 +169,13 @@ async function ifCached_3(url) {
 }
 
 async function block(url) {
-    if(ifrm.closed) return;
-    checker.postMessage(url);
-    let event = await WindowEvent();
-    if (event === "load") {
-        return console.log("Wrong state");
+    for (;;) {
+        if(ifrm.closed) return
+        checker.postMessage(url);
+        checker.location = "https://cache.ndev.tk/window.html";
+        await WindowEvent();
+        await new Promise(resolve=>setTimeout(resolve, 50));
     }
-    checker.location = "https://cache.ndev.tk/window.html";
-    await WindowEvent("load");
-    await new Promise(resolve=>setTimeout(resolve, 50));
-    block(url);
 }
 
 function blockerFrame(url) {
