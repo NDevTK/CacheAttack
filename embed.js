@@ -170,7 +170,7 @@ async function ifCached_3(url) {
 
 async function block(url) {
     for (;;) {
-        if(ifrm.closed) return
+        if(checker.closed) return
         checker.postMessage(url);
         checker.location = "https://cache.ndev.tk/window.html";
         await WindowEvent();
