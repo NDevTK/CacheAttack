@@ -51,7 +51,7 @@ async function blocker() {
     blockerFrame(url);
     if (navigator.userAgent.includes("Firefox")) return alert("Feature not supported on Firefox :(");
     ifCached = ifCached_3;
-    setTimeout(_=>{
+    loop = setTimeout(_=>{
         block(url);
         ifrm.src = "https://ndev.tk/icon.webp";
     }, 1000);
