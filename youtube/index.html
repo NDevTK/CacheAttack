@@ -87,10 +87,8 @@ async function YTCrawler(channels) {
     addData(channelData.author);
     channelData.latestVideos.forEach(async video => {
 	    let result = await ifCached(Video(video.videoId));
-	    let check = PerformanceCheck(Video(video.videoId));
-	    if (check || result && check === null) {
-		    return addData(video.title + " ("+video.videoId+")");
-	    }
+	    if (result) return addData(video.title + " ("+video.videoId+")");
+     }
       var relatedChannels = [];
       for (var relatedChannel of channelData.relatedChannels) {
         let url = relatedChannel.authorThumbnails[0].url.split("=")[0];
