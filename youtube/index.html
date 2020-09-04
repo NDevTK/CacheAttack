@@ -55,6 +55,7 @@ async function getHistory() {
 	var ads = open("https://m.youtube.com/feed/history/?app=m");
 	setTimeout(async _  => ads.close(), 1000);
 	setTimeout(async _  => {
+		clearTable();
 		var result = await getVideos();
 	}, 1500);
 }
@@ -67,6 +68,12 @@ async function addData(displayName) {
     dataTable.hidden = false;
     info.hidden = true;
     data.insertRow(0).insertCell(0).innerText = displayName;
+}
+
+function clearTable() {
+    var rowCount = dataTable.rows.length; while(--rowCount) dataTable.deleteRow(rowCount);
+    dataTable.hidden = true;
+    info.innerText = "Loading...";
 }
 
 async function getVideos() {
@@ -95,7 +102,6 @@ async function YTCrawler(channels) {
         relatedChannels.push([relatedChannel.authorId, url]);
       }
       await YTCrawler(relatedChannels);
-    });
   }
 }
 </script>
