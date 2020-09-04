@@ -99,7 +99,7 @@ async function YTCrawler(channels) {
     for (var video of channelData.latestVideos) {
 	    let result = await ifCached(Video1(video.videoId));
 	    if(!result) result = await ifCached(Video2(video.videoId));
-	    if (result) return addData(video.title + " ("+video.videoId+")");
+	    if (result) addData(video.title + " ("+video.videoId+")");
      };
       var relatedChannels = [];
       for (var relatedChannel of channelData.relatedChannels) {
