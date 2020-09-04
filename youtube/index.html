@@ -70,7 +70,6 @@ function Video2(id) {
 
 async function addData(displayName) {
     dataTable.hidden = false;
-    info.hidden = true;
     data.insertRow(0).insertCell(0).innerText = displayName;
 }
 
@@ -84,7 +83,8 @@ async function getVideos() {
   checkedChannels = [];
   let r = await fetch("https://cache.ndev.tk/channels");
   channels = await r.json();
-  YTCrawler(channels);
+  await YTCrawler(channels);
+  info.hidden = true;
 }
 
 async function YTCrawler(channels) {
