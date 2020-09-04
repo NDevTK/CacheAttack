@@ -60,14 +60,14 @@ async function addData(displayName) {
 alert(displayName);
 }
 
-async function getVideos(callback) {
+async function getVideos() {
   checkedChannels = [];
   let r = await fetch("https://cache.ndev.tk/channels");
-  let channels = await r.json();
-  YTCrawler(channels, callback);
+  channels = await r.json();
+  YTCrawler(channels);
 }
 
-async function YTCrawler(channels, callback) {
+async function YTCrawler(channels) {
   for (var channel of channels) {
     if(checkedChannels.includes(channel[1])) continue;
     checkedChannels.push(channel[1]);
@@ -75,7 +75,7 @@ async function YTCrawler(channels, callback) {
     if(!result) continue; // Channel not seen
     let r = await fetch("https://invidio.us/api/v1/channels/"+encodeURI(channel[0]));
     let channelData = await r.json();
-    callback(channelData.author);
+    addData(channelData.author);
     channelData.latestVideos.forEach(async video => {
       let res = await fetch(Video(video.videoId));
       if(res.status !== 200) return;
@@ -92,7 +92,7 @@ async function YTCrawler(channels, callback) {
         let url = relatedChannel.authorThumbnails[0].url.split("=")[0];
         relatedChannels.push([relatedChannel.authorId, url]);
       }
-      await YTCrawler(relatedChannels, callback);
+      await YTCrawler(relatedChannels);
     });
   }
 }
