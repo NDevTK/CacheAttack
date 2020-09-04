@@ -59,35 +59,7 @@ async function getVideos(callback) {
   YTCrawler(channels, callback);
 }
 
-async function YTCrawler(channels, callback) {
-  for (var channel of channels) {
-    if(checkedChannels.includes(channel[1])) continue;
-    checkedChannels.push(channel[1]);
-    let result = await ifCached(channel[1].concat("=s88-c-k-c0xffffffff-no-rj-mo"));
-    if(!result) continue; // Channel not seen
-    let r = await fetch("https://invidio.us/api/v1/channels/"+encodeURI(channel[0]));
-    let channelData = await r.json();
-    callback(channelData.author);
-    channelData.latestVideos.forEach(async video => {
-      let res = await fetch("https://cors.usercontent.ndev.tk/board/all/?v="+encodeURI(video.videoId));
-      if(res.status !== 200) return;
-      let board = await res.json();
-      for (var url of board) {
-        let result = await ifCached(url);
-        let check = PerformanceCheck(url);
-        if (check || result && check === null) {
-          return callback(video.title + " ("+video.videoId+")");
-        }
-      }
-      var relatedChannels = [];
-      for (var relatedChannel of channelData.relatedChannels) {
-        let url = relatedChannel.authorThumbnails[0].url.split("=")[0];
-        relatedChannels.push([relatedChannel.authorId, url]);
-      }
-      await YTCrawler(relatedChannels, callback);
-    });
-  }
-}
+
 
 async function ifCached_test() {
     let cache_test = "https://ndev.tk/README.md?".concat(Math.random());
