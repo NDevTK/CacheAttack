@@ -60,8 +60,12 @@ async function getHistory() {
 	}, 1500);
 }
 
-function Video(id) {
+function Video1(id) {
 	return "https://i.ytimg.com/vi_webp/"+id+"/mqdefault.webp";
+}
+
+function Video2(id) {
+	return "https://i.ytimg.com/vi/"+id+"/hqdefault.jpg";
 }
 
 async function addData(displayName) {
@@ -92,10 +96,11 @@ async function YTCrawler(channels) {
     let r = await fetch("https://invidio.us/api/v1/channels/"+encodeURI(channel[0]));
     let channelData = await r.json();
     addData(channelData.author);
-    channelData.latestVideos.forEach(async video => {
-	    let result = await ifCached(Video(video.videoId));
+    for (var video of channelData.latestVideos) {
+	    let result = await ifCached(Video1(video.videoId));
+	    if(!result) await result = ifCached(Video2(video.videoId));
 	    if (result) return addData(video.title + " ("+video.videoId+")");
-     });
+     };
       var relatedChannels = [];
       for (var relatedChannel of channelData.relatedChannels) {
         let url = relatedChannel.authorThumbnails[0].url.split("=")[0];
