@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>CacheAttack</title>
+<meta name="keywords" content="html,css,javascript,cache">
+<meta name="author" content="NDev">
+<meta name="description" CONTENT="Time based attack">
+<link rel="stylesheet" href="/main.css">
+<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+<link rel="icon" href="/favicon.ico" type="image/x-icon">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<script src="https://ndev.tk/mirror/HackTimer/HackTimer.min.js"></script>
+<script src="https://cache.ndev.tk/embed.js"></script>
+</head>
+<body>
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+   <a class="navbar-brand" style="color:red">
+      <img src="https://ndev.tk/icon.webp" class="d-inline-block align-top" alt="CacheAttack">CacheAttack</a>
+  <ul class="navbar-nav">
+    <li class="nav-item">
+      <a class="nav-link" href="http://cache.ndev.tk">Main</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="http://cache.ndev.tk/network">Network</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="http://cache.ndev.tk/files">Files</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="http://cache.ndev.tk/Gender">Gender</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="https://github.com/NDevTK/CacheAttack/tree/master/Gender">Code</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="https://ndev.tk">HUB</a>
+    </li>
+  </ul>
+</nav>
+<div class="jumbotron">
+<h1>Welcome to Youtube Detect</h1>
+<p class="lead">Detects Youtube history</p>
+<button onclick="getHistory()">Click!</button>
+<br><h2 id="gender"></h2>
+</body>
+<script>
+async function getHistory() {
+	var ads = open("https://m.youtube.com/feed/history/?app=m");
+	setTimeout(async _  => ads.close(), 2000);
+	setTimeout(async _  => {
+    ads.location = "https://youtube.com/feed/history/?app=desktop"
+		var result = await VideoDetect();
+		gender.innerText = "Result: "+ result;
+	}, 1000);
+}
+
+function Video(id) {
+	return "https://i.ytimg.com/vi_webp/"+id+"/mqdefault.webp";
+}
+
+async function VideoDetect() {
+// W.I.P
+}
+</script>
