@@ -48,7 +48,7 @@ async function getHistory() {
 	var ads = open("https://m.youtube.com/feed/history/?app=m");
 	setTimeout(async _  => ads.close(), 1000);
 	setTimeout(async _  => {
-		var result = await YTCrawler();
+		var result = await getVideos();
 	}, 1500);
 }
 
@@ -57,7 +57,7 @@ function Video(id) {
 }
 
 async function addData(displayName) {
-alert(displayName);
+	alert(displayName);
 }
 
 async function getVideos() {
