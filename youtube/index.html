@@ -41,7 +41,14 @@
 <h1>Welcome to Youtube Detect</h1>
 <p class="lead">Detects Youtube history</p>
 <button onclick="getHistory()">Click!</button>
-<br><h2 id="gender"></h2>
+</div>
+   <b><p1 id="info"></p1></b>
+<table id="dataTable" hidden="true">
+    <thead>
+        <tr><th>Youtube History</th></tr>
+    </thead>
+    <tbody id="data"></tbody>
+</table>
 </body>
 <script>
 async function getHistory() {
@@ -57,7 +64,9 @@ function Video(id) {
 }
 
 async function addData(displayName) {
-	alert(displayName);
+    dataTable.hidden = false;
+    info.hidden = true;
+    data.insertRow(0).insertCell(0).innerText = displayName;
 }
 
 async function getVideos() {
@@ -77,16 +86,11 @@ async function YTCrawler(channels) {
     let channelData = await r.json();
     addData(channelData.author);
     channelData.latestVideos.forEach(async video => {
-      let res = await fetch(Video(video.videoId));
-      if(res.status !== 200) return;
-      let board = await res.json();
-      for (var url of board) {
-        let result = await ifCached(url);
-        let check = PerformanceCheck(url);
-        if (check || result && check === null) {
-          return addData(video.title + " ("+video.videoId+")");
-        }
-      }
+	    let result = await ifCached(Video(video.videoId));
+	    let check = PerformanceCheck(url);
+	    if (check || result && check === null) {
+		    return addData(video.title + " ("+video.videoId+")");
+	    }
       var relatedChannels = [];
       for (var relatedChannel of channelData.relatedChannels) {
         let url = relatedChannel.authorThumbnails[0].url.split("=")[0];
