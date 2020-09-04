@@ -46,11 +46,11 @@
 <script>
 async function getHistory() {
 	var ads = open("https://m.youtube.com/feed/history/?app=m");
-	setTimeout(async _  => ads.close(), 500);
+	setTimeout(async _  => ads.close(), 1000);
 	setTimeout(async _  => {
 		var result = await VideoDetect();
 		gender.innerText = "Result: "+ result;
-	}, 1000);
+	}, 1500);
 }
 
 function Video(id) {
