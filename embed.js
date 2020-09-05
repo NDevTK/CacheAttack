@@ -85,7 +85,7 @@ function onIdle() {
 }
 
 function ifCached_1(url) {
-    return new Promise((resolve, reject) => {
+    return new Promise(async (resolve, reject) => {
 	await onIdle();
 	checkActive = true;
         let img = new Image(0, 0);
@@ -106,7 +106,7 @@ function ifCached_1(url) {
     });
 }
 
-async function ifCached_2(url){
+async function ifCached_2(url) {
     await onIdle();
     checkActive = true;
     var state = true;
