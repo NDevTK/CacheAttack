@@ -24,9 +24,6 @@ jobs:
     # Runs a single command using the runners shell
     - name: dependencie
       run: npm install node-fetch
-    - name: Website rules
-      run: |
-        node Rules.js
     - name: YT rules
       run: |
         node ytRules.js
