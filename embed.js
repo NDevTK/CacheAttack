@@ -76,9 +76,17 @@ async function ifCached_1Wrap(url) {
     return true;
 }
 
+function onIdle() {
+	return new Promise((resolve, reject) => {
+		setInterval(_ => {
+			if(!checkActive) resolve();
+		}, 0)
+	});
+}
+
 function ifCached_1(url) {
     return new Promise((resolve, reject) => {
-	while(checkActive) {}
+	await onIdle();
 	checkActive = true;
         let img = new Image(0, 0);
         img.hidden = true;
@@ -99,7 +107,7 @@ function ifCached_1(url) {
 }
 
 async function ifCached_2(url){
-    while(checkActive) {}
+    await onIdle();
     checkActive = true;
     var state = true;
     var controller = new AbortController();
