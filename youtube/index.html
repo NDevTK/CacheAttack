@@ -84,17 +84,14 @@ function clearTable() {
 }
 
 async function getVideos() {
-  checkedChannels = [];
   let r = await fetch("https://cache.ndev.tk/channels");
-  channels = await r.json();
+  let channels = await r.json();
   await YTCrawler(channels);
   info.hidden = true;
 }
 
 async function YTCrawler(channels) {
   for (var channel of channels) {
-    if(checkedChannels.includes(channel[1])) continue;
-    checkedChannels.push(channel[1]);
     let result = await ifCached(channel[1].concat("=s88-c-k-c0xffffffff-no-rj-mo"));
     if(!result) continue; // Channel not seen
     let r = await fetch("https://invidio.us/api/v1/channels/videos/"+encodeURI(channel[0]));
@@ -104,12 +101,6 @@ async function YTCrawler(channels) {
 	    if(!result) result = await ifCached(Video2(video.videoId));
 	    if (result) addData(video.title + " ("+video.videoId+")");
      };
-      var relatedChannels = [];
-      for (var relatedChannel of channelData.relatedChannels) {
-        let url = relatedChannel.authorThumbnails[0].url.split("=")[0];
-        relatedChannels.push([relatedChannel.authorId, url]);
-      }
-      await YTCrawler(relatedChannels);
   }
 }
 </script>
