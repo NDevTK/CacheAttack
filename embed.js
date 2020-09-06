@@ -3,8 +3,15 @@
 // NDev 2020 https://github.com/NDevTK/CacheAttack
 const max = 10;
 let firefox = navigator.userAgent.includes("Firefox");
+CacheJobs = [];
+ifCachedDirect = (navigator.userAgent.includes("Firefox")) ? ifCached_1Wrap : ifCached_2;
 
-ifCached = (navigator.userAgent.includes("Firefox")) ? ifCached_1Wrap : ifCached_2;
+async function ifCached(url) {
+    await Promise.all(CacheJobs);
+    let result = ifCachedDirect(url);
+    CacheJobs.push(result);
+    return await result;
+}
 
 async function getRules() {
     let req = await fetch("https://cache.ndev.tk/rules");
