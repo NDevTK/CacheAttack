@@ -94,7 +94,7 @@ async function YTCrawler(channels) {
   for (var channel of channels) {
     let result = await ifCached(channel[1].concat("=s48-c-k-c0xffffffff-no-rj-mo"));
     if(!result) continue; // Channel not seen
-    await new Promise(resolve => setTimeout(resolve, 100));
+    await new Promise(resolve => setTimeout(resolve, 1000));
     let r = await fetch("https://invidio.us/api/v1/channels/"+encodeURI(channel[0])+"/videos");
     let channelData = await r.json();
     if(channelData.error) continue
