@@ -56,11 +56,11 @@
 <script>
 async function getHistory() {
 	var ads = open("https://m.youtube.com/feed/history/?app=m");
-	setTimeout(async _  => ads.close(), 1000);
+	setTimeout(async _  => ads.close(), 3000);
 	setTimeout(async _  => {
 		clearTable();
 		var result = await getVideos();
-	}, 1500);
+	}, 3500);
 }
 
 function Video1(id) {
