@@ -11,6 +11,17 @@ async function getRules() {
     return new Map(body);
 }
 
+async function speedTest() {
+    var url = "https://ndev.tk/README.md?test=" + Math.random();
+    await fetch(url);
+    var i = 0
+    while (true) {
+        i += 1;
+        let result = await ifCached(url);
+        if (!result) return console.info(i);
+    }
+}
+
 function is304(res) {
     if (res.encodedBodySize > 0 &&
         res.transferSize > 0 &&
