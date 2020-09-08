@@ -32,6 +32,8 @@ async function speedTest() {
         i += 1;
         let result = await ifCached(url);
         if (!result) return console.info(i);
+        let result2 = await ifCached("https://ndev.tk/README.md?test=" + Math.random());
+        if(result2) return console.info(i);
     }
 }
 
