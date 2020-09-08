@@ -7,8 +7,21 @@ ifCached = (navigator.userAgent.includes("Firefox")) ? ifCached_1Wrap : ifCached
 
 async function getRules() {
     let req = await fetch("https://cache.ndev.tk/rules");
-    let body = await req.json();
-    return new Map(body);
+    let body = await req.json();  
+    return chunk(body, 100);
+}
+
+function chunk(arr, size){
+  let chunked = [];
+  for(let ele of arr){
+    let last = chunked[chunked.length - 1]
+    if(!last || last.length === size){
+      chunked.push([ele])
+    } else {
+      last.push(ele)
+    }
+  }
+  return chunked
 }
 
 async function speedTest() {
@@ -38,6 +51,12 @@ function PerformanceCheck(url) {
     return (res.transferSize === 0);
 }
 
+async function PromiseForeach(item, callback) {
+  var jobs = [];
+  item.forEach(x => jobs.push(callback(x)));
+  await Promise.all(jobs);
+}
+
 async function getWebsites(cb, CacheTest = true, performanceCheck = true) {
     var output = [];
     var callback = (cb) ? cb : website => {
@@ -49,14 +68,15 @@ async function getWebsites(cb, CacheTest = true, performanceCheck = true) {
         if(!TestResult) throw "Cache is not working :-(";
     }
     // Foreach website check if cached
-    for (let website of Websites) {
-	let check = null;
-        let result = await ifCached(website[0]);
-	if(performanceCheck === true) check = PerformanceCheck(website[0]);
-		
-	if(check || result && check === null) {
-	    callback(website[1]);
-	}
+    for (let chunk of Websites) {
+	await PromiseForeach(chunk, async website => {
+		let check = null;
+		let result = await ifCached(website[0]);
+		if(performanceCheck === true) check = PerformanceCheck(website[0]);		
+		if(check || result && check === null) {
+			callback(website[1]);
+		}
+	});
     }
     return output;
 }
