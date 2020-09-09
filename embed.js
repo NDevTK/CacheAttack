@@ -1,14 +1,14 @@
 /*jshint esversion: 8 */
 
 // NDev 2020 https://github.com/NDevTK/CacheAttack
-max = 100;
+max = 10;
 let firefox = navigator.userAgent.includes("Firefox");
 ifCached = (navigator.userAgent.includes("Firefox")) ? ifCached_1Wrap : ifCached_2;
 
 async function getRules() {
     let req = await fetch("https://cache.ndev.tk/rules");
     let body = await req.json();  
-    return chunk(body, 50);
+    return chunk(body, 5);
 }
 
 function chunk(arr, size){
