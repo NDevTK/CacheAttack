@@ -1,7 +1,7 @@
 /*jshint esversion: 8 */
 
 // NDev 2020 https://github.com/NDevTK/CacheAttack
-const max = 20;
+const max = 16;
 
 let firefox = navigator.userAgent.includes("Firefox");
 
@@ -23,9 +23,9 @@ async function getWebsites(cb = null, websites = null) {
         worker.postMessage(chunk);
         let result = await new Promise(resolve => {worker.onmessage = e => resolve(e.data);});
         worker.terminate();
-	if(!result) return
-	if(cb) cb(result);
-        output.push(result);
+	if(!result || result.length === 0) return
+	if(cb) result.map(cb);
+        result.map(output.push);
     });
     return output;
 }
