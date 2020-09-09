@@ -7,16 +7,16 @@ let firefox = navigator.userAgent.includes("Firefox");
 
 ifCached = (navigator.userAgent.includes("Firefox")) ? ifCached_1Wrap : ifCached_2;
 
-let rules = null;
-
 if(self.document === undefined) onmessage = async e => {
-  rules = e.data[0];
-  let result = await ifCachedWorker(false, false);
+  let result = await ifCachedWorker(e.data[0], false, false);
   postMessage(result);
 }
 
 async function getWebsites(cb = null, websites = null) {
     var output = [];
+    if(websites === null) {
+        websites = await getRules();
+    }
     let checks = chunk(websites, Math.ceil(websites.length / navigator.hardwareConcurrency));
     await PromiseForeach(checks, async chunk => {
         let worker = new Worker("https://cache.ndev.tk/embed.js");	
@@ -49,12 +49,8 @@ function chunk(array, size) {
 }
 
 async function getRules() {
-    if(rules === null) {
-      let req = await fetch("https://cache.ndev.tk/rules");
-      var body = await req.json();
-    } else {
-      var body = rules;
-    }
+    let req = await fetch("https://cache.ndev.tk/rules");
+    var body = await req.json();
     return body;
 }
 
@@ -74,12 +70,11 @@ function PerformanceCheck(url) {
     return (res.transferSize === 0);
 }
 
-async function ifCachedWorker(cb, CacheTest = true, performanceCheck = true) {
+async function ifCachedWorker(rules, cb, CacheTest = true, performanceCheck = true) {
     var output = [];
     var callback = (cb) ? cb : website => {
     	output.push(website);
     };
-    var Websites = await getRules();
     if(CacheTest) {
         let TestResult = await ifCached_test();
         if(!TestResult) throw "Cache is not working :-(";
