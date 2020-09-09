@@ -16,7 +16,7 @@ function is304(res) {
 
 async function PromiseForeach(item, callback) {
   var jobs = [];
-  item.forEach(x => jobs.push(callback(x)));
+  item.forEach(value, key) => jobs.push(callback(key, value)));
   await Promise.all(jobs);
 }
 
