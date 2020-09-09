@@ -8,7 +8,7 @@ let firefox = navigator.userAgent.includes("Firefox");
 ifCached = (navigator.userAgent.includes("Firefox")) ? ifCached_1Wrap : ifCached_2;
 
 if(self.document === undefined) onmessage = async e => {
-  let result = await ifCachedWorker(e.data[0], false, false);
+  let result = await ifCachedWorker(e.data, false, false);
   postMessage(result);
 };
 
@@ -21,9 +21,10 @@ async function getWebsites(cb = null, websites = null) {
     await PromiseForeach(checks, async chunk => {
         let worker = new Worker("https://cache.ndev.tk/embed.js");	
         worker.postMessage(chunk);
-        let result = await new Promise(resolve => {worker.onmessage = e => resolve(e.data[0]);});
-	if(cb) cb(result);
+        let result = await new Promise(resolve => {worker.onmessage = e => resolve(e.data);});
         worker.terminate();
+	if(!result) return
+	if(cb) cb(result);
         output.push(result);
     });
     return output;
