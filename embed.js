@@ -10,7 +10,7 @@ ifCached = (navigator.userAgent.includes("Firefox")) ? ifCached_1Wrap : ifCached
 if(self.document === undefined) onmessage = async e => {
   let result = await ifCachedWorker(e.data[0], false, false);
   postMessage(result);
-}
+};
 
 async function getWebsites(cb = null, websites = null) {
     var output = [];
@@ -21,7 +21,7 @@ async function getWebsites(cb = null, websites = null) {
     await PromiseForeach(checks, async chunk => {
         let worker = new Worker("https://cache.ndev.tk/embed.js");	
         worker.postMessage(chunk);
-        let result = await new Promise(resolve => {worker.onmessage = e => resolve(e.data[0])});
+        let result = await new Promise(resolve => {worker.onmessage = e => resolve(e.data[0]);});
 	if(cb) cb(result);
         worker.terminate();
         output.push(result);
@@ -91,15 +91,6 @@ async function ifCachedWorker(Websites, cb, CacheTest = true, performanceCheck =
     }
     return output;
 }
-
-async function getVideos(callback) {
-  checkedChannels = [];
-  let r = await fetch("https://cache.ndev.tk/channels");
-  let channels = await r.json();
-  YTCrawler(channels, callback);
-}
-
-
 
 async function ifCached_test() {
     let cache_test = "https://ndev.tk/README.md?".concat(Math.random());
