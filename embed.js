@@ -14,6 +14,12 @@ function is304(res) {
     return null;
 }
 
+async function getRules() {
+    let req = await fetch("https://cache.ndev.tk/rules");
+    let body = await req.json();  
+    return new Map(body);
+}
+
 function PerformanceCheck(url) {
     var res = performance.getEntriesByName(url).pop();
     if(res === undefined) return null;
@@ -32,16 +38,14 @@ async function getWebsites(cb, CacheTest = true, performanceCheck = true) {
         if(!TestResult) throw "Cache is not working :-(";
     }
     // Foreach website check if cached
-    for (let chunk of Websites) {
-	await PromiseForeach(chunk, async website => {
-		let check = null;
-		let result = await ifCached(website[0]);
-		if(performanceCheck === true) check = PerformanceCheck(website[0]);		
-		if(check || result && check === null) {
-			callback(website[1]);
-		}
-	});
-    }
+    await PromiseForeach(Websites, async website => {
+        let check = null;
+        let result = await ifCached(website[0]);
+        if(performanceCheck === true) check = PerformanceCheck(website[0]);		
+        if(check || result && check === null) {
+	    callback(website[1]);
+        }
+    });
     return output;
 }
 
