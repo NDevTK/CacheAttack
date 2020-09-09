@@ -13,7 +13,7 @@ if(self.document === undefined) onmessage = async e => {
 };
 
 async function getWebsites(cb = null, websites = null) {
-    var output = [];
+    var output = null;
     if(websites === null) {
         websites = await getRules();
     }
