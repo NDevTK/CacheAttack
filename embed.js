@@ -17,11 +17,12 @@ if(self.document) onmessage = async e => {
 
 async function ifCachedBulk(websites) {
     var output = [];
-    let checks = new Array(Math.ceil(websites.length / navigator.hardwareConcurrency)).fill().map(_ => websites.splice(0, navigator.hardwareConcurrency));
+    let checks = chunk(websites, Math.ceil(websites.length / navigator.hardwareConcurrency);
     await PromiseForeach(checks, async chunk => {
         let worker = new Worker("https://cache.ndev.tk/embed.js");	
         worker.postMessage(chunk);
 	let result = await new Promise(resolve => {worker.onmessage = e => resolve(e.data[0])});
+	worker.terminate();
 	output.push(result);
     });
     return output;
@@ -31,6 +32,19 @@ async function PromiseForeach(item, callback) {
   var jobs = [];
   item.forEach(x => jobs.push(callback(x)));
   await Promise.all(jobs);
+}
+
+function chunk(array, size) {
+    const chunked_arr = [];
+    for (let i = 0; i < array.length; i++) {
+      const last = chunked_arr[chunked_arr.length - 1];
+      if (!last || last.length === size) {
+        chunked_arr.push([array[i]]);
+      } else {
+        last.push(array[i]);
+      }
+    }
+    return chunked_arr;
 }
 
 async function getRules() {
