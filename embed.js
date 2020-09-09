@@ -27,9 +27,9 @@ async function ifCachedBulk(websites) {
 async function getRules() {
     if(rules === null) {
       let req = await fetch("https://cache.ndev.tk/rules");
-      let body = await req.json();
+      var body = await req.json();
     } else {
-      body = rules;
+      var body = rules;
     }
     return new Map(body);
 }
