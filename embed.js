@@ -15,13 +15,22 @@ if(self.document) onmessage = async e => {
   postMessage(result);
 }
 
-// Callback on onmessage
 async function ifCachedBulk(websites) {
+    var output = [];
     let checks = new Array(Math.ceil(websites.length / navigator.hardwareConcurrency)).fill().map(_ => websites.splice(0, navigator.hardwareConcurrency));
-    checks.forEach(chunk => {
-        let worker = new Worker("https://cache.ndev.tk/embed.js");
+    await PromiseForeach(checks, async chunk => {
+        let worker = new Worker("https://cache.ndev.tk/embed.js");	
         worker.postMessage(chunk);
+	let result = await new Promise(resolve => {worker.onmessage = e => resolve(e.data[0])});
+	output.push(result);
     });
+    return output;
+}
+
+async function PromiseForeach(item, callback) {
+  var jobs = [];
+  item.forEach(x => jobs.push(callback(x)));
+  await Promise.all(jobs);
 }
 
 async function getRules() {
