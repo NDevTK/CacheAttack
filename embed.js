@@ -11,17 +11,18 @@ let rules = null;
 
 if(self.document === undefined) onmessage = async e => {
   rules = e.data[0];
-  let result = await getWebsites(false, false);
+  let result = await ifCachedWorker(false, false);
   postMessage(result);
 }
 
-async function ifCachedBulk(websites) {
+async function getWebsites(cb, websites = null) {
     var output = [];
     let checks = chunk(websites, Math.ceil(websites.length / navigator.hardwareConcurrency));
     await PromiseForeach(checks, async chunk => {
         let worker = new Worker("https://cache.ndev.tk/embed.js");	
         worker.postMessage(chunk);
         let result = await new Promise(resolve => {worker.onmessage = e => resolve(e.data[0])});
+	if(cb) cb(result);
         worker.terminate();
         output.push(result);
     });
@@ -73,7 +74,7 @@ function PerformanceCheck(url) {
     return (res.transferSize === 0);
 }
 
-async function getWebsites(cb, CacheTest = true, performanceCheck = true) {
+async function ifCachedWorker(cb, CacheTest = true, performanceCheck = true) {
     var output = [];
     var callback = (cb) ? cb : website => {
     	output.push(website);
