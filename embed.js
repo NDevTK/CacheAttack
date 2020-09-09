@@ -1,40 +1,16 @@
 /*jshint esversion: 8 */
 
 // NDev 2020 https://github.com/NDevTK/CacheAttack
-max = 16;
+const max = 10;
+
 let firefox = navigator.userAgent.includes("Firefox");
+
 ifCached = (navigator.userAgent.includes("Firefox")) ? ifCached_1Wrap : ifCached_2;
 
 async function getRules() {
     let req = await fetch("https://cache.ndev.tk/rules");
-    let body = await req.json();  
-    return chunk(body, 5);
-}
-
-function chunk(arr, size){
-  let chunked = [];
-  for(let ele of arr){
-    let last = chunked[chunked.length - 1]
-    if(!last || last.length === size){
-      chunked.push([ele])
-    } else {
-      last.push(ele)
-    }
-  }
-  return chunked
-}
-
-async function speedTest() {
-    var url = "https://ndev.tk/README.md?test=" + Math.random();
-    await fetch(url);
-    var i = 0
-    while (true) {
-        i += 1;
-        let result = await ifCached(url);
-        if (!result) return console.info(i);
-        let result2 = await ifCached("https://ndev.tk/README.md?test=" + Math.random());
-        if(result2) return console.info(i);
-    }
+    let body = await req.json();
+    return new Map(body);
 }
 
 function is304(res) {
@@ -53,12 +29,6 @@ function PerformanceCheck(url) {
     return (res.transferSize === 0);
 }
 
-async function PromiseForeach(item, callback) {
-  var jobs = [];
-  item.forEach(value => jobs.push(callback(value)));
-  await Promise.all(jobs);
-}
-
 async function getWebsites(cb, CacheTest = true, performanceCheck = true) {
     var output = [];
     var callback = (cb) ? cb : website => {
@@ -70,15 +40,14 @@ async function getWebsites(cb, CacheTest = true, performanceCheck = true) {
         if(!TestResult) throw "Cache is not working :-(";
     }
     // Foreach website check if cached
-    for (let chunk of Websites) {
-	await PromiseForeach(chunk, async website => {
-		let check = null;
-		let result = await ifCached(website[0]);
-		if(performanceCheck === true) check = PerformanceCheck(website[0]);		
-		if(check || result && check === null) {
-			callback(website[1]);
-		}
-	});
+    for (let website of Websites) {
+	let check = null;
+        let result = await ifCached(website[0]);
+	if(performanceCheck === true) check = PerformanceCheck(website[0]);
+		
+	if(check || result && check === null) {
+	    callback(website[1]);
+	}
     }
     return output;
 }
@@ -95,9 +64,7 @@ async function getVideos(callback) {
 async function ifCached_test() {
     let cache_test = "https://ndev.tk/README.md?".concat(Math.random());
     let result = await ifCached(cache_test);
-    await fetch("https://ndev.tk/README.md");
-    let result2 = await ifCached("https://ndev.tk/README.md");
-    return (!result && result2);
+    return (!result);
 }
 
 async function ifCached_1Wrap(url) {
@@ -115,7 +82,6 @@ function ifCached_1(url) {
         img.hidden = true;
         img.onerror = _ => {
             clearTimeout(timeout);
-            checkActive = false;
             resolve();
         };
         img.onload = _ => resolve();
@@ -128,7 +94,7 @@ function ifCached_1(url) {
     });
 }
 
-async function ifCached_2(url) {
+async function ifCached_2(url){
     var state = true;
     var controller = new AbortController();
     var signal = controller.signal;
