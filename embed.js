@@ -70,7 +70,7 @@ function PerformanceCheck(url) {
     return (res.transferSize === 0);
 }
 
-async function ifCachedWorker(rules, cb, CacheTest = true, performanceCheck = true) {
+async function ifCachedWorker(Websites, cb, CacheTest = true, performanceCheck = true) {
     var output = [];
     var callback = (cb) ? cb : website => {
     	output.push(website);
