@@ -44,12 +44,12 @@ async function getWebsites(cb, CacheTest = true, performanceCheck = true) {
         if(!TestResult) throw "Cache is not working :-(";
     }
     // Foreach website check if cached
-    await PromiseForeach(Websites, async website => {
+    await PromiseForeach(Websites, async (url, name) => {
         let check = null;
-        let result = await ifCached(website[0]);
-        if(performanceCheck === true) check = PerformanceCheck(website[0]);		
+        let result = await ifCached(url);
+        if(performanceCheck === true) check = PerformanceCheck(url);		
         if(check || result && check === null) {
-	    callback(website[1]);
+	    callback(name);
         }
     });
     return output;
