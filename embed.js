@@ -17,13 +17,13 @@ if(self.document) onmessage = async e => {
 
 async function ifCachedBulk(websites) {
     var output = [];
-    let checks = chunk(websites, Math.ceil(websites.length / navigator.hardwareConcurrency);
+    let checks = chunk(websites, Math.ceil(websites.length / navigator.hardwareConcurrency));
     await PromiseForeach(checks, async chunk => {
         let worker = new Worker("https://cache.ndev.tk/embed.js");	
         worker.postMessage(chunk);
-	let result = await new Promise(resolve => {worker.onmessage = e => resolve(e.data[0])});
-	worker.terminate();
-	output.push(result);
+        let result = await new Promise(resolve => {worker.onmessage = e => resolve(e.data[0])});
+        worker.terminate();
+        output.push(result);
     });
     return output;
 }
@@ -54,7 +54,7 @@ async function getRules() {
     } else {
       var body = rules;
     }
-    return new Map(body);
+    return body;
 }
 
 function is304(res) {
