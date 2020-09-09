@@ -14,6 +14,12 @@ function is304(res) {
     return null;
 }
 
+async function PromiseForeach(item, callback) {
+  var jobs = [];
+  item.forEach(x => jobs.push(callback(x)));
+  await Promise.all(jobs);
+}
+
 async function getRules() {
     let req = await fetch("https://cache.ndev.tk/rules");
     let body = await req.json();  
