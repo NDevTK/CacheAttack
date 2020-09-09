@@ -9,7 +9,7 @@ ifCached = (navigator.userAgent.includes("Firefox")) ? ifCached_1Wrap : ifCached
 
 let rules = null;
 
-if(self.document) onmessage = async e => {
+if(self.document === undefined) onmessage = async e => {
   rules = e.data[0];
   let result = await getWebsites(false, false);
   postMessage(result);
