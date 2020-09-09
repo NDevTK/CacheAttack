@@ -7,9 +7,30 @@ let firefox = navigator.userAgent.includes("Firefox");
 
 ifCached = (navigator.userAgent.includes("Firefox")) ? ifCached_1Wrap : ifCached_2;
 
+let rules = null;
+
+if(window.document === undefined) onmessage = async e => {
+  rules = e.data[0];
+  let result = await getWebsites(false, false);
+  postMessage(result);
+}
+
+// Callback on onmessage
+async function ifCachedBulk(websites) {
+    let checks = new Array(Math.ceil(websites.length / navigator.hardwareConcurrency)).fill().map(_ => items.splice(0, navigator.hardwareConcurrency));
+    checks.forEach(chunk => {
+        let worker = new Worker("https://cache.ndev.tk/embed.js");
+        worker.postMessage(chunk);
+    });
+}
+
 async function getRules() {
-    let req = await fetch("https://cache.ndev.tk/rules");
-    let body = await req.json();
+    if(rules === null) {
+      let req = await fetch("https://cache.ndev.tk/rules");
+      let body = await req.json();
+    } else {
+      body = rules;
+    }
     return new Map(body);
 }
 
