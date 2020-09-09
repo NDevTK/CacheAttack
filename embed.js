@@ -15,7 +15,7 @@ if(self.document === undefined) onmessage = async e => {
   postMessage(result);
 }
 
-async function getWebsites(cb, websites = null) {
+async function getWebsites(cb = null, websites = null) {
     var output = [];
     let checks = chunk(websites, Math.ceil(websites.length / navigator.hardwareConcurrency));
     await PromiseForeach(checks, async chunk => {
