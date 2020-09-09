@@ -17,7 +17,7 @@ if(window.document === undefined) onmessage = async e => {
 
 // Callback on onmessage
 async function ifCachedBulk(websites) {
-    let checks = new Array(Math.ceil(websites.length / navigator.hardwareConcurrency)).fill().map(_ => items.splice(0, navigator.hardwareConcurrency));
+    let checks = new Array(Math.ceil(websites.length / navigator.hardwareConcurrency)).fill().map(_ => websites.splice(0, navigator.hardwareConcurrency));
     checks.forEach(chunk => {
         let worker = new Worker("https://cache.ndev.tk/embed.js");
         worker.postMessage(chunk);
