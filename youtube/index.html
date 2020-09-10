@@ -93,7 +93,7 @@ async function getVideos() {
 async function YTCrawler(channels) {
   var checks = []
   for (var channel of channels) {
-    checks.push(channel[1].concat("=s88-c-k-c0xffffffff-no-rj-mo"));
+    checks.push(channel[0], channel[1].concat("=s88-c-k-c0xffffffff-no-rj-mo"));
   }
   var cached_channels = await getWebsites(null, checks);
   for (var channel of cached_channels) {
@@ -101,10 +101,9 @@ async function YTCrawler(channels) {
     let channelData = await r.json();
     if(channelData.error) continue
     var videos = [];
-    var titles = [];
     for (var video of channelData) {
-	    videos.push(Video1(video.videoId));
-	    videos.push(Video2(video.videoId));
+	    videos.push(Video1(video.videoId), video.title);
+	    videos.push(Video2(video.videoId), video.title);
      };
      var cached_videos = await getWebsites(null, videos);
      cached_videos.map(addData);
