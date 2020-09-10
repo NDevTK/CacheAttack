@@ -1,14 +1,14 @@
 /*jshint esversion: 8 */
 
 // NDev 2020 https://github.com/NDevTK/CacheAttack
-const max = 14;
+const max = 10;
 
 let firefox = navigator.userAgent.includes("Firefox");
 
 ifCached = (navigator.userAgent.includes("Firefox")) ? ifCached_1Wrap : ifCached_2;
 
 if(self.document === undefined) onmessage = async e => {
-  let result = await ifCachedWorker(e.data, false, false);
+  let result = await ifCachedWorker(e.data);
   postMessage(result);
 };
 
