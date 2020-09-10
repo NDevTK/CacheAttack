@@ -72,11 +72,8 @@ function PerformanceCheck(url) {
     return (res.transferSize !== 0);
 }
 
-async function ifCachedWorker(Websites, cb, CacheTest = false, performanceCheck = true) {
+async function ifCachedWorker(Websites, CacheTest = false, performanceCheck = true) {
     var output = [];
-    var callback = (cb) ? cb : website => {
-    	output.push(website);
-    };
     if(CacheTest) {
         let TestResult = await ifCached_test();
         if(!TestResult) throw "Cache is not working :-(";
@@ -85,15 +82,17 @@ async function ifCachedWorker(Websites, cb, CacheTest = false, performanceCheck 
     for (let website of Websites) {
 	let check = null;
         let result = await ifCached(website[0]);
-	if(performanceCheck !== false && result || performanceCheck === "always") {
-	    await new Promise(resolve => setTimeout(resolve, 50));
-	    check = PerformanceCheck(website[0]);
-	}
 	if(check || result && check !== null || performanceCheck === false && result) {
-	    callback(website[1]);
+	    output.push(website[1]);
 	}
     }
-    return output;
+    if(performanceCheck === false) return output
+    await new Promise(resolve => setTimeout(resolve, 100));
+    var output2 = [];
+    for (let website of Websites) {
+	if(PerformanceCheck(website[0])) output2.push(website[0])
+    }
+    return output2;
 }
 
 async function ifCached_test() {
