@@ -85,8 +85,11 @@ async function ifCachedWorker(Websites, cb, CacheTest = false, performanceCheck 
     for (let website of Websites) {
 	let check = null;
         let result = await ifCached(website[0]);
-	if(performanceCheck === true) check = PerformanceCheck(website[0]);	
-	if(check || result && check !== null) {
+	if(performanceCheck === true) {
+	    await new Promise(resolve => setTimeout(resolve, 50));
+	    check = PerformanceCheck(website[0]);
+	}
+	if(check || result && check !== null || performanceCheck === false && result) {
 	    callback(website[1]);
 	}
     }
