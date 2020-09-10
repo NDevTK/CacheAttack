@@ -89,7 +89,7 @@ async function ifCachedWorker(Websites, CacheTest = false, performanceCheck = tr
     if(performanceCheck === false) return output
     await new Promise(resolve => setTimeout(resolve, 100));
     var output2 = [];
-    for (let website of Websites) {
+    for (let website of output) {
 	if(PerformanceCheck(website[0])) output2.push(website[0])
     }
     return output2;
