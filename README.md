@@ -1,5 +1,6 @@
 # CacheAttack
 A Timing attack on the browser to try to predict websites that have cached.  
+Mobile devices may not work correctly.
 
 How to use?  (Its Recommended to have a delay before running getWebsites)  
 Add: `<script src="https://cache.ndev.tk/embed.js"></script>`  
