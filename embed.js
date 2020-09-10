@@ -67,7 +67,7 @@ function is304(res) {
 
 function PerformanceCheck(url) {
     var res = performance.getEntriesByName(url).pop();
-    if(res === undefined) return false;
+    if(res === undefined) return null;
     if(is304(res)) return true;
     return (res.transferSize !== 0);
 }
@@ -86,7 +86,7 @@ async function ifCachedWorker(Websites, cb, CacheTest = false, performanceCheck 
 	let check = null;
         let result = await ifCached(website[0]);
 	if(performanceCheck === true) check = PerformanceCheck(website[0]);	
-	if(check || result && check === null) {
+	if(check || result && check !== null) {
 	    callback(website[1]);
 	}
     }
