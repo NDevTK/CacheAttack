@@ -26,7 +26,7 @@ async function getWebsites(cb = null, websites = null) {
         worker.terminate();
 	if(!result || result.length === 0) return
 	if(cb) result.map(cb);
-        result.map(output.push);
+        result.map(item => output.push(item));
     });
     return output;
 }
