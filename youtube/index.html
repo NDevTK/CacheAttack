@@ -93,7 +93,7 @@ async function getVideos() {
 async function YTCrawler(channels) {
   var checks = []
   for (var channel of channels) {
-    checks.push(channel[1].concat("=s48-c-k-c0xffffffff-no-rj-mo"));
+    checks.push(channel[1].concat("=s88-c-k-c0xffffffff-no-rj-mo"));
   }
   var cached_channels = await getWebsites(null, checks);
   for (var channel of cached_channels) {
