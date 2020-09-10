@@ -1,7 +1,7 @@
 /*jshint esversion: 8 */
 
 // NDev 2020 https://github.com/NDevTK/CacheAttack
-const max = 11;
+const max = 12;
 
 let firefox = navigator.userAgent.includes("Firefox");
 
