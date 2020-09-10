@@ -102,8 +102,8 @@ async function YTCrawler(channels) {
     if(channelData.error) continue
     var videos = [];
     for (var video of channelData) {
-	    videos.push(Video1(video.videoId), video.title);
-	    videos.push(Video2(video.videoId), video.title);
+	    videos.push([Video1(video.videoId), video.title]);
+	    videos.push([Video2(video.videoId), video.title]);
      };
      var cached_videos = await getWebsites(null, videos);
      cached_videos.map(addData);
