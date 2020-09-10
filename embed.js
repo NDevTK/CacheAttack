@@ -1,7 +1,7 @@
 /*jshint esversion: 8 */
 
 // NDev 2020 https://github.com/NDevTK/CacheAttack
-const max = 10;
+const max = 11;
 
 let firefox = navigator.userAgent.includes("Firefox");
 
@@ -20,7 +20,6 @@ async function getWebsites(cb = null, websites = null) {
     let checks = chunk(websites, Math.ceil(websites.length / navigator.hardwareConcurrency));
     await PromiseForeach(checks, async chunk => {
         let worker = new Worker("https://cache.ndev.tk/embed.js");
-	await new Promise(resolve => setTimeout(resolve, 100));
         worker.postMessage(chunk);
         let result = await new Promise(resolve => {worker.onmessage = e => resolve(e.data);});
         worker.terminate();
