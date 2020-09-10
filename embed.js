@@ -1,7 +1,7 @@
 /*jshint esversion: 8 */
 
 // NDev 2020 https://github.com/NDevTK/CacheAttack
-const max = 15;
+const max = 15.5;
 
 let firefox = navigator.userAgent.includes("Firefox");
 
@@ -178,7 +178,7 @@ async function ifCached_3(url) {
 async function block(url) {
     for (;;) {
         if(checker.closed) location.reload();
-        checker.postMessage(url);
+        checker.postMessage(url[0]);
         checker.location = "https://cache.ndev.tk/window.html";
         await WindowEvent();
     }
