@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', async _ => {
 async function addData(displayName) {
     dataTable.hidden = false;
     info.hidden = true;
-    data.insertRow(0).insertCell(0).innerText = displayName[0];
+    data.insertRow(0).insertCell(0).innerText = displayName[1];
 }
 
 function clearTable() {
