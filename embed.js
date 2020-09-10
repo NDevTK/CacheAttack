@@ -1,7 +1,7 @@
 /*jshint esversion: 8 */
 
 // NDev 2020 https://github.com/NDevTK/CacheAttack
-const max = 13.5;
+const max = 15;
 
 let firefox = navigator.userAgent.includes("Firefox");
 
@@ -96,7 +96,9 @@ async function ifCachedWorker(Websites, cb, CacheTest = true, performanceCheck =
 async function ifCached_test() {
     let cache_test = "https://ndev.tk/README.md?".concat(Math.random());
     let result = await ifCached(cache_test);
-    return (!result);
+    await fetch("https://ndev.tk/README.md");
+    let result2 = await ifCached("https://ndev.tk/README.md");
+    return (!result && result2);
 }
 
 async function ifCached_1Wrap(url) {
