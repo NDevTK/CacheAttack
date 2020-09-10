@@ -1,7 +1,7 @@
 /*jshint esversion: 8 */
 
 // NDev 2020 https://github.com/NDevTK/CacheAttack
-max = 17;
+max = 16;
 
 let firefox = navigator.userAgent.includes("Firefox");
 
@@ -80,9 +80,8 @@ async function ifCachedWorker(Websites, CacheTest = false, performanceCheck = tr
     }
     // Foreach website check if cached
     for (let website of Websites) {
-	let check = null;
         let result = await ifCached(website[0]);
-	if(check || result && check !== null || performanceCheck === false && result) {
+	if(result) {
 	    output.push(website[1]);
 	}
     }
