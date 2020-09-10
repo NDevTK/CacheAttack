@@ -8,7 +8,7 @@ let firefox = navigator.userAgent.includes("Firefox");
 ifCached = (navigator.userAgent.includes("Firefox")) ? ifCached_1Wrap : ifCached_2;
 
 if(self.document === undefined) onmessage = async e => {
-  await new Promise(resolve => setTimeout(resolve, 1000));
+  await fetch("https://cache.ndev.tk/README.md");
   let result = await ifCachedWorker(e.data);
   postMessage(result);
 };
@@ -72,7 +72,7 @@ function PerformanceCheck(url) {
     return (res.transferSize === 0);
 }
 
-async function ifCachedWorker(Websites, cb, CacheTest = true, performanceCheck = true) {
+async function ifCachedWorker(Websites, cb, CacheTest = false, performanceCheck = true) {
     var output = [];
     var callback = (cb) ? cb : website => {
     	output.push(website);
