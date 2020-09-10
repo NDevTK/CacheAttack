@@ -97,7 +97,7 @@ async function YTCrawler(channels) {
   }
   var cached_channels = await getWebsites(null, checks);
   for (var channel of cached_channels) {
-    let r = await fetch("https://invidio.us/api/v1/channels/"+encodeURI(channel[0])+"/videos");
+    let r = await fetch("https://invidio.us/api/v1/channels/"+encodeURI(channel)+"/videos");
     let channelData = await r.json();
     if(channelData.error) continue
     var videos = [];
