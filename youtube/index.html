@@ -73,9 +73,11 @@ function Video2(id) {
 async function addData(item) {
     dataTable.hidden = false;
     let cell = data.insertRow(0).insertCell(0);
-    cell.innerText = item[1];
+    cell.innerText = item[1] + " ";
     let img = document.createElement('img');
     img.src = item[0];
+    img.width="150rem";
+    img.alt=item[1];
     cell.appendChild(img);
 }
 
