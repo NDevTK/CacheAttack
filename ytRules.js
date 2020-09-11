@@ -10,7 +10,10 @@ async function getChannels() {
   var output = new Map(JSON.parse(fs.readFileSync('channels')));
   console.info("Fetching top channels");
   let r = await fetch("https://cors.usercontent.ndev.tk/channels");
+  let popular = await fetch("https://cors.usercontent.ndev.tk/popular");
   let channels = await r.json();
+  let popular = await popular.json();
+  channels.concat(popular);
   //channels.length = 5;
   console.info("Getting data from Youtube");
   await PromiseForeach(channels, async (channel, index) => {
