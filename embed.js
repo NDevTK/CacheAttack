@@ -12,7 +12,7 @@ if(self.document === undefined) {
         let result = await ifCachedWorker(e.data);
         postMessage(result);
     }
-    postMessage("ready");
+    setTimeout(_ => postMessage("ready"), 150);
 };
 
 async function getWebsites(cb = null, websites = null) {
