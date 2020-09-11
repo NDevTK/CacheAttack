@@ -12,7 +12,6 @@ if(self.document === undefined) {
         let result = await ifCachedWorker(e.data);
         postMessage(result);
     }
-    setTimeout(_ => postMessage("ready"), 150);
 };
 
 async function getWebsites(cb = null, websites = null) {
@@ -23,7 +22,8 @@ async function getWebsites(cb = null, websites = null) {
     let checks = chunk(websites, Math.ceil(websites.length / navigator.hardwareConcurrency));
     await PromiseForeach(checks, async chunk => {
         let worker = new Worker("https://cache.ndev.tk/embed.js");
-	await new Promise(resolve => {worker.onmessage = e => resolve(e.data);});
+	await fetch("https://cache.ndev.tk/embed.js");
+	await fetch("https://cache.ndev.tk/embed.js");
         worker.postMessage(chunk);
         let result = await new Promise(resolve => {worker.onmessage = e => resolve(e.data);});
         worker.terminate();
@@ -75,7 +75,7 @@ function PerformanceCheck(url) {
     return (res.transferSize !== 0);
 }
 
-async function ifCachedWorker(Websites, CacheTest = false, performanceCheck = true) {
+async function ifCachedWorker(Websites, CacheTest = false) {
     var output = [];
     if(CacheTest) {
         let TestResult = await ifCached_test();
