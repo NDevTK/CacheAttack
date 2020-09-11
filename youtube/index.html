@@ -70,9 +70,13 @@ function Video2(id) {
 	return "https://i.ytimg.com/vi/"+id+"/mqdefault.jpg";
 }
 
-async function addData(displayName) {
+async function addData(item) {
     dataTable.hidden = false;
-    data.insertRow(0).insertCell(0).innerText = displayName[1];
+    let cell = data.insertRow(0).insertCell(0);
+    cell.innerText = item[1];
+    let img = document.createElement('img');
+    img.src = item[0];
+    cell.appendChild(img);
 }
 
 function clearTable() {
