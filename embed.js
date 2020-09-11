@@ -28,7 +28,7 @@ async function getWebsites(cb = null, websites = null) {
 	if(!result || result.length === 0) return
 	if(cb) result.map(cb);
         result.map(item => output.push(item));
-    }, 50);
+    }, 100);
     return output;
 }
 
