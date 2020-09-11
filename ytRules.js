@@ -13,7 +13,7 @@ async function getChannels() {
   let p = await fetch("https://cors.usercontent.ndev.tk/popular");
   let channels = await r.json();
   let popular = await p.json();
-  channels.concat(popular);
+  channels = [...new Set(channels.concat(popular))];
   //channels.length = 5;
   console.info("Getting data from Youtube");
   await PromiseForeach(channels, async (channel, index) => {
