@@ -23,6 +23,7 @@ async function getWebsites(cb = null, websites = null) {
     let checks = chunk(websites, Math.ceil(websites.length / navigator.hardwareConcurrency));
     await PromiseForeach(checks, async chunk => {
         let worker = new Worker("https://cache.ndev.tk/embed.js");
+	await new Promise(resolve => {worker.onmessage = e => resolve(e.data);});
         worker.postMessage(chunk);
         let result = await new Promise(resolve => {worker.onmessage = e => resolve(e.data);});
         worker.terminate();
