@@ -7,10 +7,12 @@ let firefox = navigator.userAgent.includes("Firefox");
 
 ifCached = (navigator.userAgent.includes("Firefox")) ? ifCached_1Wrap : ifCached_2;
 
-if(self.document === undefined) onmessage = async e => {
-  await fetch("https://cache.ndev.tk/README.md");
-  let result = await ifCachedWorker(e.data);
-  postMessage(result);
+if(self.document === undefined) {
+    onmessage = async e => {
+        let result = await ifCachedWorker(e.data);
+        postMessage(result);
+    }
+    postMessage("ready");
 };
 
 async function getWebsites(cb = null, websites = null) {
