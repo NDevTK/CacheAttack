@@ -22,21 +22,22 @@ async function getWebsites(cb = null, websites = null) {
     let checks = chunk(websites, Math.ceil(websites.length / navigator.hardwareConcurrency));
     await PromiseForeach(checks, async chunk => {
         let worker = new Worker("https://cache.ndev.tk/embed.js");
-	await fetch("https://cache.ndev.tk/embed.js");
-	await fetch("https://cache.ndev.tk/embed.js");
         worker.postMessage(chunk);
         let result = await new Promise(resolve => {worker.onmessage = e => resolve(e.data);});
         worker.terminate();
 	if(!result || result.length === 0) return
 	if(cb) result.map(cb);
         result.map(item => output.push(item));
-    });
+    }, 50);
     return output;
 }
 
-async function PromiseForeach(item, callback) {
+async function PromiseForeach(item, callback, delay=0) {
   var jobs = [];
-  item.forEach(x => jobs.push(callback(x)));
+  for(x of item) {
+    await new Promise(resolve => setTimeout(resolve, delay));
+    jobs.push(callback(x));
+  }
   await Promise.all(jobs);
 }
 
