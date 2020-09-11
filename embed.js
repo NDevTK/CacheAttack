@@ -1,7 +1,7 @@
 /*jshint esversion: 8 */
 
 // NDev 2020 https://github.com/NDevTK/CacheAttack
-max = 9.5;
+max = 10.5;
 
 let firefox = navigator.userAgent.includes("Firefox");
 
@@ -28,7 +28,7 @@ async function getWebsites(cb = null, websites = null) {
 	if(!result || result.length === 0) return
 	if(cb) result.map(cb);
         result.map(item => output.push(item));
-    }, 700);
+    }, 600);
     return output;
 }
 
