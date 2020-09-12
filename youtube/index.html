@@ -11,6 +11,7 @@
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 <script src="https://ndev.tk/mirror/HackTimer/HackTimer.min.js"></script>
 <script src="https://cache.ndev.tk/embed.js"></script>
+<script src="https://cache.ndev.tk/youtube/main.js"></script>
 </head>
 <body>
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
@@ -53,75 +54,3 @@
     <tbody id="data"></tbody>
 </table>
 </body>
-<script>
-async function getHistory() {
-	var ads = open("https://m.youtube.com/feed/history/?app=m");
-	setTimeout(async _  => ads.close(), 3000);
-	setTimeout(async _  => {
-		clearTable();
-		var result = await getVideos();
-	}, 3500);
-}
-
-function Video1(id) {
-	return "https://i.ytimg.com/vi_webp/"+id+"/mqdefault.webp";
-}
-
-function Video2(id) {
-	return "https://i.ytimg.com/vi/"+id+"/mqdefault.jpg";
-}
-
-function loaded() {
-    if (dataTable.hidden === true) {
-        info.innerText = "No result found :(";
-    } else {
-        info.hidden = true;
-    }
-}
-
-async function addData(item) {
-    dataTable.hidden = false;
-    let cell = data.insertRow(0).insertCell(0);
-    cell.innerText = item[1] + "  ";
-    let img = document.createElement('img');
-    img.src = item[0];
-    img.setAttribute("width", "100rem");
-    img.alt=item[1];
-    cell.appendChild(img);
-}
-
-function clearTable() {
-    var rowCount = dataTable.rows.length; while(--rowCount) dataTable.deleteRow(rowCount);
-    dataTable.hidden = true;
-    info.innerText = "Loading...";
-    info.hidden = false;
-}
-
-async function getVideos() {
-  let r = await fetch("https://cache.ndev.tk/channels");
-  let channels = await r.json();
-  await YTCrawler(channels);
-  loaded();
-}
-
-async function YTCrawler(channels) {
-  var checks = []
-  for (var channel of channels) {
-    checks.push([channel[1].concat("=s88-c-k-c0xffffffff-no-rj-mo"), channel[0]]);
-  }
-  var cached_channels = await getWebsites(null, checks);
-  for (var channel of cached_channels) {
-    let r = await fetch("https://invidio.us/api/v1/channels/"+encodeURI(channel[1])+"/videos");
-    let channelData = await r.json();
-    addData([channel[0], channelData[0].author]);
-    if(channelData.error) continue
-    var videos = [];
-    for (var video of channelData) {
-	    videos.push([Video1(video.videoId), video.title]);
-	    videos.push([Video2(video.videoId), video.title]);
-     };
-     var cached_videos = await getWebsites(null, videos);
-     cached_videos.map(addData);
-  }
-}
-</script>
