@@ -173,7 +173,7 @@ async function ifCached_3(url) {
     checker.location = "https://cache.ndev.tk/window.html";
   }
   await WindowEvent("load");
-  if(firefox) await new Promise(resolve => setTimeout(resolve, 50));
+  if(firefox) await new Promise(resolve => setTimeout(resolve, 45));
   return event;
 }
 
