@@ -2,9 +2,9 @@
 
 // NDev 2020 https://github.com/NDevTK/CacheAttack
 
-const max = 10.5;
-
 const firefox = navigator.userAgent.includes("Firefox");
+
+const max = (firefox) ? 15 : 10.5;
 
 var ifCached = (firefox) ? ifCached_1Wrap : ifCached_2;
 
