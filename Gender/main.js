@@ -1,6 +1,6 @@
 /*jshint esversion: 8 */
 
-// NDev 2020 https://github.com/NDevTK/CacheAttack
+// NDev 2020 https://github.com/NDevTK/CacheAttack/tree/master/Gender
 
 Rules = new Map();
 
