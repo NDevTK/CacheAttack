@@ -71,6 +71,14 @@ function Video2(id) {
 	return "https://i.ytimg.com/vi/"+id+"/mqdefault.jpg";
 }
 
+function loaded() {
+    if (dataTable.hidden === true) {
+        info.innerText = "No result found :(";
+    } else {
+        info.hidden = true;
+    }
+}
+
 async function addData(item) {
     dataTable.hidden = false;
     let cell = data.insertRow(0).insertCell(0);
@@ -93,7 +101,7 @@ async function getVideos() {
   let r = await fetch("https://cache.ndev.tk/channels");
   let channels = await r.json();
   await YTCrawler(channels);
-  info.hidden = true;
+  loaded();
 }
 
 async function YTCrawler(channels) {
