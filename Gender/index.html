@@ -10,6 +10,7 @@
 <link rel="icon" href="/favicon.ico" type="image/x-icon">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 <script src="https://cache.ndev.tk/embed.js"></script>
+<script src="https://cache.ndev.tk/Gender/main.js"></script>
 </head>
 <body>
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
@@ -45,37 +46,3 @@
 <button onclick="getGender()">Click!</button>
 <br><h2 id="gender"></h2>
 </body>
-<script>
-Rules = new Map();
-
-async function getGender() {
-	var ads = open("https://adssettings.google.com/authenticated");
-	setTimeout(async _  => ads.close(), 500);
-	setTimeout(async _  => {
-		var result = await GenderDetect();
-		gender.innerText = "Result: "+ result;
-	}, 1000);
-}
-
-async function getRules() {
-	Gender("Female");
-	Gender("Male");
-	return Rules
-}
-
-function Gender(g) {
-	Rules.set("https://www.gstatic.com/identity/boq/adssettingsui/demographic/i_gender_"+g.toLowerCase()+"_ee2fb99c014437125dfe9358e4ea50aa.svg", g);
-}
-
-async function AdPref() {
-	return await ifCached("https://www.gstatic.com/identity/boq/adssettingsui/demographic/i_age_ee6695b8688539f7175e364579d4a749.svg");
-}
-
-async function GenderDetect() {
-	var Test = await AdPref();
-	if(!Test) return "Ad personalization is OFF";
-	var images = await getWebsites();
-	if(images.length > 1) return "Multiple genders cached";
-	return (images.length === 1) ? images[0] : "Rather not say";
-}
-</script>
