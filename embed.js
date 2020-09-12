@@ -10,7 +10,7 @@ var ifCached = (firefox) ? ifCached_1Wrap : ifCached_2;
 
 if(self.document === undefined) {
     onmessage = async e => {
-        let result = await ifCachedWorker(e.data);
+        let result = await ifCachedWorker(null, e.data);
         postMessage(result);
     };
 }
@@ -32,6 +32,8 @@ async function getWebsites(cb = null, websites = null) {
     }, 600);
     return output;
 }
+
+if(firefox) getWebsites = ifCachedWorker;
 
 async function PromiseForeach(item, callback, delay=0) {
   var jobs = [];
@@ -77,7 +79,7 @@ function PerformanceCheck(url) {
     return (res.transferSize !== 0);
 }
 
-async function ifCachedWorker(websites = null, CacheTest = false) {
+async function ifCachedWorker(cb = null, websites = null, CacheTest = false) {
     if(websites === null) {
         websites = await getRules();
     }
@@ -91,6 +93,7 @@ async function ifCachedWorker(websites = null, CacheTest = false) {
         let result = await ifCached(website[0]);
 	if(result) {
 	    output.push([website[0], website[1]]);
+	    if(cb) cb([website[0], website[1]]);
 	}
     }
     return output;
