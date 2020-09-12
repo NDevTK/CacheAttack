@@ -36,7 +36,8 @@ async function windowMode() {
     if(!navigator.userAgent.includes("Firefox") && !confirm("Warning: for chrome window mode will brake CacheAttack after the first run.")) return;
     ifCached = ifCached_3;
     setTimeout(async _ => {
-        await getWebsites(displayName => addData(displayName), true, false);
+        let results = await ifCachedWorker();
+        results.map(addData);
         loaded();
     }, 1000);
 }
