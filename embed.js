@@ -77,7 +77,10 @@ function PerformanceCheck(url) {
     return (res.transferSize !== 0);
 }
 
-async function ifCachedWorker(Websites, CacheTest = false) {
+async function ifCachedWorker(Websites = null, CacheTest = false) {
+    if(websites === null) {
+        websites = await getRules();
+    }
     var output = [];
     if(CacheTest) {
         let TestResult = await ifCached_test();
