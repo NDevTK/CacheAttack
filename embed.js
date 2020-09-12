@@ -6,8 +6,6 @@ const firefox = navigator.userAgent.includes("Firefox");
 
 const max = 10.5;
 
-var ifCached = (firefox) ? ifCached_1Wrap : ifCached_2;
-
 if(self.document === undefined) {
     onmessage = async e => {
         let result = await ifCachedWorker(null, e.data);
@@ -105,42 +103,13 @@ async function ifCached_test() {
     return (!result && result2);
 }
 
-async function ifCached_1Wrap(url) {
-    try {
-        await ifCached_1(url);
-    } catch(err) {
-        // First try may fail.
-    }
-    try {
-        await ifCached_1(url);
-    } catch(err) {
-        return false;
-    }
-    return true;
-}
-
-function ifCached_1(url) {
-    return new Promise((resolve, reject) => {
-        let img = new Image(0, 0);
-        img.hidden = true;
-        img.onerror = _ => {
-            clearTimeout(timeout);
-            resolve();
-        };
-        img.onload = _ => resolve();
-        img.src = url;
-        var timeout = setTimeout(_ => {
-            img.src = "";
-            img.remove();
-            reject();
-        }, max);
-    });
-}
-
-async function ifCached_2(url){
+async function ifCached(url) {
     var state = true;
     var controller = new AbortController();
     var signal = controller.signal;
+    signal.addEventListener('abort', () => {
+        state = signal.aborted;
+    });
     var timeout = await setTimeout(_ => { // Stop request after max
         controller.abort();
         state = false;
@@ -148,9 +117,9 @@ async function ifCached_2(url){
     try {
         await fetch(url, {mode: "no-cors", signal});
     } catch(err) {
-	    // Website blocked by client
-	    clearTimeout(timeout);
-	}
+        // Website blocked by client
+        clearTimeout(timeout);
+    }
     clearTimeout(timeout);
     return state;
 }
