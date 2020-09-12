@@ -2,11 +2,11 @@
 
 // NDev 2020 https://github.com/NDevTK/CacheAttack
 
-max = 10.5;
+const max = 10.5;
 
 let firefox = navigator.userAgent.includes("Firefox");
 
-ifCached = (navigator.userAgent.includes("Firefox")) ? ifCached_1Wrap : ifCached_2;
+var ifCached = (navigator.userAgent.includes("Firefox")) ? ifCached_1Wrap : ifCached_2;
 
 if(self.document === undefined) {
     onmessage = async e => {
