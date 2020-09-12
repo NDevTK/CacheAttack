@@ -33,8 +33,6 @@ async function getWebsites(cb = null, websites = null) {
     return output;
 }
 
-if(firefox) getWebsites = ifCachedWorker;
-
 async function PromiseForeach(item, callback, delay=0) {
   var jobs = [];
   for(let x of item) {
@@ -120,7 +118,6 @@ async function ifCached_1Wrap(url) {
     }
     return true;
 }
-
 
 function ifCached_1(url) {
     return new Promise((resolve, reject) => {
