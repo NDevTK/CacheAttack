@@ -4,7 +4,7 @@
 
 const firefox = navigator.userAgent.includes("Firefox");
 
-const max = (firefox) ? 20.5 : 10.5;
+const max = 10.5;
 
 var ifCached = (firefox) ? ifCached_1Wrap : ifCached_2;
 
