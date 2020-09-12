@@ -108,10 +108,16 @@ async function ifCached_1Wrap(url) {
     try {
         await ifCached_1(url);
     } catch(err) {
+        // First try may fail.
+    }
+    try {
+        await ifCached_1(url);
+    } catch(err) {
         return false;
     }
     return true;
 }
+
 
 function ifCached_1(url) {
     return new Promise((resolve, reject) => {
