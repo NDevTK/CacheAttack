@@ -1,3 +1,7 @@
+/*jshint esversion: 8 */
+
+// NDev 2020 https://github.com/NDevTK/CacheAttack
+
 ClassC(["192.168.1.", "192.168.0.", "10.0.0."], Checker);
 
 async function Checker(ip) {
@@ -8,9 +12,9 @@ async function Checker(ip) {
 async function ClassC(array, callback) {
     array.forEach(prefix => {
         for (var i = 1; i <= 255; i++) {
-            callback(prefix + i)
+            callback(prefix + i);
         }
-    })
+    });
 }
 
 async function wait(ms) {
