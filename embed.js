@@ -4,9 +4,9 @@
 
 const max = 10.5;
 
-let firefox = navigator.userAgent.includes("Firefox");
+const firefox = navigator.userAgent.includes("Firefox");
 
-var ifCached = (navigator.userAgent.includes("Firefox")) ? ifCached_1Wrap : ifCached_2;
+var ifCached = (firefox) ? ifCached_1Wrap : ifCached_2;
 
 if(self.document === undefined) {
     onmessage = async e => {
