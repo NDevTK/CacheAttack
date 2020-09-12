@@ -4,7 +4,7 @@
 
 const firefox = navigator.userAgent.includes("Firefox");
 
-const max = (firefox) ? 15 : 10.5;
+const max = (firefox) ? 20.5 : 10.5;
 
 var ifCached = (firefox) ? ifCached_1Wrap : ifCached_2;
 
@@ -173,7 +173,7 @@ async function ifCached_3(url) {
     checker.location = "https://cache.ndev.tk/window.html";
   }
   await WindowEvent("load");
-  if(firefox) await new Promise(resolve => setTimeout(resolve, 45));
+  if(firefox) await new Promise(resolve => setTimeout(resolve, 50));
   return event;
 }
 
