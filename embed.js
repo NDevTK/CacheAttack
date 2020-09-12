@@ -77,7 +77,7 @@ function PerformanceCheck(url) {
     return (res.transferSize !== 0);
 }
 
-async function ifCachedWorker(Websites = null, CacheTest = false) {
+async function ifCachedWorker(websites = null, CacheTest = false) {
     if(websites === null) {
         websites = await getRules();
     }
@@ -87,7 +87,7 @@ async function ifCachedWorker(Websites = null, CacheTest = false) {
         if(!TestResult) throw "Cache is not working :-(";
     }
     // Foreach website check if cached
-    for (let website of Websites) {
+    for (let website of websites) {
         let result = await ifCached(website[0]);
 	if(result) {
 	    output.push([website[0], website[1]]);
