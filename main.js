@@ -19,6 +19,7 @@ function clearTable() {
     var rowCount = dataTable.rows.length; while(--rowCount) dataTable.deleteRow(rowCount);
     dataTable.hidden = true;
     info.innerText = "Loading...";
+    info.hidden = false;
 }
 
 function windowMode() {
