@@ -1,3 +1,7 @@
+/*jshint esversion: 8 */
+
+// NDev 2020 https://github.com/NDevTK/CacheAttack
+
 Rules = new Map();
 
 async function getGender() {
@@ -12,7 +16,7 @@ async function getGender() {
 async function getRules() {
 	Gender("Female");
 	Gender("Male");
-	return Rules
+	return Rules;
 }
 
 function Gender(g) {
