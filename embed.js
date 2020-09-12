@@ -1,6 +1,7 @@
 /*jshint esversion: 8 */
 
 // NDev 2020 https://github.com/NDevTK/CacheAttack
+
 max = 10.5;
 
 let firefox = navigator.userAgent.includes("Firefox");
@@ -11,8 +12,8 @@ if(self.document === undefined) {
     onmessage = async e => {
         let result = await ifCachedWorker(e.data);
         postMessage(result);
-    }
-};
+    };
+}
 
 async function getWebsites(cb = null, websites = null) {
     var output = [];
@@ -25,7 +26,7 @@ async function getWebsites(cb = null, websites = null) {
         worker.postMessage(chunk);
         let result = await new Promise(resolve => {worker.onmessage = e => resolve(e.data);});
         worker.terminate();
-	if(!result || result.length === 0) return
+	if(!result || result.length === 0) return;
 	if(cb) result.map(cb);
         result.map(item => output.push(item));
     }, 600);
@@ -34,7 +35,7 @@ async function getWebsites(cb = null, websites = null) {
 
 async function PromiseForeach(item, callback, delay=0) {
   var jobs = [];
-  for(x of item) {
+  for(let x of item) {
     await new Promise(resolve => setTimeout(resolve, delay));
     jobs.push(callback(x));
   }
@@ -184,7 +185,8 @@ async function block(url) {
 
 function blockerFrame(url) {
     if (document.getElementById("ifrm")) {
-      return ifrm.src = "https://cache.ndev.tk/window.html";
+        ifrm.src = "https://cache.ndev.tk/window.html";
+        return;
     }
     var ifrm = document.createElement("iframe");
     ifrm.setAttribute("src", url);
