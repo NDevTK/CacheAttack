@@ -1,6 +1,6 @@
 /*jshint esversion: 8 */
 
-// NDev 2020 https://github.com/NDevTK/CacheAttack
+// NDev 2020 https://github.com/NDevTK/CacheAttack/blob/master/network
 
 ClassC(["192.168.1.", "192.168.0.", "10.0.0."], Checker);
 
