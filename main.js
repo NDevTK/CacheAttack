@@ -6,14 +6,21 @@ document.addEventListener('DOMContentLoaded', async _ => {
     setTimeout(async _ => {
             clearTable();
             await getWebsites(displayName => addData(displayName));
-            if (dataTable.hidden === true) info.innerText = "No result found :(";
+            loaded();
     }, 150);
 });
 
 async function addData(displayName) {
     dataTable.hidden = false;
-    info.hidden = true;
     data.insertRow(0).insertCell(0).innerText = displayName[1];
+}
+
+function loaded() {
+    if (dataTable.hidden === true) {
+        info.innerText = "No result found :(";
+    } else {
+        info.hidden = true;
+    }
 }
 
 function clearTable() {
@@ -23,14 +30,14 @@ function clearTable() {
     info.hidden = false;
 }
 
-function windowMode() {
+async function windowMode() {
     clearTable();
     initChecker();
     if(!navigator.userAgent.includes("Firefox") && !confirm("Warning: for chrome window mode will brake CacheAttack after the first run.")) return;
     ifCached = ifCached_3;
     setTimeout(_ => {
-        getWebsites(displayName => addData(displayName), true, false);
-        if (dataTable.hidden === true) info.innerText = "No result found :(";
+        await getWebsites(displayName => addData(displayName), true, false);
+        loaded();
     }, 1000);
 }
 
@@ -57,9 +64,4 @@ async function blocker() {
         block(url);
         ifrm.src = "https://ndev.tk/icon.webp";
     }, 1000);
-}
-
-function YT() {
-    clearTable();
-    getVideos(displayName => addData(displayName));
 }
