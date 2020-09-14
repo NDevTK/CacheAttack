@@ -2,6 +2,6 @@
 <script>
 onmessage = async e => {
 let result = await getWebsites(null, e.data);
-window.postMessage(result);
+window.parent.postMessage(result);
 };
 </script>
