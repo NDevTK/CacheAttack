@@ -2,7 +2,6 @@
 <script src="https://cache.ndev.tk/embed.js"></script>
 <script>
 onmessage = async e => {
-if(!Array.isArray(e.data[0])) return
 let result = await getWebsites(null, e.data[0]);
 window.postMessage(result);
 };
