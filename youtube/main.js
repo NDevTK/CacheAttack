@@ -45,9 +45,10 @@ async function getVideos() {
 }
 
 async function YTCrawler(channels) {
+  var suffix = (firefox) ? "=s48-c-k-c0xffffffff-no-rj-mo" : "=s88-c-k-c0xffffffff-no-rj-mo";
   var checks = [];
   for (let channel of channels) {
-    checks.push([channel[1].concat("=s88-c-k-c0xffffffff-no-rj-mo"), channel[0]]);
+    checks.push([channel[1].concat(suffix), channel[0]]);
   }
   var cached_channels = await getWebsites(null, checks);
   for (let channel of cached_channels) {
