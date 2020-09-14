@@ -2,7 +2,7 @@
 <script src="https://cache.ndev.tk/embed.js"></script>
 <script>
 onmessage = async e => {
-let result = await getWebsites(null, e.data[0]);
+let result = await getWebsites(null, e.data);
 window.postMessage(result);
 };
 </script>
