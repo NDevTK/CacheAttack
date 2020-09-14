@@ -135,7 +135,7 @@ function initChecker() {
 }
 
 // Currently fails if not in loop
-async function ifCached_3(url) {
+async function ifCached_window(url) {
   checker.postMessage(url);
   let event = await WindowEvent();
   if(event === "load") {
