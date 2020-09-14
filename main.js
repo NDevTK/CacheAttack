@@ -34,7 +34,7 @@ async function windowMode() {
     clearTable();
     initChecker();
     if(!navigator.userAgent.includes("Firefox") && !confirm("Warning: for chrome window mode will brake CacheAttack after the first run.")) return;
-    ifCached = ifCached_3;
+    ifCached = ifCached_window;
     setTimeout(async _ => {
         let results = await ifCachedWorker();
         results.map(addData);
@@ -60,7 +60,7 @@ async function blocker() {
     var url = await domainRule(domain);
     blockerFrame(url);
     if (navigator.userAgent.includes("Firefox")) return alert("Feature not supported on Firefox :(");
-    ifCached = ifCached_3;
+    ifCached = ifCached_window;
     setTimeout(_=> {
         block(url);
         ifrm.src = "https://ndev.tk/icon.webp";
