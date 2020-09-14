@@ -28,7 +28,7 @@ async function getWebsites(cb = null, websites = null) {
 	if(cb) result.map(cb);
         result.map(item => output.push(item));
     }, 600);
-    return output;
+    return [...new Set(output)];
 }
 
 async function PromiseForeach(item, callback, delay=0) {
