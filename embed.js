@@ -102,7 +102,8 @@ async function ifCached_test() {
     return (!result && result2);
 }
 
-async function ifCached(url){
+// Will include credentials so please use a sandbox domain or my postMessage API
+async function ifCached(url) {
     var state = true;
     var controller = new AbortController();
     var signal = controller.signal;
