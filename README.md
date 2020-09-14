@@ -4,9 +4,9 @@ Mobile devices may not work correctly.
 Discord: https://discord.gg/YFkmVZX
 
 # Documentation
-Add: `<script src="https://cache.ndev.tk/embed.js"></script>`  
-Usage: `getWebsites().then(result => console.log(result)) // Returns array of supported cached websites`  
-Callback: `getWebsites(website => console.info(website))`  
+Add: `<iframe id="cacheattack" src="https://cache.ndev.tk/embed.html" style="width:0;height:0;border:0; border:none;"></iframe>`   
+Usage: `cacheattack.contentWindow.postMessage(null, 'https://cache.ndev.tk/embed.html'); // An array can be used instead of null for custom urls`  
+Callback: `onmessage = e => console.log(e.data)`  
 
 # Examples
 https://cache.ndev.tk/ (Detects cached websites)  
