@@ -1,6 +1,7 @@
 <script src="https://cache.ndev.tk/embed.js"></script>
 <script>
 onmessage = async e => {
+if(e.data !== null && !Array.isArray(e.data)) return
 let result = await getWebsites(null, e.data);
 window.parent.postMessage(result, "*");
 };
