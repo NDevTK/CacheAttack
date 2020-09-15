@@ -7,7 +7,7 @@ max = (navigator.userAgent.includes("Firefox")) ? 10 : 30;
 cached = true;
 
 window.addEventListener("message", function(event) {  
-  if(!event.data.startsWith("https://")) return
+  if(!event.data.startsWith("https://") || event.origin !== "https://cache.ndev.tk") return
   setTimeout(_ => {
     cached = false;
     window.location.reload();
