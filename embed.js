@@ -26,18 +26,21 @@ async function getWebsites(cb = false, websites = null, worker = true, CacheTest
         websites = await getRules();
     }
     if(worker) {
-    let checks = chunk(websites, Math.ceil(websites.length / navigator.hardwareConcurrency));
-    await PromiseForeach(checks, async chunk => {
-        let worker = new Worker("https://cache.ndev.tk/embed.js");
-        worker.postMessage(chunk);
-        await new Promise(resolve => {
-            worker.onmessage = e => {
-                if (e.data === "done") resolve();
-                cb(e.data);
-            };
-        });
-        worker.terminate();
-    }, 600);
+        let checks = chunk(websites, Math.ceil(websites.length / navigator.hardwareConcurrency));
+        await PromiseForeach(checks, async chunk => {
+            let worker = new Worker("https://cache.ndev.tk/embed.js");
+            worker.postMessage(chunk);
+            await new Promise(resolve => {
+                worker.onmessage = e => {
+                    if (e.data === "done") {
+                        resolve();
+                        return
+                    }
+                    cb(e.data);
+                };
+            });
+            worker.terminate();
+        }, 600);
     } else {
         await ifCachedWorker(websites, cb);
     }
