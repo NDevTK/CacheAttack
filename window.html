@@ -20,7 +20,8 @@ function isTorBrowser() {
                 && imagedata.data[3] == 255;
 }
 
-max = (isTorBrowser()) ? 150 : 30;
+max = (navigator.userAgent.includes("Firefox")) ? 5 : 30;
+if(isTorBrowser()) max = 150;
 
 cached = true;
 
