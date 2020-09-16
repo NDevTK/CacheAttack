@@ -152,7 +152,6 @@ async function ifCached_window(url) {
         checker.location = redirect;
     }
     await WindowEvent("load");
-    if (firefox) await new Promise(resolve => setTimeout(resolve, 50));
     return event;
 }
 
