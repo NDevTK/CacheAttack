@@ -12,11 +12,13 @@ if (self.document === undefined) {
     };
 }
 
-async function getWebsites(cb = false, websites = null) {
+async function getWebsites(cb = false, websites = null, worker = true) {
     var output = [];
+    cb = (cb) ? cb : item => output.push(item);
     if (websites === null) {
         websites = await getRules();
     }
+    if(worker) {
     let checks = chunk(websites, Math.ceil(websites.length / navigator.hardwareConcurrency));
     await PromiseForeach(checks, async chunk => {
         let worker = new Worker("https://cache.ndev.tk/embed.js");
@@ -24,15 +26,14 @@ async function getWebsites(cb = false, websites = null) {
         await new Promise(resolve => {
             worker.onmessage = e => {
                 if (e.data === "done") resolve();
-                if (cb) {
-                    cb(e.data);
-                } else {
-                    output.push(e.data);
-                }
+                cb(e.data);
             };
         });
         worker.terminate();
     }, 600);
+    } else {
+        await ifCachedWorker(websites, cb);
+    }
     return [...new Set(output)];
 }
 
