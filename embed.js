@@ -89,7 +89,7 @@ async function ifCachedWorker(websites, cb, CacheTest = false) {
     for (let website of websites) {
         let result = await ifCached(website[0]);
         if (result) {
-            cb(result);
+            cb(website);
         }
     }
 }
