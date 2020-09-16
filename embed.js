@@ -7,7 +7,7 @@ const max = 10.5;
 
 if (self.document === undefined) {
     onmessage = async e => {
-        let result = await ifCachedWorker(e.data, callback => postMessage(result));
+        await ifCachedWorker(e.data, result => postMessage(result));
         postMessage("done");
     };
 }
