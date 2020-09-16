@@ -12,7 +12,14 @@ if (self.document === undefined) {
     };
 }
 
-async function getWebsites(cb = false, websites = null, worker = true) {
+async function getWebsites(cb = false, websites = null, worker = true, CacheTest = false) {
+    if (CacheTest) {
+        let TestResult = await ifCached_test();
+        if (!TestResult) {
+            console.error("CacheAttack failed");
+            return [];
+        }
+    }
     var output = [];
     cb = (cb) ? cb : item => output.push(item);
     if (websites === null) {
@@ -81,11 +88,7 @@ function PerformanceCheck(url) {
     return (res.transferSize !== 0);
 }
 
-async function ifCachedWorker(websites, cb, CacheTest = false) {
-    if (CacheTest) {
-        let TestResult = await ifCached_test();
-        if (!TestResult) throw "Cache is not working :-(";
-    }
+async function ifCachedWorker(websites, cb) {
     // Foreach website check if cached
     for (let website of websites) {
         let result = await ifCached(website[0]);
