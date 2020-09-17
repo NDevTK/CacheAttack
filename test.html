@@ -1,0 +1,12 @@
+<title>CacheAttack Worker</title>
+<h1>CacheAttack Worker</h1>
+<p1>This window is used for cache checking.</p1>
+<script>
+window.addEventListener("pagehide", event => {
+  window.opener.postMessage(cached);
+});
+
+window.addEventListener('load', (event) => {
+  window.opener.postMessage("load");
+});
+</script>
