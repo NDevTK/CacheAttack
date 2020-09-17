@@ -3,7 +3,7 @@
 <p1>This window is used for cache checking.</p1>
 <script>
 window.addEventListener("pagehide", event => {
-  window.opener.postMessage(cached);
+  window.opener.postMessage("pagehide");
 });
 
 window.addEventListener('load', (event) => {
