@@ -3,7 +3,7 @@
 // NDev 2020 https://github.com/NDevTK/CacheAttack
 const firefox = navigator.userAgent.includes("Firefox");
 const redirect = "https://cache.ndev.tk/window.html";
-const max = (typeof window.orientation !== 'undefined') ? 18.9 : 10.5;
+const max = (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) ? 18.9 : 10.5;
 
 function isTorBrowser() {
   return (window.screen.availHeight === window.innerHeight) && (window.screen.availWidth === window.innerWidth);
