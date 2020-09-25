@@ -25,7 +25,7 @@ function Video2(id) {
 
 var known = []
 async function addData(item) {
-    if(known.includes(item[0]) return
+    if(known.includes(item[0])) return
     known.push(item[0]);
     dataTable.hidden = false;
     let cell = data.insertRow(0).insertCell(0);
