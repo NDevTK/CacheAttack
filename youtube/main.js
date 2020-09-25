@@ -10,6 +10,7 @@ async function getHistory() {
 			await new Promise(resolve => setTimeout(resolve, 1000));
 		}
 		clearTable();
+		ads.close();
 		await getVideos();
 	}, 3500);
 }
