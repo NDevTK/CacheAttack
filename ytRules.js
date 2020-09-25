@@ -9,11 +9,8 @@ getChannels();
 async function getChannels() {
   var output = new Map(JSON.parse(fs.readFileSync('channels')));
   console.info("Fetching top channels");
-  let r = await fetch("https://cors.usercontent.ndev.tk/channels");
-  let p = await fetch("https://cors.usercontent.ndev.tk/popular");
-  let channels = await r.json();
-  let popular = await p.json();
-  channels = [...new Set(channels.concat(popular))];
+  let channels = ["UC0ArlFuFYMpEewyRBzdLHiw","RootOfTheNull","UCgTNupxATBfWmfehv21ym-g","BlackHatOfficialYT","irongeek","DEFCONConference","UCa6eh7gCkpPo5XXUDfygQQA","Hak5Darren","SecurityWeeklyTV","UCJ2U9Dq9NckqHMbcUupgF0A","UClcE-kVhqyiHCcjYwcpfj9w","JackkTutorials","UC_bzikURwRp3Vdbl3VL959Q","NetworkChuck","UCsKK7UIiYqvK35aWrCCgUUA","sunstudiophotography","Computerphile","UCef0TWni8ghLcJphdmDBoxw","UC6xPeWVq6LpLqOYQ4I9hv_Q","elithecomputerguy","Secureninja","UCQN2DsjnYH60SFBIA6IkNwg","UC0ZTPkdxlAKf-V33tqXwi3Q"]
+  channels = [...new Set(channels)];
   //channels.length = 5;
   console.info("Getting data from Youtube");
   await PromiseForeach(channels, async (channel, index) => {
