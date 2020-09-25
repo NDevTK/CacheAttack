@@ -23,7 +23,10 @@ function Video2(id) {
 	return "https://i.ytimg.com/vi/"+id+"/mqdefault.jpg";
 }
 
+var known = []
 async function addData(item) {
+    if(known.includes(item[0]) return
+    known.push(item[0]);
     dataTable.hidden = false;
     let cell = data.insertRow(0).insertCell(0);
     cell.innerText = item[1] + "  ";
@@ -35,6 +38,7 @@ async function addData(item) {
 }
 
 function clearTable() {
+    known = []
     var rowCount = dataTable.rows.length; while(--rowCount) dataTable.deleteRow(rowCount);
     dataTable.hidden = true;
     info.innerText = "Loading...";
