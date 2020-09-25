@@ -25,7 +25,7 @@ async function getWebsites(cb = false, websites = null, worker = true, CacheTest
         }
     }
     var output = [];
-    cb = (cb) ? cb : item => output.push(item);
+    var cb = (cb) ? cb : item => output.push(item);
     if (websites === null) {
         websites = await getRules();
     }
