@@ -4,8 +4,11 @@
 
 async function getHistory() {
 	var ads = open("https://m.youtube.com/feed/history/?app=m");
-	setTimeout(async _  => ads.close(), 3000);
 	setTimeout(async _  => {
+		for (var i = 1; i < quantity.value; i +=1) {
+			ads.location = "https://m.youtube.com/?app=m#initial-data";
+			await new Promise(resolve => setTimeout(resolve, 1000));
+		}
 		clearTable();
 		await getVideos();
 	}, 3500);
