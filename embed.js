@@ -164,9 +164,7 @@ async function ifCached_window(url) {
 async function block(url) {
     for (;;) {
         if (checker.closed) location.reload();
-        checker.postMessage(url[0]);
-        checker.location = redirect;
-        await WindowEvent();
+        await ifCached_window(url[0]);
     }
 }
 
