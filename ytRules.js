@@ -7,9 +7,8 @@ const thumbnail_regex = /<link rel="image_src" href="(https:\/\/yt3\.ggpht\.com\
 getChannels();
 
 async function getChannels() {
-  var output = new Map(JSON.parse(fs.readFileSync('channels')));
+  var channels = new Map(JSON.parse(fs.readFileSync('channels')));
   console.info("Fetching top channels");
-  let channels = [""];
   channels = [...new Set(channels)];
   //channels.length = 5;
   console.info("Getting data from Youtube");
