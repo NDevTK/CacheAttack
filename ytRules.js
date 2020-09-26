@@ -12,7 +12,7 @@ async function getChannels() {
   output = [...new Set(channels)];
   //channels.length = 5;
   console.info("Getting data from Youtube");
-  await PromiseForeach(channels, async (channel, index) => {
+  await PromiseForeach(output, async (channel, index) => {
     try {
     let r = await fetch("https://www.youtube.com/"+encodeURI(channel));
     if(r.status !== 200) return
