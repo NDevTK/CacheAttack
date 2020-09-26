@@ -25,7 +25,7 @@ async function getChannels() {
     } catch {}
   });
   console.info("Making file :D");
-  fs.writeFileSync('channels', JSON.stringify([...output]));
+  fs.writeFileSync('channels', JSON.stringify([...channels]));
 }
 
 async function PromiseForeach(item, callback) {
