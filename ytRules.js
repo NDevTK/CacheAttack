@@ -9,7 +9,7 @@ getChannels();
 async function getChannels() {
   var channels = new Map(JSON.parse(fs.readFileSync('channels')));
   console.info("Fetching top channels");
-  channels = [...new Set(channels)];
+  output = [...new Set(channels)];
   //channels.length = 5;
   console.info("Getting data from Youtube");
   await PromiseForeach(channels, async (channel, index) => {
@@ -25,7 +25,7 @@ async function getChannels() {
     } catch {}
   });
   console.info("Making file :D");
-  fs.writeFileSync('channels', JSON.stringify([...channels]));
+  fs.writeFileSync('channels', JSON.stringify([...output]));
 }
 
 async function PromiseForeach(item, callback) {
