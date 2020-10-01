@@ -144,7 +144,7 @@ function WindowEvent(check = false) {
 
 function initChecker() {
     checker = open(redirect);
-    window_timeout = (firefox) ? 10 : 35;
+    window_timeout = (firefox) ? 10 : 31;
     if(isTorBrowser()) window_timeout = 150;
 }
 
