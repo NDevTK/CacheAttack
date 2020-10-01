@@ -164,7 +164,10 @@ async function ifCached_window(url) {
 
 async function block(url) {
     for (;;) {
-        if (checker.closed) location.reload();
+        if (checker.closed) {
+            location.reload();
+            return
+        }
         await ifCached_window(url[0]);
     }
 }
