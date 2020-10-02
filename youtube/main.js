@@ -52,9 +52,22 @@ async function getVideos() {
   info.hidden = true;
 }
 
+function getSize() {
+    switch (Math.round(window.devicePixelRatio)) {
+        case 1:
+            return "s46"
+        case 2:
+            return "s88"
+        case 3:
+            return "s176"
+        default:
+            return "s88"
+    }
+}
+
 async function YTCrawler(channels) {
   var checks = [];
-  var suffix = (false) ? "=s48-c-k-c0xffffffff-no-rj-mo" : "=s88-c-k-c0xffffffff-no-rj-mo";
+  var suffix = "="+getSize()+"-c-k-c0xffffffff-no-rj-mo";
   for (let channel of channels) {
     checks.push([channel[1].concat(suffix), channel[0]]);
   }
