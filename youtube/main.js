@@ -73,7 +73,7 @@ async function YTCrawler(channels) {
   }
   var cached_channels = await getWebsites(null, checks);
   for (let channel of cached_channels) {
-    let r = await fetch("https://invidio.us/api/v1/channels/"+encodeURI(channel[1])+"/videos");
+    let r = await fetch("https://invidious.snopyta.org/api/v1/channels/"+encodeURI(channel[1])+"/videos");
     let channelData = await r.json();
     addData([channel[0], channelData[0].author]);
     if(channelData.error) continue;
