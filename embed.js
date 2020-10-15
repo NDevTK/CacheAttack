@@ -127,7 +127,7 @@ async function ifCached(url) {
         await fetch(url, {mode: "no-cors",credentials: "include",signal});
     } catch (err) {
         // Website blocked by client
-        clearTimeout(timeout);
+        return false
     }
     clearTimeout(timeout);
     return state;
