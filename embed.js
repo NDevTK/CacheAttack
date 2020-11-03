@@ -137,6 +137,7 @@ async function ifCached(url, purge = false) {
 
 function WindowEvent(check = false) {
     return new Promise(resolve => {
+        setTimeout(resolve, window_timeout);
         window.addEventListener('message', e => {
             if (check !== false && e.data !== check) return;
             resolve(e.data);
