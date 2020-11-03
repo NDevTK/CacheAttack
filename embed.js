@@ -172,6 +172,7 @@ async function block(url) {
             return
         }
         await ifCached_window(url[0]);
+        await new Promise(resolve => setTimeout(resolve, 50));
     }
 }
 
