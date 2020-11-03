@@ -31,9 +31,9 @@ function clearTable() {
 }
 
 async function windowMode() {
+    if(!navigator.userAgent.includes("Firefox") && !confirm("Warning: for chrome window mode will brake CacheAttack after the first run.")) return;
     clearTable();
     initChecker();
-    if(!navigator.userAgent.includes("Firefox") && !confirm("Warning: for chrome window mode will brake CacheAttack after the first run.")) return;
     ifCached = ifCached_window;
     setTimeout(async _ => {
         let results = await getWebsites(addData, null, false);
