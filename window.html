@@ -8,7 +8,4 @@ window.addEventListener("pagehide", event => {
 window.addEventListener('load', (event) => {
   window.opener.postMessage("load");
 });
-setTimeout(_ => {
-  window.opener.postMessage("load");
-}, 1000)
 </script>
