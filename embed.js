@@ -116,23 +116,20 @@ async function ifCached_test() {
 
 // Will include credentials so please use a sandbox domain or my postMessage API
 async function ifCached(url, purge = false) {
-    var state = true;
     var controller = new AbortController();
     var signal = controller.signal;
     var timeout = await setTimeout(_ => { // Stop request after max
         controller.abort();
-        state = false;
     }, max);
     try {
         let options = {mode: "no-cors", credentials: "include", signal};
         if(purge) options.cache = "reload";
         await fetch(url, options);
     } catch (err) {
-        // Website blocked by client
         return false
     }
     clearTimeout(timeout);
-    return state;
+    return true;
 }
 
 function WindowEvent(check = false) {
