@@ -1,3 +1,6 @@
+# Disclaimer
+This done before cache partitioning was added to chrome.
+
 # CacheAttack
 A Timing attack on the browser to try to predict websites that have cached.  
 Mobile devices may not work correctly.  
