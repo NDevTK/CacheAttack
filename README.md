@@ -1,5 +1,6 @@
 # Disclaimer
 This done before cache partitioning was added to chrome.
+No longer maintained.
 
 # CacheAttack
 A Timing attack on the browser to try to predict websites that have cached.  
