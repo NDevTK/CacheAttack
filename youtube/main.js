@@ -46,7 +46,7 @@ function clearTable() {
 }
 
 async function getVideos() {
-  let r = await fetch("https://cache.ndev.tk/channels");
+  let r = await fetch("https://ndevtk.github.io/CacheAttack/channels");
   let channels = await r.json();
   await YTCrawler(channels);
   info.hidden = true;
