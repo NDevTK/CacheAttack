@@ -62,6 +62,6 @@ async function blocker() {
     ifCached = ifCached_window;
     setTimeout(_=> {
         block(url);
-        ifrm.src = "https://ndev.tk/icon.webp";
+        ifrm.src = "https://ndevtk.github.io/website/icon.webp";
     }, 1000);
 }
