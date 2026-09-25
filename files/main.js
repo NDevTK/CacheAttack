@@ -5,7 +5,7 @@
 Sanity = true;
 
 async function getRules() {
-    let req = await fetch("https://cache.ndev.tk/files/rules");
+    let req = await fetch("https://ndevtk.github.io/CacheAttack/files/rules");
     let body = await req.json();
     return body;
 }
