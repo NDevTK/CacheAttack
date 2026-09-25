@@ -2,7 +2,7 @@
 
 // NDev 2020 https://github.com/NDevTK/CacheAttack
 const firefox = navigator.userAgent.includes("Firefox");
-const redirect = "https://cache.ndev.tk/window.html";
+const redirect = "https://ndevtk.github.io/CacheAttack/window.html";
 const mobile = (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent));
 const max = (mobile) ? 9 : 10.5;
 
@@ -33,7 +33,7 @@ async function getWebsites(cb = false, websites = null, worker = true, CacheTest
     if(worker) {
         let checks = chunk(websites, Math.ceil(websites.length / navigator.hardwareConcurrency));
         await PromiseForeach(checks, async chunk => {
-            let worker = new Worker("https://cache.ndev.tk/embed.js");
+            let worker = new Worker("https://ndevtk.github.io/CacheAttack/embed.js");
             worker.postMessage(chunk);
             await new Promise(resolve => {
                 worker.onmessage = e => {
@@ -75,7 +75,7 @@ function chunk(array, size) {
 }
 
 async function getRules() {
-    let req = await fetch("https://cache.ndev.tk/rules");
+    let req = await fetch("https://ndevtk.github.io/CacheAttack/rules");
     var body = await req.json();
     return body;
 }
@@ -107,10 +107,10 @@ async function ifCachedWorker(websites, cb) {
 }
 
 async function ifCached_test() {
-    let cache_test = "https://ndev.tk/README.md?".concat(Math.random());
+    let cache_test = "https://ndevtk.github.io/website/README.md?".concat(Math.random());
     let result = await ifCached(cache_test);
-    await fetch("https://ndev.tk/README.md");
-    let result2 = await ifCached("https://ndev.tk/README.md");
+    await fetch("https://ndevtk.github.io/website/README.md");
+    let result2 = await ifCached("https://ndevtk.github.io/website/README.md");
     return (!result && result2);
 }
 
